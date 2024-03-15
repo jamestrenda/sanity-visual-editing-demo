@@ -153,9 +153,6 @@ importers:
       '@sanity/vision':
         specifier: 3.33.0
         version: 3.33.0(@babel/runtime@7.24.0)(@codemirror/lint@6.5.0)(@codemirror/theme-one-dark@6.1.2)(@lezer/common@1.2.1)(codemirror@6.0.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(styled-components@6.1.8)
-      awesome-phonenumber:
-        specifier: ^6.4.0
-        version: 6.4.0
       groq:
         specifier: ^3.30.1
         version: 3.33.0
@@ -4529,6 +4526,7 @@ packages:
   /awesome-phonenumber@6.4.0:
     resolution: {integrity: sha512-GRtyAHsD/usULDEZ8a5QQVZnvLm+WqP8q5sDPf3DkzEDGSr2DcvygGhuhWc6cTP4r28cSo0weM5eStwxJgxDoA==}
     engines: {node: '>=18'}
+    dev: true
 
   /axe-core@4.7.0:
     resolution: {integrity: sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==}
