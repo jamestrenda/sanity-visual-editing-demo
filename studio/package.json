@@ -1,17 +1,23 @@
 {
   "name": "sanity-template-remix-clean-studio",
   "private": true,
+  "type": "module",
   "scripts": {
+    "build": "sanity build",
     "dev": "sanity dev",
-    "start": "sanity start",
-    "build": "sanity build"
+    "start": "sanity start"
   },
   "dependencies": {
+    "@sanity/ui": "^1.8.2",
     "@sanity/vision": "3.33.0",
+    "groq": "^3.30.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rxjs": "7.8.1",
     "sanity": "3.33.0",
+    "sanity-plugin-asset-source-unsplash": "^2.0.1",
+    "sanity-plugin-media": "^2.2.2",
+    "sanity-plugin-note-field": "^2.0.2",
     "styled-components": "6.1.8"
   },
   "devDependencies": {
@@ -20,13 +26,8 @@
     "@types/react": "18.2.65",
     "eslint": "8.57.0",
     "prettier": "3.2.5",
-    "typescript": "5.3.3"
-  },
-  "prettier": {
-    "semi": false,
-    "printWidth": 100,
-    "bracketSpacing": false,
-    "singleQuote": true
+    "typescript": "5.3.3",
+    "vite-tsconfig-paths": "^4.3.1"
   },
   "engines": {
     "node": ">= 14.18"

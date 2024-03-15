@@ -1,10 +1,10 @@
-import { useLoaderData, type MetaFunction } from '@remix-run/react'
+import { type MetaFunction, useLoaderData } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
-import Card from '~/components/Card'
-import Welcome from '~/components/Welcome'
+import Hero from '~/components/Hero'
+
 import { loadQuery } from '~/sanity/loader.server'
 import { POSTS_QUERY } from '~/sanity/queries'
-import { Post } from '~/sanity/types'
+import type { Post } from '~/sanity/types'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'New Remix App' }]
@@ -31,19 +31,30 @@ export default function Index() {
     return <div>Loading...</div>
   }
 
+  // return (
+  //   <section>
+  //     {data?.length ? (
+  //       data.map((post, i) => (
+  //         <Card
+  //           key={post._id}
+  //           post={post}
+  //           encodeDataAttribute={encodeDataAttribute.scope([i])}
+  //         />
+  //       ))
+  //     ) : (
+  //       <Welcome />
+  //     )}
+  //   </section>
+  // )
   return (
-    <section>
-      {data?.length ? (
-        data.map((post, i) => (
-          <Card
-            key={post._id}
-            post={post}
-            encodeDataAttribute={encodeDataAttribute.scope([i])}
-          />
-        ))
-      ) : (
-        <Welcome />
-      )}
-    </section>
+    <div>
+      <Hero
+        data={{
+          heading: 'Big Bold Statement',
+          byline: 'Hello World',
+          text: 'Clarifying statement that makes them think and want to get more information.',
+        }}
+      />
+    </div>
   )
 }

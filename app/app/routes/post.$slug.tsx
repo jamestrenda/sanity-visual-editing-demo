@@ -1,32 +1,33 @@
-import { PortableText } from '@portabletext/react'
-import { type LoaderFunctionArgs } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { useQuery } from '@sanity/react-loader'
-import { formatDate } from '~/utils/formatDate'
-import { urlFor } from '~/sanity/image'
-import { loadQuery } from '~/sanity/loader.server'
-import { POST_QUERY } from '~/sanity/queries'
-import { Post } from '~/sanity/types'
+import { PortableText } from '@portabletext/react';
+import { type LoaderFunctionArgs } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+import { useQuery } from '@sanity/react-loader';
+
+import { urlFor } from '~/sanity/image';
+import { loadQuery } from '~/sanity/loader.server';
+import { POST_QUERY } from '~/sanity/queries';
+import type { Post } from '~/sanity/types';
+import { formatDate } from '~/utils/formatDate';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const initial = await loadQuery<Post>(POST_QUERY, params)
+  const initial = await loadQuery<Post>(POST_QUERY, params);
 
-  return { initial, query: POST_QUERY, params }
-}
+  return { initial, query: POST_QUERY, params };
+};
 
 export default function PostRoute() {
-  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { initial, query, params } = useLoaderData<typeof loader>();
   const { data, loading, error, encodeDataAttribute } = useQuery<
     typeof initial.data
   >(query, params, {
     // @ts-expect-error -- TODO fix the typing here
     initial,
-  })
+  });
 
   if (error) {
-    throw error
+    throw error;
   } else if (loading && !data) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
@@ -54,5 +55,5 @@ export default function PostRoute() {
         )}
       </div>
     </section>
-  )
+  );
 }

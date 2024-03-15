@@ -1,3 +1,14 @@
 {
-  "extends": ["@sanity/eslint-config-studio", "@babel/core"]
+  "extends": ["@sanity/eslint-config-studio", "@babel/core"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": true,
+        "printWidth": 80,
+        "bracketSpacing": true,
+        "singleQuote": true
+      }
+    ]
+  }
 }
