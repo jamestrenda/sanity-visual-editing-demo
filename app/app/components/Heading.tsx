@@ -11,7 +11,7 @@ export const Heading = (props: HeadingProps) => {
   const { as, use = 'h2', className = '', children } = props
 
   let styles = {
-    h1: 'text-5xl md:text-7xl font-black uppercase tracking-tight text-balance',
+    h1: 'text-5xl sm:text-7xl md:text-[100px] font-black uppercase tracking-tight text-balance',
     h2: 'font-light tracking-tight text-3xl text-balance sm:text-5xl',
     h3: 'text-xl font-medium',
     h4: '',

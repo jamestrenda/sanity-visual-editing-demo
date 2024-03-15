@@ -19,6 +19,7 @@ import { SiteSettings } from './types/siteSettings'
 import Image from './components/Image'
 import { parsePhoneNumber } from 'awesome-phonenumber'
 import { IconPhone } from './components/icons/IconPhone'
+import Header from './components/Header'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -192,52 +193,13 @@ export default function App() {
   return (
     <Document>
       <div className="flex flex-col min-h-screen">
-        <header className="bg-black py-5">
-          <Container className="grid grid-cols-3 items-center justify-center">
-            {data?.phone ? (
-              <a
-                aria-label="Call Us"
-                href={`tel:${data.phone}`}
-                className="text-white flex items-center gap-2"
-              >
-                {/* <IconPhone className="h-4 w-4" aria-hidden="true" /> */}
-                {/* {phoneFormatted} */}
-                555-555-5555
-              </a>
-            ) : null}
-            <Link
-              to="/"
-              title="Go to homepage"
-              className="flex justify-self-center"
-            >
-              {/* TODO: add sanity overlay for logo */}
-              {data?.logo?.asset ? (
-                <Image
-                  id={data.logo.asset._id}
-                  alt="Logo"
-                  width={56}
-                  loading="eager"
-                  // height={service.image.asset.metadata?.dimensions.height ?? 1080}
-                  crop={data.logo.crop}
-                  hotspot={data.logo.hotspot}
-                  preview={data.logo.asset.metadata?.lqip ?? ''}
-                  queryParams={{ q: 100, w: 56 }}
-                  className="h-7 w-7"
-                  // sizes="(min-width: 768px) 240px, 100vw"
-                />
-              ) : null}
-            </Link>
-            {data?.email ? (
-              <a
-                aria-label="Call Us"
-                href={`mailto:${data.email}`}
-                className="text-white text-right"
-              >
-                {data.email}
-              </a>
-            ) : null}
-          </Container>
-        </header>
+        <Header
+          {...{
+            email: data?.email,
+            logo: data?.logo,
+            phone: phoneFormatted,
+          }}
+        />
         <main id="main" className="flex-grow">
           <Outlet />
         </main>
@@ -261,7 +223,7 @@ export default function App() {
                       hotspot={data.logo.hotspot}
                       preview={data.logo.asset.metadata?.lqip ?? ''}
                       queryParams={{ q: 100, w: 56 }}
-                      className="h-7 w-7"
+                      className="h-7 w-7 invert"
                       // sizes="(min-width: 768px) 240px, 100vw"
                     />
                   ) : null}

@@ -1,7 +1,7 @@
 import { defineField, defineType } from 'sanity'
 
-import { IconInfo } from '~/icons/info'
-import { TextInputWithCharCount } from '~/components/TextInputWithCharCount'
+import { IconInfo } from '../../icons/info'
+import { TextInputWithCharCount } from '../../components/TextInputWithCharCount'
 
 export default defineType({
   name: 'imageObject',

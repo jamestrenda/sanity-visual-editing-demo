@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity'
-import { IconGear } from '~/icons/gear'
+import { IconGear } from '../../icons/gear'
 
 export default defineType({
   name: 'siteSettings',

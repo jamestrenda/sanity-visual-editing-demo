@@ -4,13 +4,24 @@ import type {
 } from 'sanity/structure'
 // import {IconHome} from '../icons/home'
 import { IconGear } from '../icons/gear'
-import { isAdminUser } from '~/utils/misc'
-import { SINGLETON_TYPES } from '~/schema'
+import { isAdminUser } from '../utils/misc'
+import { SINGLETON_TYPES } from '../schema'
+import { IconHome } from '../icons/home'
 
 export const structure: StructureResolver = async (S, context) => {
   const { currentUser } = context
 
   const isAdmin = isAdminUser(currentUser)
+
+  const home = S.listItem()
+    .title('Homepage')
+    .icon(IconHome)
+    .child(
+      S.defaultDocument({
+        schemaType: 'home',
+        documentId: 'home',
+      }).title('Homepage'),
+    )
 
   const settings = S.listItem()
     .title('Site Settings')
@@ -23,13 +34,11 @@ export const structure: StructureResolver = async (S, context) => {
     )
 
   const defaultListItems = S.documentTypeListItems().filter(
-    (listItem) =>
-      ![...SINGLETON_TYPES, 'redirect', 'article', 'category', 'post'].includes(
-        listItem.getId()!,
-      ),
+    (listItem) => ![...SINGLETON_TYPES].includes(listItem.getId()!),
   )
 
   const nonAdminView = [
+    home,
     ...(defaultListItems.length
       ? [S.divider(), ...defaultListItems]
       : defaultListItems),

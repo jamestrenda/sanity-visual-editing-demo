@@ -7,7 +7,7 @@ export const siteSettingsZ = z.object({
   siteTitle: z.string().nullable(),
   tagline: z.string().nullable(),
   siteUrl: z.string().url().nullable(),
-  logo: sanityImageObjectExtendedZ.nullable(),
+  logo: sanityImageObjectExtendedZ.nullable().optional(),
   favicon: sanityImageObjectExtendedZ.nullable(),
   address: addressZ.optional().nullable(),
   phone: z.string().optional().nullable(),
