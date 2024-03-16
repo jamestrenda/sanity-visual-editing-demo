@@ -8,3 +8,5 @@ node_modules
 .vercel
 
 .DS_Store
+
+vite.config.ts.timestamp-*
