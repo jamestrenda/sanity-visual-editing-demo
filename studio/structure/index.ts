@@ -7,11 +7,23 @@ import { IconGear } from '../icons/gear'
 import { isAdminUser } from '../utils/misc'
 import { SINGLETON_TYPES } from '../schema'
 import { IconHome } from '../icons/home'
+import { IconFiles } from '~/icons/files'
+import { IconGlobe } from '~/icons/globe'
 
 export const structure: StructureResolver = async (S, context) => {
   const { currentUser } = context
 
   const isAdmin = isAdminUser(currentUser)
+
+  const pages = S.listItem()
+    .title('Pages')
+    .icon(IconFiles)
+    .child(S.documentTypeList('page').title('Pages'))
+
+  const globalContent = S.listItem()
+    .title('Global Content')
+    .icon(IconGlobe)
+    .child(S.documentTypeList('globalContent').title('Global Content'))
 
   const home = S.listItem()
     .title('Homepage')
@@ -34,11 +46,17 @@ export const structure: StructureResolver = async (S, context) => {
     )
 
   const defaultListItems = S.documentTypeListItems().filter(
-    (listItem) => ![...SINGLETON_TYPES].includes(listItem.getId()!),
+    (listItem) =>
+      ![...SINGLETON_TYPES, 'page', 'globalContent'].includes(
+        listItem.getId()!,
+      ),
   )
 
   const nonAdminView = [
     home,
+    pages,
+    S.divider(),
+    globalContent,
     ...(defaultListItems.length
       ? [S.divider(), ...defaultListItems]
       : defaultListItems),
