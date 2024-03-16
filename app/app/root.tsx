@@ -233,7 +233,7 @@ export default function App() {
                     </p>
                   ) : null}
                   {data?.address ? (
-                    <p className="text-sm leading-6 text-gray-300">
+                    <div className="text-sm leading-6 text-gray-300">
                       <address>
                         {data.address.addressLine1}
                         <br />
@@ -245,7 +245,7 @@ export default function App() {
                         <br />
                         {data.address.country}
                       </address>
-                    </p>
+                    </div>
                   ) : null}
                   <div className="flex space-x-6">
                     {navigation.social.map((item) => (

@@ -49,6 +49,10 @@ export const heroBaseFields = groq`
   subtitle,
   image {
     ${imageFieldsFragment}
+  },
+  "video": {
+    "mp4": @.mp4,
+    "webm": @.webm
   }
 `
 

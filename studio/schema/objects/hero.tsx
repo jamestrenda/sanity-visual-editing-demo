@@ -5,6 +5,12 @@ export default defineType({
   name: 'hero',
   title: 'Hero',
   type: 'object',
+  groups: [
+    {
+      title: 'Background',
+      name: 'background',
+    },
+  ],
   fields: [
     defineField({
       name: 'badge',
@@ -30,11 +36,19 @@ export default defineType({
       name: 'image',
       title: 'Background Image',
       type: 'image',
+      group: 'background',
     }),
     defineField({
-      name: 'video',
-      title: 'Background Video',
+      name: 'mp4',
+      title: 'MP4 Video URL',
       type: 'url',
+      group: 'background',
+    }),
+    defineField({
+      name: 'webm',
+      title: 'WEBM Video URL',
+      type: 'url',
+      group: 'background',
     }),
   ],
 })
