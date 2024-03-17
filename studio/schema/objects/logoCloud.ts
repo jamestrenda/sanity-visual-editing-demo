@@ -1,9 +1,21 @@
 import { defineField, defineType } from 'sanity'
+import { IconLogos } from '~/icons/logos'
 
 export default defineType({
   title: 'Logo Cloud',
   name: 'logoCloud',
   type: 'object',
+  icon: IconLogos,
+  preview: {
+    select: {
+      title: 'title',
+    },
+    prepare({ title }) {
+      return {
+        title: title || 'Logo Cloud',
+      }
+    },
+  },
   fields: [
     defineField({
       title: 'Badge',
