@@ -16,6 +16,10 @@ import page from './documents/page'
 import globalContent from './documents/globalContent'
 import portableText from './objects/portableText'
 import logoCloud from './objects/logoCloud'
+import faq from './documents/faq'
+import faqBlock from './objects/faqBlock'
+import service from './documents/service'
+import servicesBlock from './objects/servicesBlock'
 // import sections from './objects/sections'
 
 export const SINGLETON_TYPES = new Set(['home', 'media.tag', 'siteSettings'])
@@ -25,6 +29,8 @@ export const schemaTypes = [
   badge,
   blockContent,
   globalContent,
+  faq,
+  faqBlock,
   hero,
   home,
   imageObject,
@@ -36,5 +42,7 @@ export const schemaTypes = [
   pageBuilder,
   portableText,
   seo,
+  service,
+  servicesBlock,
   siteSettings,
 ]

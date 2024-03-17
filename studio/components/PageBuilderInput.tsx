@@ -103,6 +103,9 @@ type PreviewProps = {
 
 function PreviewCard(props: PreviewProps) {
   const { onClick, schema } = props
+
+  console.log('props', props)
+
   return (
     <Card
       role="button"
@@ -122,17 +125,48 @@ function PreviewCard(props: PreviewProps) {
             overflow: 'hidden',
           }}
         >
-          <img
+          {/* <object
+            type="image/svg+xml"
+            data={`/static/${schema.name}.svg`}
+            // width="150"
+            // height="150"
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
               transform: 'scale(.9)',
             }}
-            src={`/static/${schema.name}.png`}
-            alt={schema.title}
-            onError={(i: any) => (i.target.style.display = 'none')}
-          />
+          >
+            <img
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transform: 'scale(.9)',
+              }}
+              src={`/static/${schema.name}.png`}
+              alt={schema.title}
+              onError={(i: any) => (i.target.style.display = 'none')}
+            />
+          </object> */}
+          <picture>
+            {/* <source
+              type="image/svg+xml"
+              srcSet={`/static/${schema.name}.svg`}
+            />
+            <source type="image/webp" srcSet={`/static/${schema.name}.webp`} /> */}
+            <img
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transform: 'scale(.9)',
+              }}
+              src={`/static/${schema.name}.png`}
+              alt={schema.title}
+              onError={(i: any) => (i.target.style.display = 'none')}
+            />
+          </picture>
         </div>
       </Stack>
     </Card>

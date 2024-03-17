@@ -53,13 +53,11 @@ export const structure: StructureResolver = async (S, context) => {
   )
 
   const nonAdminView = [
+    globalContent,
+    S.divider(),
     home,
     pages,
-    S.divider(),
-    globalContent,
-    ...(defaultListItems.length
-      ? [S.divider(), ...defaultListItems]
-      : defaultListItems),
+    ...defaultListItems,
   ]
   const adminVieww = [...nonAdminView, S.divider(), settings]
 

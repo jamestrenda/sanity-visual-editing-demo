@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { IconSections } from '~/icons/sections'
 
 export default defineType({
   title: 'Page Builder',
@@ -16,7 +17,8 @@ export default defineType({
         },
         prepare({ title, block }) {
           return {
-            title: title || block || 'Untitled',
+            title: title || block || 'Section',
+            media: IconSections,
           }
         },
       },
