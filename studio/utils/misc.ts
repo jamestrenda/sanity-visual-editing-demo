@@ -23,7 +23,7 @@ export const validateSlug = (rule: SlugRule) => {
 }
 
 export const formatSlug = (input: string) => {
-  const formattedSlug = slug(input, { multicharmap: { '@': 'a' } })
+  const formattedSlug = slug(input)
 
   return formattedSlug
 }
