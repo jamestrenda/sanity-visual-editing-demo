@@ -34,7 +34,7 @@ export default defineType({
       description: 'Select a page or an external URL.',
       type: 'array',
       of: [{ type: 'linkInternal' }, { type: 'linkExternal' }],
-      validation: (Rule) => Rule.max(1),
+      validation: (Rule) => Rule.required().max(1),
     }),
   ],
 })

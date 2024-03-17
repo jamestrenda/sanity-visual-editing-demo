@@ -1,6 +1,11 @@
-import { defineField, defineType } from 'sanity'
+import { EarthGlobeIcon, HighlightIcon, LinkIcon } from '@sanity/icons'
+import { defineArrayMember, defineField, defineType } from 'sanity'
+import HighlightDecorator from '~/components/HighlightDecorator'
+import { IconAnchor } from '~/icons/anchor'
+import { IconArrowUpRightFromSquare } from '~/icons/arrowUpRightFromSquare'
+import { IconLink } from '~/icons/link'
 
-export const portableTextBlocks = {
+export const portableTextBlocks = defineArrayMember({
   type: 'block',
   title: 'Block',
   // Styles let you set what your user can mark up blocks with. These
@@ -12,8 +17,9 @@ export const portableTextBlocks = {
     // {title: 'H1', value: 'h1'},
     { title: 'H2', value: 'h2' },
     { title: 'H3', value: 'h3' },
-    // {title: 'H4', value: 'h4'},
-    // { title: 'Quote', value: 'blockquote' },
+    { title: 'H4', value: 'h4' },
+    { title: 'H5', value: 'h5' },
+    { title: 'Quote', value: 'blockquote' },
   ],
   lists: [
     { title: 'Bullet', value: 'bullet' },
@@ -26,26 +32,58 @@ export const portableTextBlocks = {
     decorators: [
       { title: 'Strong', value: 'strong' },
       { title: 'Emphasis', value: 'em' },
+      { title: 'Underline', value: 'underline' },
+      { title: 'Strike', value: 'strike-through' },
+      {
+        title: 'Highlight',
+        value: 'highlight',
+        icon: HighlightIcon,
+        component: HighlightDecorator,
+      },
     ],
     // Annotations can be any object structure – e.g. a link or a footnote.
     annotations: [
       {
-        name: 'link',
+        name: 'internalLink',
         type: 'object',
-        title: 'URL',
+        title: 'Internal link',
+        icon: IconLink,
         fields: [
-          defineField({
-            title: 'URL',
-            name: 'href',
-            type: 'url',
-            validation: (Rule) =>
-              Rule.uri({ scheme: ['http', 'https', 'tel', 'mailto'] }),
-          }),
+          {
+            title: ' ',
+            name: 'linkInternal',
+            type: 'linkInternal',
+          },
+        ],
+      },
+      {
+        name: 'externalLink',
+        type: 'object',
+        title: 'External link',
+        icon: IconArrowUpRightFromSquare,
+        fields: [
+          {
+            title: ' ',
+            name: 'linkExternal',
+            type: 'linkExternal',
+          },
+        ],
+      },
+      {
+        type: 'object',
+        name: 'anchor',
+        icon: IconAnchor,
+        fields: [
+          {
+            type: 'string',
+            name: 'value',
+            title: 'Anchor',
+          },
         ],
       },
     ],
   },
-}
+})
 
 export default defineType({
   name: 'portableText',

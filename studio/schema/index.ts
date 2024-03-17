@@ -22,6 +22,7 @@ import service from './documents/service'
 import servicesBlock from './objects/servicesBlock'
 import button from './objects/button'
 import video from './objects/video'
+import iconList from './objects/iconList'
 
 export const SINGLETON_TYPES = new Set(['home', 'media.tag', 'siteSettings'])
 
@@ -35,6 +36,7 @@ export const schemaTypes = [
   faqBlock,
   hero,
   home,
+  iconList,
   imageObject,
   link,
   linkExternal,

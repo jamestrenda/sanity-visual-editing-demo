@@ -22,7 +22,19 @@ export default defineType({
       type: 'hero',
     },
     {
+      type: 'iconList',
+    },
+    {
       type: 'imageObject',
+      // inline edit form, skip modal
+      // components: {
+      //   block: (props) => {
+      //     return props.renderDefault({
+      //       ...props,
+      //       renderPreview: () => props.children,
+      //     })
+      //   },
+      // },
     },
     {
       type: 'servicesBlock',
