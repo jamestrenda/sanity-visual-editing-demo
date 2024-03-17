@@ -11,7 +11,14 @@ import BackgroundParticles from './BackgroundParticles'
 // import { HeroImage } from '../heroImage';
 // import { RichText } from '../richText';
 
-export default function Hero({ title, subtitle, badge, image, video }: Hero) {
+export default function Hero({
+  title,
+  subtitle,
+  badge,
+  image,
+  video,
+  style,
+}: Hero) {
   const [ref, { height, width }] = useMeasure()
   const [{ y }] = useWindowScroll()
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
@@ -29,7 +36,7 @@ export default function Hero({ title, subtitle, badge, image, video }: Hero) {
   return (
     <div
       ref={ref}
-      className="bg-black relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:px-8 min-h-screen grid place-items-center [&_canvas]:!-z-10 [&_canvas]:!absolute [&_#tsparticles]:absolute [&_#tsparticles]:inset-0 [&_#tsparticles]:pointer-events-none"
+      className={`bg-black relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:px-8 grid place-items-center [&_canvas]:!-z-10 [&_canvas]:!absolute [&_#tsparticles]:absolute [&_#tsparticles]:inset-0 [&_#tsparticles]:pointer-events-none ${style?.fullHeight ? 'min-h-screen' : ''}`}
     >
       {/* {image?.asset ? <BackgroundImage image={image} /> : null} */}
       {(video?.mp4 || video?.webm) && width && width > 1023 ? (

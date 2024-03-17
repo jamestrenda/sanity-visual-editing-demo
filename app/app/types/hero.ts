@@ -9,6 +9,9 @@ export const heroZ = z.object({
   subtitle: z.string(),
   image: sanityImageObjectExtendedZ,
   video: videoZ.optional().nullable(),
+  style: z.object({
+    fullHeight: z.boolean(),
+  }),
 })
 
 export type Hero = z.infer<typeof heroZ>

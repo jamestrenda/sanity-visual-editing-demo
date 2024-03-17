@@ -53,6 +53,9 @@ export const heroBaseFields = groq`
   "video": {
     "mp4": @.mp4,
     "webm": @.webm
+  },
+  style {
+    fullHeight
   }
 `
 
