@@ -1,5 +1,4 @@
 import { defineField, defineType } from 'sanity'
-import PageBuilderInput from '~/components/PageBuilderInput'
 
 export default defineType({
   title: 'Page Builder',
