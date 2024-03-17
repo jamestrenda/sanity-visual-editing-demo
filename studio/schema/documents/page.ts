@@ -3,7 +3,6 @@ import { IconFile } from '~/icons/file'
 import { IconHome } from '~/icons/home'
 import { slugField as slug } from '../objects/slug'
 import { titleField as title } from '../objects/title'
-import pageBuilder from '../objects/pageBuilder'
 
 export default defineType({
   name: 'page',
@@ -17,8 +16,8 @@ export default defineType({
   ],
   groups: [
     {
-      name: 'sections',
-      title: 'Sections',
+      name: 'body',
+      title: 'Body',
     },
     {
       name: 'seo',
@@ -60,8 +59,8 @@ export default defineType({
     defineField({
       name: 'pageBuilder',
       type: 'pageBuilder',
-      title: 'Sections',
-      group: ['sections'],
+      title: 'Body',
+      group: ['body'],
     }),
     defineField({
       name: 'isFrontpage',

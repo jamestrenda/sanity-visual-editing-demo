@@ -8,7 +8,7 @@ export default defineType({
   of: [
     {
       type: 'object',
-      title: 'Sections',
+      title: ' ',
       name: 'section',
       preview: {
         select: {
@@ -29,7 +29,7 @@ export default defineType({
           type: 'string',
         }),
         defineField({
-          title: 'Blocks',
+          title: ' ',
           name: 'blocks',
           type: 'blockContent',
           // type: 'array',

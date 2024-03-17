@@ -20,7 +20,8 @@ import faq from './documents/faq'
 import faqBlock from './objects/faqBlock'
 import service from './documents/service'
 import servicesBlock from './objects/servicesBlock'
-// import sections from './objects/sections'
+import button from './objects/button'
+import video from './objects/video'
 
 export const SINGLETON_TYPES = new Set(['home', 'media.tag', 'siteSettings'])
 
@@ -28,6 +29,7 @@ export const schemaTypes = [
   address,
   badge,
   blockContent,
+  button,
   globalContent,
   faq,
   faqBlock,
@@ -45,4 +47,5 @@ export const schemaTypes = [
   service,
   servicesBlock,
   siteSettings,
+  video,
 ]

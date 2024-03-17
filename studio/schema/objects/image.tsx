@@ -2,11 +2,13 @@ import { defineField, defineType } from 'sanity'
 
 import { IconInfo } from '../../icons/info'
 import { TextInputWithCharCount } from '../../components/TextInputWithCharCount'
+import { IconImage } from '~/icons/image'
 
 export default defineType({
   name: 'imageObject',
   title: 'Image',
   type: 'object',
+  icon: IconImage,
   preview: {
     select: {
       title: 'image.asset.originalFilename',

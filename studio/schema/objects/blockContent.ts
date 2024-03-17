@@ -10,16 +10,25 @@ export default defineType({
   of: [
     portableTextBlocks,
     {
-      type: 'imageObject',
+      type: 'badge',
     },
     {
-      type: 'hero',
+      type: 'button',
     },
     {
       type: 'faqBlock',
     },
     {
+      type: 'hero',
+    },
+    {
+      type: 'imageObject',
+    },
+    {
       type: 'servicesBlock',
+    },
+    {
+      type: 'video',
     },
   ],
   components: {

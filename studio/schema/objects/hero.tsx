@@ -10,6 +10,10 @@ export default defineType({
       title: 'Background',
       name: 'background',
     },
+    {
+      title: 'Style',
+      name: 'style',
+    },
   ],
   fields: [
     defineField({
@@ -49,6 +53,20 @@ export default defineType({
       title: 'WEBM Video URL',
       type: 'url',
       group: 'background',
+    }),
+    defineField({
+      name: 'style',
+      title: 'Style',
+      type: 'object',
+      group: 'style',
+      fields: [
+        defineField({
+          name: 'fullHeight',
+          title: 'Full Height',
+          type: 'boolean',
+          initialValue: false,
+        }),
+      ],
     }),
   ],
 })

@@ -1,10 +1,12 @@
 import { defineField, defineType } from 'sanity'
 import { TextInputWithCharCount } from '../../components/TextInputWithCharCount'
+import { IconBadge } from '~/icons/badge'
 
 export default defineType({
   name: 'badge',
   title: 'Badge',
   type: 'object',
+  icon: IconBadge,
   fields: [
     defineField({
       name: 'title',
