@@ -1,4 +1,5 @@
 import '~/styles/tailwind.css'
+import '~/styles/app.css'
 
 import { json, LoaderFunctionArgs, type LinksFunction } from '@remix-run/node'
 import {
@@ -10,7 +11,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from '@remix-run/react'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Container } from './components/Container'
 import dayjs from 'dayjs'
 import { loadQuery, useQuery } from '@sanity/react-loader'
@@ -18,8 +19,8 @@ import { SITE_SETTINGS_QUERY } from './sanity/queries'
 import { SiteSettings } from './types/siteSettings'
 import Image from './components/Image'
 import { parsePhoneNumber } from 'awesome-phonenumber'
-import { IconPhone } from './components/icons/IconPhone'
 import Header from './components/Header'
+import { useFontFaceObserver } from './hooks/useFontFaceObserver'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -43,16 +44,16 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   })
 }
 
-export const links: LinksFunction = () => {
-  return [
-    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter:wght@500;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap',
-    },
-  ]
-}
+// export const links: LinksFunction = () => {
+//   return [
+//     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+//     { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+//     {
+//       rel: 'stylesheet',
+//       href: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;1,800&display=swap',
+//     },
+//   ]
+// }
 
 function Document({ children }: { children: React.ReactNode }) {
   return (
@@ -189,6 +190,20 @@ export default function App() {
   // console.log('phone', phone)
   // console.log('phoneParsed', phoneParsed)
   // console.log('phoneFormatted', phoneFormatted)
+
+  var fonts = {
+    Montserrat: { weight: 800 },
+    // Montserrat: { weight: 800, style: 'italic' },
+    // Etc.
+  }
+
+  const { fontsLoaded } = useFontFaceObserver(['Montserrat'])
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      document.body.classList.add('fonts-loaded')
+    }
+  }, [fontsLoaded])
 
   return (
     <Document>
