@@ -30,6 +30,10 @@ export default defineType({
         }),
       ],
     },
+    {
+      type: 'reference',
+      to: [{ type: 'globalContent' }],
+    },
   ],
   components: {
     input: PageBuilderInput,
