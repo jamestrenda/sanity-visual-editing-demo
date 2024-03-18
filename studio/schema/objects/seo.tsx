@@ -21,7 +21,7 @@ export default {
       title: 'Title',
       type: 'string',
       description:
-        'Overrides the title of the page for display in search engine results.',
+        'Overrides the page title that appears in search engine results pages (SERPs).',
       components: {
         field: (props) => (
           <TextInputWithCharCount min={30} max={65} {...props} />
@@ -42,7 +42,7 @@ export default {
       type: 'text',
       rows: 3,
       description:
-        'Provide a brief summary your content for search engine results pages (SERPs) and to give the user an idea of the content that exists within the page or site and how it relates to their search query.',
+        "Briefly summarize what's on the page. What content exists on the page? How does it relate to the user's search query? This text is displayed under the page title on search engine results pages (SERPs). ",
     }),
   ],
 }

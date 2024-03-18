@@ -17,7 +17,7 @@ export const titleField = ({
 }: TitleFieldProps) => ({
   name,
   title: 'Title',
-  description: `This is the text that is displayed on search engine results pages (SERP) and in the title bar of the web browser. The best page titles are between 10 and 65 characters and include keywords for which the page should rank.${
+  description: `This is the text that is displayed on search engine results pages (SERPs) and in the title bar of the web browser. The best page titles are between 10 and 65 characters and include keywords for which the page should rank.${
     !required ? ' If blank, the document title will be used.' : ''
   }`,
   type: 'string',

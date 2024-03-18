@@ -28,7 +28,7 @@ export const slugField = ({
     name: 'slug',
     title: 'Slug',
     type: 'slug',
-    description: `A good URL tells users (and search engines) what to expect on the page. This is another good place to add SEO keywords.`,
+    description: `A good URL tells users (and search engines) what to expect on the page.`,
     options: {
       slugify: (props) => formatSlug(props),
       source,
