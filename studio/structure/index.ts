@@ -11,6 +11,9 @@ import { IconFiles } from '~/icons/files'
 import { IconGlobe } from '~/icons/globe'
 import { IconRSS } from '~/icons/rss'
 import { FolderIcon, HashIcon } from '@sanity/icons'
+import { IconBullseye } from '~/icons/bullseye'
+import { IconUserCircle } from '~/icons/userCircle'
+import { IconFAQ } from '~/icons/iconFAQ'
 
 export const structure: StructureResolver = async (S, context) => {
   const { currentUser } = context
@@ -58,15 +61,30 @@ export const structure: StructureResolver = async (S, context) => {
     .icon(IconGlobe)
     .child(S.documentTypeList('globalContent').title('Global Content'))
 
-  const home = S.listItem()
-    .title('Homepage')
-    .icon(IconHome)
-    .child(
-      S.defaultDocument({
-        schemaType: 'home',
-        documentId: 'home',
-      }).title('Homepage'),
-    )
+  // const home = S.listItem()
+  //   .title('Homepage')
+  //   .icon(IconHome)
+  //   .child(
+  //     S.defaultDocument({
+  //       schemaType: 'home',
+  //       documentId: 'home',
+  //     }).title('Homepage'),
+  //   )
+
+  const services = S.listItem()
+    .title('Services')
+    .icon(IconBullseye)
+    .child(S.documentTypeList('service').title('Services'))
+
+  const team = S.listItem()
+    .title('Team')
+    .icon(IconUserCircle)
+    .child(S.documentTypeList('team').title('Team Members'))
+
+  const faq = S.listItem()
+    .title('FAQs')
+    .icon(IconFAQ)
+    .child(S.documentTypeList('faq').title('FAQs'))
 
   const settings = S.listItem()
     .title('Site Settings')
@@ -83,18 +101,23 @@ export const structure: StructureResolver = async (S, context) => {
       ![
         ...SINGLETON_TYPES,
         'category',
+        'faq',
+        'globalContent',
         'page',
         'post',
-        'globalContent',
+        'service',
+        'team',
       ].includes(listItem.getId()!),
   )
 
   const nonAdminView = [
     globalContent,
     S.divider(),
-    home,
     pages,
     blog,
+    services,
+    team,
+    faq,
     ...defaultListItems,
   ]
   const adminVieww = [...nonAdminView, S.divider(), settings]

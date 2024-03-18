@@ -3,7 +3,7 @@ import { IconUserCircle } from '~/icons/userCircle'
 import { portableTextBlocks } from '../objects/portableText'
 
 export default defineType({
-  title: 'Team',
+  title: 'Team Member',
   name: 'team',
   icon: IconUserCircle,
   type: 'document',

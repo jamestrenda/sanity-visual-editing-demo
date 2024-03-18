@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity'
 import { IconBullseye } from '~/icons/bullseye'
 
 export default defineType({
-  title: 'Services',
+  title: 'Service',
   name: 'service',
   icon: IconBullseye,
   type: 'document',
