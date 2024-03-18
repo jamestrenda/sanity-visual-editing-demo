@@ -16,8 +16,8 @@ export default defineType({
   ],
   groups: [
     {
-      name: 'body',
-      title: 'Body',
+      name: 'content',
+      title: 'Content',
     },
     {
       name: 'seo',
@@ -57,10 +57,15 @@ export default defineType({
     title({}),
     slug({}),
     defineField({
+      name: 'hero',
+      type: 'hero',
+      group: ['content'],
+    }),
+    defineField({
       name: 'pageBuilder',
       type: 'pageBuilder',
       title: 'Body',
-      group: ['body'],
+      group: ['content'],
     }),
     defineField({
       name: 'isFrontpage',
