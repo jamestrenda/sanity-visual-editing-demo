@@ -20,6 +20,9 @@ export const blockContentTypes = [
     type: 'faqBlock',
   },
   {
+    type: 'form',
+  },
+  {
     type: 'reference',
     title: 'Global Content',
     to: [{ type: 'globalContent' }],
@@ -38,6 +41,9 @@ export const blockContentTypes = [
     //     })
     //   },
     // },
+  },
+  {
+    type: 'logoCloud',
   },
   {
     type: 'servicesBlock',

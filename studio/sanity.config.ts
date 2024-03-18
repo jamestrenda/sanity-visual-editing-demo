@@ -8,10 +8,14 @@ import { locate } from './presentation/locate'
 import { media } from 'sanity-plugin-media'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { noteField } from 'sanity-plugin-note-field'
-import { isAdminUser } from './utils/misc'
+import { isAdminUser } from './lib/misc'
+import { PAGE_TYPES } from './lib/constants'
+import { PublishSettingsAction } from './actions/publishSettingsAction'
+import { PublishDocumentWithSlugAction } from './actions/publishDocumentWithSlug'
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
 export const dataset = process.env.SANITY_STUDIO_DATASET!
+export const apiVersion = '2023-03-20'
 
 // Define the actions that should be available for singleton documents
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -50,11 +54,36 @@ export default defineConfig({
       ]
     },
   },
+  // document: {
+  //   actions: (prev, context) => {
+  //     return SINGLETON_TYPES.has(context.schemaType)
+  //       ? prev.filter(({ action }) => action && singletonActions.has(action))
+  //       : prev
+  //   },
+  // },
   document: {
     actions: (prev, context) => {
-      return SINGLETON_TYPES.has(context.schemaType)
-        ? prev.filter(({ action }) => action && singletonActions.has(action))
-        : prev
+      const settingsActions = prev
+        .filter(
+          ({ action }) => action == 'discardChanges' || action == 'publish',
+        )
+        .map((originalAction) =>
+          originalAction.action === 'publish'
+            ? PublishSettingsAction(originalAction, context)
+            : originalAction,
+        )
+
+      return context.schemaType === 'siteSettings'
+        ? settingsActions
+        : SINGLETON_TYPES.has(context.schemaType)
+          ? prev.filter(({ action }) => action && singletonActions.has(action))
+          : PAGE_TYPES.find((type) => type === context.schemaType)
+            ? prev.map((originalAction) =>
+                originalAction.action === 'publish'
+                  ? PublishDocumentWithSlugAction(originalAction, context)
+                  : originalAction,
+              )
+            : prev
     },
   },
   tools: (prev, { currentUser }) => {

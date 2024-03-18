@@ -1,6 +1,6 @@
 import type { ValidationContext } from 'sanity'
 import { defineField, defineType } from 'sanity'
-import { PAGE_TYPES } from '../../utils/constants'
+import { PAGE_TYPES } from '../../lib/constants'
 
 import { IconLink } from '../../icons/link'
 

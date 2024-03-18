@@ -1,6 +1,8 @@
 import { defineField, defineType } from 'sanity'
 import { IconFile } from '~/icons/file'
 import { blockContentTypes } from './objects/blockContent'
+import { slugField } from './objects/slug'
+import { titleField } from './objects/title'
 
 export default defineType({
   name: 'post',
@@ -22,32 +24,45 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'postTitle',
+      title: 'title',
       slug: 'slug',
+      authorFirstName: 'author.firstName',
+      authorLastName: 'author.lastName',
+      category: 'category.name',
     },
     prepare: ({
       title = 'Untitled',
       slug = { current: '' },
+      authorFirstName,
+      authorLastName,
+      category,
     }: {
       title?: string
       slug?: { current: string }
+      authorFirstName?: string
+      authorLastName?: string
+      category?: string
     }) => {
       const path = `/${slug.current}`
 
       return {
         title: `${title}`,
-        subtitle: slug.current ? path : '(missing slug)',
+        subtitle:
+          authorFirstName && authorLastName
+            ? `by ${authorFirstName} ${authorLastName}${category ? ` in ${category}` : ''}`
+            : undefined,
         media: IconFile,
       }
     },
   },
   fields: [
     defineField({
-      name: 'postTitle',
-      title: 'Post Title',
+      name: 'title',
+      title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
+    slugField({}),
     defineField({
       name: 'excerpt',
       title: 'Excerpt',

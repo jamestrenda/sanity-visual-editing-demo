@@ -4,7 +4,7 @@ import type {
 } from 'sanity/structure'
 // import {IconHome} from '../icons/home'
 import { IconGear } from '../icons/gear'
-import { isAdminUser } from '../utils/misc'
+import { isAdminUser } from '../lib/misc'
 import { SINGLETON_TYPES } from '../schema'
 import { IconHome } from '../icons/home'
 import { IconFiles } from '~/icons/files'
@@ -14,6 +14,8 @@ import { FolderIcon, HashIcon } from '@sanity/icons'
 import { IconBullseye } from '~/icons/bullseye'
 import { IconUserCircle } from '~/icons/userCircle'
 import { IconFAQ } from '~/icons/iconFAQ'
+import { IconBuilding } from '~/icons/building'
+import { IconRedirect } from '~/icons/redirect'
 
 export const structure: StructureResolver = async (S, context) => {
   const { currentUser } = context
@@ -61,16 +63,6 @@ export const structure: StructureResolver = async (S, context) => {
     .icon(IconGlobe)
     .child(S.documentTypeList('globalContent').title('Global Content'))
 
-  // const home = S.listItem()
-  //   .title('Homepage')
-  //   .icon(IconHome)
-  //   .child(
-  //     S.defaultDocument({
-  //       schemaType: 'home',
-  //       documentId: 'home',
-  //     }).title('Homepage'),
-  //   )
-
   const services = S.listItem()
     .title('Services')
     .icon(IconBullseye)
@@ -86,14 +78,90 @@ export const structure: StructureResolver = async (S, context) => {
     .icon(IconFAQ)
     .child(S.documentTypeList('faq').title('FAQs'))
 
-  const settings = S.listItem()
-    .title('Site Settings')
-    .icon(IconGear)
+  const company = S.listItem()
+    .title('Company Info')
+    .icon(IconBuilding)
     .child(
       S.defaultDocument({
-        schemaType: 'siteSettings',
-        documentId: 'siteSettings',
-      }).title('Site Settings'),
+        schemaType: 'company',
+        documentId: 'company',
+      }).title('Company Info'),
+    )
+  // const settings = S.listItem()
+  //   .title('Site Settings')
+  //   .icon(IconGear)
+  //   .child(
+  //     S.defaultDocument({
+  //       schemaType: 'siteSettings',
+  //       documentId: 'siteSettings',
+  //     }).title('Site Settings'),
+  //   )
+
+  const settings = S.listItem()
+    .title('Settings')
+    .icon(IconGear)
+    .child(
+      S.list()
+        .title('Settings')
+        .items([
+          S.listItem()
+            .title('General')
+            .icon(IconGear)
+            .child(
+              S.defaultDocument({
+                schemaType: 'siteSettings',
+                documentId: 'siteSettings',
+              }).title('General Settings'),
+            ),
+          // S.listItem()
+          //   .title(menu.title + 's')
+          //   .icon(menu.icon)
+          //   .child(S.documentTypeList(menu.name).title(menu.title + 's')),
+          // S.listItem()
+          //   .title('Logo')
+          //   .icon(RiRainbowLine)
+          //   .child(
+          //     S.defaultDocument({
+          //       schemaType: logoSettings.name,
+          //       documentId: logoSettings.name,
+          //     }).title('Logo Settings')
+          //   ),
+          S.divider(),
+          S.listItem().title('Header'),
+          //   .icon(RiLayoutTop2Line)
+          //   .child(
+          //     S.defaultDocument({
+          //       schemaType: headerSettings.name,
+          //       documentId: headerSettings.name,
+          //     }).title(headerSettings.title as string)
+          // ),
+          S.listItem().title('Footer'),
+          // .icon(RiLayoutBottom2Line)
+          // .child(
+          //   S.defaultDocument({
+          //     schemaType: footerSettings.name,
+          //     documentId: footerSettings.name,
+          //   }).title(footerSettings.title as string)
+          // ),
+          S.divider(),
+          S.listItem()
+            .title('Redirects')
+            .icon(IconRedirect)
+            .child(
+              S.defaultDocument({
+                schemaType: 'redirectSettings',
+                documentId: 'redirectSettings',
+              }).title('Redirects'),
+            ),
+          S.listItem().title('404 Page'),
+          // .icon(RiFileWarningLine)
+          // .child(
+          //   S.defaultDocument({
+          //     schemaType: notFoundSettings.name,
+          //     documentId: notFoundSettings.name,
+          //   }).title('404 Settings')
+          // ),
+        ]),
     )
 
   const defaultListItems = S.documentTypeListItems().filter(
@@ -110,17 +178,15 @@ export const structure: StructureResolver = async (S, context) => {
       ].includes(listItem.getId()!),
   )
 
-  const nonAdminView = [
-    globalContent,
+  const nonAdminView = [pages, blog, services, team, faq, ...defaultListItems]
+  const adminVieww = [
+    ...nonAdminView,
     S.divider(),
-    pages,
-    blog,
-    services,
-    team,
-    faq,
-    ...defaultListItems,
+    globalContent,
+    company,
+    S.divider(),
+    settings,
   ]
-  const adminVieww = [...nonAdminView, S.divider(), settings]
 
   return S.list()
     .id('root')

@@ -81,6 +81,7 @@ export default defineType({
         'Hide the hero on this page and use the page title as the primary heading (h1) on the page.',
       name: 'hideHero',
       type: 'boolean',
+      initialValue: false,
     }),
   ],
 })

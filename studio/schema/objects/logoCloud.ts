@@ -1,12 +1,12 @@
 import { defineField, defineType } from 'sanity'
-import { IconLogos } from '~/icons/logos'
+import { IconCloud } from '~/icons/cloud'
 import anchor from './anchor'
 
 export default defineType({
   title: 'Logo Cloud',
   name: 'logoCloud',
   type: 'object',
-  icon: IconLogos,
+  icon: IconCloud,
   preview: {
     select: {
       title: 'title',

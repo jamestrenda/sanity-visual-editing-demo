@@ -210,6 +210,9 @@ importers:
       styled-components:
         specifier: 6.1.8
         version: 6.1.8(react-dom@18.2.0)(react@18.2.0)
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@sanity/eslint-config-studio':
         specifier: 3.0.1

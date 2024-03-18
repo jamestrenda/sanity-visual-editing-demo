@@ -1,6 +1,6 @@
-import { defineField } from 'sanity'
+import { ConditionalProperty, defineField } from 'sanity'
 import { SlugInput } from '~/components/SlugInput'
-import { formatSlug, validateSlug } from '~/utils/misc'
+import { formatSlug, validateSlug } from '~/lib/misc'
 
 /**
  * Most common pattern for a slug field. If you need a different configuration, just replace this with your own custom field.
@@ -10,7 +10,7 @@ import { formatSlug, validateSlug } from '~/utils/misc'
 type SlugFieldProps = {
   prefix?: string
   value?: string
-  hidden?: boolean
+  hidden?: ConditionalProperty
   group?: string
   fieldset?: string
   source?: string
@@ -47,7 +47,7 @@ export const slugField = ({
         current: undefined,
       }
     },
-    hidden,
+    hidden: ({ parent }) => parent?.isFrontpage || hidden || false,
     group,
     fieldset,
   })

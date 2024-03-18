@@ -38,6 +38,9 @@ export default defineType({
           type: 'logoCloud',
         },
         {
+          type: 'postsGrid',
+        },
+        {
           type: 'teamGrid',
         },
         {

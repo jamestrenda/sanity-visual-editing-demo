@@ -30,8 +30,19 @@ import socialMedia from './objects/socialMedia'
 import teamGrid from './objects/teamGrid'
 import post from './post'
 import category from './documents/category'
+import company from './singletons/company'
+import redirect from './objects/redirect'
+import redirectSettings from './singletons/redirectSettings'
+import postsGrid from './objects/postsGrid'
+import form from './objects/form'
 
-export const SINGLETON_TYPES = new Set(['home', 'media.tag', 'siteSettings'])
+export const SINGLETON_TYPES = new Set([
+  'company',
+  'home',
+  'media.tag',
+  'redirectSettings',
+  'siteSettings',
+])
 
 export const schemaTypes = [
   address,
@@ -40,10 +51,12 @@ export const schemaTypes = [
   button,
   category,
   checklist,
+  company,
   cta,
   globalContent,
   faq,
   faqBlock,
+  form,
   hero,
   home,
   iconList,
@@ -56,6 +69,9 @@ export const schemaTypes = [
   pageBuilder,
   portableText,
   post,
+  postsGrid,
+  redirect,
+  redirectSettings,
   seo,
   service,
   servicesBlock,
