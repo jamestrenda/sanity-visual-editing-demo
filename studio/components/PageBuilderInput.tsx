@@ -104,8 +104,6 @@ type PreviewProps = {
 function PreviewCard(props: PreviewProps) {
   const { onClick, schema } = props
 
-  console.log('props', props)
-
   return (
     <Card
       role="button"
