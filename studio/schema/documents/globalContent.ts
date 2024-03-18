@@ -41,6 +41,9 @@ export default defineType({
           type: 'postsGrid',
         },
         {
+          type: 'statsBlock',
+        },
+        {
           type: 'teamGrid',
         },
         {

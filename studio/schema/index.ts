@@ -35,6 +35,8 @@ import redirect from './objects/redirect'
 import redirectSettings from './singletons/redirectSettings'
 import postsGrid from './objects/postsGrid'
 import form from './objects/form'
+import stat from './objects/stat'
+import statsBlock from './objects/statsBlock'
 
 export const SINGLETON_TYPES = new Set([
   'company',
@@ -77,6 +79,8 @@ export const schemaTypes = [
   servicesBlock,
   siteSettings,
   socialMedia,
+  stat,
+  statsBlock,
   team,
   teamGrid,
   video,

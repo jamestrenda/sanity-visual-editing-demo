@@ -49,6 +49,9 @@ export const blockContentTypes = [
     type: 'servicesBlock',
   },
   {
+    type: 'statsBlock',
+  },
+  {
     type: 'video',
   },
 ]
