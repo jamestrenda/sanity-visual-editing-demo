@@ -8,7 +8,7 @@ export default defineType({
   of: [
     {
       type: 'object',
-      title: ' ',
+      title: 'Container',
       name: 'section',
       preview: {
         select: {
@@ -27,6 +27,8 @@ export default defineType({
           title: 'Title',
           name: 'title',
           type: 'string',
+          description:
+            'Optional title for this container section (for internal reference only). This will not be displayed on the website.',
         }),
         defineField({
           title: ' ',
@@ -38,4 +40,7 @@ export default defineType({
       ],
     },
   ],
+  // components: {
+  //   input: PageBuilderInput,
+  // },
 })
