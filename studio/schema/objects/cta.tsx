@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { TextInputWithCharCount } from '../../components/TextInputWithCharCount'
+import anchor from './anchor'
 
 export default defineType({
   name: 'ctaBlock',
@@ -84,5 +85,6 @@ export default defineType({
         }),
       ],
     }),
+    anchor,
   ],
 })

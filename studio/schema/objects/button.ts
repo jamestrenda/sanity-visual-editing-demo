@@ -1,7 +1,6 @@
 import { defineField, defineType } from 'sanity'
-import { IconArrowUpRightFromSquare } from '~/icons/arrowUpRightFromSquare'
 import { IconButton } from '~/icons/button'
-import { IconFile } from '~/icons/file'
+import anchor from './anchor'
 
 export default defineType({
   name: 'button',
@@ -38,5 +37,6 @@ export default defineType({
       type: 'link',
       validation: (Rule) => Rule.required(),
     }),
+    anchor,
   ],
 })

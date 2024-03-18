@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { IconLogos } from '~/icons/logos'
+import anchor from './anchor'
 
 export default defineType({
   title: 'Logo Cloud',
@@ -42,5 +43,6 @@ export default defineType({
         },
       ],
     }),
+    anchor,
   ],
 })

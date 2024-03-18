@@ -3,6 +3,7 @@ import { defineField, defineType } from 'sanity'
 import { IconInfo } from '../../icons/info'
 import { TextInputWithCharCount } from '../../components/TextInputWithCharCount'
 import { IconImage } from '~/icons/image'
+import anchor from './anchor'
 
 export default defineType({
   name: 'imageObject',
@@ -64,5 +65,6 @@ export default defineType({
         field: (props) => <TextInputWithCharCount max={120} {...props} />,
       },
     }),
+    anchor,
   ],
 })

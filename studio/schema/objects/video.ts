@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { IconVideo } from '~/icons/video'
+import anchor from './anchor'
 
 export default defineType({
   name: 'video',
@@ -13,5 +14,6 @@ export default defineType({
       title: 'Url',
       type: 'url',
     }),
+    anchor,
   ],
 })

@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { IconBullseye } from '~/icons/bullseye'
+import anchor from './anchor'
 
 export default defineType({
   title: 'Services',
@@ -39,5 +40,6 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required().min(1).unique(),
     }),
+    anchor,
   ],
 })

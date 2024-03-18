@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import { IconCircleCheck } from '~/icons/circleCheck'
 import { portableTextBlocks } from './portableText'
+import anchor from './anchor'
 
 export default defineType({
   title: 'Checklist',
@@ -46,5 +47,6 @@ export default defineType({
       options: {},
       validation: (Rule) => Rule.required().min(1),
     }),
+    anchor,
   ],
 })

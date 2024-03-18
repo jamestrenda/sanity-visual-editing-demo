@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { IconUserCircle } from '~/icons/userCircle'
+import anchor from './anchor'
 
 export default defineType({
   title: 'Team Grid',
@@ -43,5 +44,6 @@ export default defineType({
         },
       ],
     }),
+    anchor,
   ],
 })

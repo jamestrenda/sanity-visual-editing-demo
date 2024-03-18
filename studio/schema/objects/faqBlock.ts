@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity'
 import { IconFAQ } from '~/icons/iconFAQ'
 import { IconLogos } from '~/icons/logos'
+import anchor from './anchor'
 
 export default defineType({
   title: 'FAQs',
@@ -41,5 +42,6 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required().min(1).unique(),
     }),
+    anchor,
   ],
 })

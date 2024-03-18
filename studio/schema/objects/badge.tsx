@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity'
 import { TextInputWithCharCount } from '../../components/TextInputWithCharCount'
 import { IconBadge } from '~/icons/badge'
+import anchor from './anchor'
 
 export default defineType({
   name: 'badge',
@@ -29,5 +30,6 @@ export default defineType({
       title: 'Link',
       type: 'link',
     }),
+    anchor,
   ],
 })
