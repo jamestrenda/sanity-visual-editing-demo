@@ -85,6 +85,11 @@ export default defineType({
       type: 'email',
     }),
     defineField({
+      name: 'socialMedia',
+      title: 'Social Media',
+      type: 'socialMedia',
+    }),
+    defineField({
       name: 'googleSiteVerification',
       title: 'Google Site Verification',
       type: 'string',

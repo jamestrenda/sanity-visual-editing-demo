@@ -1,4 +1,4 @@
-import { EarthGlobeIcon, HighlightIcon, LinkIcon } from '@sanity/icons'
+import { HighlightIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import HighlightDecorator from '~/components/HighlightDecorator'
 import { IconAnchor } from '~/icons/anchor'

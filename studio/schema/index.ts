@@ -23,6 +23,13 @@ import servicesBlock from './objects/servicesBlock'
 import button from './objects/button'
 import video from './objects/video'
 import iconList from './objects/iconList'
+import checklist from './objects/checklist'
+import cta from './objects/cta'
+import team from './documents/team'
+import socialMedia from './objects/socialMedia'
+import teamGrid from './objects/teamGrid'
+import post from './post'
+import category from './documents/category'
 
 export const SINGLETON_TYPES = new Set(['home', 'media.tag', 'siteSettings'])
 
@@ -31,6 +38,9 @@ export const schemaTypes = [
   badge,
   blockContent,
   button,
+  category,
+  checklist,
+  cta,
   globalContent,
   faq,
   faqBlock,
@@ -45,9 +55,13 @@ export const schemaTypes = [
   page,
   pageBuilder,
   portableText,
+  post,
   seo,
   service,
   servicesBlock,
   siteSettings,
+  socialMedia,
+  team,
+  teamGrid,
   video,
 ]

@@ -1,48 +1,57 @@
-import { defineType, defineArrayMember, defineField } from 'sanity'
+import { defineType } from 'sanity'
 import PageBuilderInput from '~/components/PageBuilderInput'
-import { IconText } from '~/icons/text'
 import { portableTextBlocks } from './portableText'
+
+export const blockContentTypes = [
+  portableTextBlocks,
+  {
+    type: 'badge',
+  },
+  {
+    type: 'button',
+  },
+  {
+    type: 'checklist',
+  },
+  {
+    type: 'faqBlock',
+  },
+  {
+    type: 'reference',
+    title: 'Global Content',
+    to: [{ type: 'globalContent' }],
+  },
+  {
+    type: 'hero',
+  },
+  // {
+  //   type: 'iconList',
+  // },
+  {
+    type: 'imageObject',
+    // inline edit form, skip modal
+    // components: {
+    //   block: (props) => {
+    //     return props.renderDefault({
+    //       ...props,
+    //       renderPreview: () => props.children,
+    //     })
+    //   },
+    // },
+  },
+  {
+    type: 'servicesBlock',
+  },
+  {
+    type: 'video',
+  },
+]
 
 export default defineType({
   title: 'Block Content',
   name: 'blockContent',
   type: 'array',
-  of: [
-    portableTextBlocks,
-    {
-      type: 'badge',
-    },
-    {
-      type: 'button',
-    },
-    {
-      type: 'faqBlock',
-    },
-    {
-      type: 'hero',
-    },
-    {
-      type: 'iconList',
-    },
-    {
-      type: 'imageObject',
-      // inline edit form, skip modal
-      // components: {
-      //   block: (props) => {
-      //     return props.renderDefault({
-      //       ...props,
-      //       renderPreview: () => props.children,
-      //     })
-      //   },
-      // },
-    },
-    {
-      type: 'servicesBlock',
-    },
-    {
-      type: 'video',
-    },
-  ],
+  of: blockContentTypes,
   components: {
     input: PageBuilderInput,
   },

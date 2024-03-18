@@ -65,7 +65,7 @@ const PageBuilderInput = (props: ArrayOfObjectsInputProps) => {
 
       {open && (
         <Dialog
-          header="Select a section"
+          header="Select Component"
           id="dialog-example"
           width={4}
           onClose={onClose}

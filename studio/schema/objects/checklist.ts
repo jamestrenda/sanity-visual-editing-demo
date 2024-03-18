@@ -2,17 +2,15 @@ import { defineArrayMember, defineField, defineType } from 'sanity'
 import { IconCircleCheck } from '~/icons/circleCheck'
 import { portableTextBlocks } from './portableText'
 
-// TODO: turn this into a a custom icon list
-// https://www.sanity.io/plugins/sanity-plugin-inline-svg-input
 export default defineType({
-  title: 'Icon List',
-  name: 'iconList',
+  title: 'Checklist',
+  name: 'checklist',
   type: 'object',
   icon: IconCircleCheck,
   preview: {
     prepare() {
       return {
-        title: 'Icon List',
+        title: 'Checklist',
       }
     },
   },
@@ -45,8 +43,7 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
       ],
-      // options: {}
-
+      options: {},
       validation: (Rule) => Rule.required().min(1),
     }),
   ],

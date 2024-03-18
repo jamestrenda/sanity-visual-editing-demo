@@ -6,7 +6,6 @@ export default {
   name: 'seo',
   title: 'SEO',
   type: 'object',
-
   fields: [
     // defineField({
     //   title: 'Important!',

@@ -32,10 +32,13 @@ export default defineType({
       title: 'Content',
       of: [
         {
-          type: 'hero',
+          type: 'ctaBlock',
         },
         {
           type: 'logoCloud',
+        },
+        {
+          type: 'teamGrid',
         },
         {
           name: 'textBlock',
