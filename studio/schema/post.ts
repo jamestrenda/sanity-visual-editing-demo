@@ -1,6 +1,5 @@
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 import { IconFile } from '~/icons/file'
-import { portableTextBlocks } from './objects/portableText'
 import { blockContentTypes } from './objects/blockContent'
 
 export default defineType({
