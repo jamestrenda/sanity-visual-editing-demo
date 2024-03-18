@@ -19,6 +19,7 @@ export default defineType({
     defineField({
       name: 'badge',
       type: 'badge',
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'title',
@@ -29,30 +30,35 @@ export default defineType({
           <TextInputWithCharCount min={30} max={65} {...props} />
         ),
       },
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'subtitle',
       title: 'Subtitle',
       type: 'text',
       rows: 3,
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'image',
       title: 'Background Image',
       type: 'image',
       group: 'background',
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'mp4',
       title: 'MP4 Video URL',
       type: 'url',
       group: 'background',
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'webm',
       title: 'WEBM Video URL',
       type: 'url',
       group: 'background',
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'style',
@@ -67,6 +73,14 @@ export default defineType({
           initialValue: false,
         }),
       ],
+      hidden: ({ parent }) => parent?.hideHero,
+    }),
+    defineField({
+      title: 'Hide hero section?',
+      description:
+        'Hide the hero on this page and use the page title as the primary heading (h1) on the page.',
+      name: 'hideHero',
+      type: 'boolean',
     }),
   ],
 })
