@@ -14,15 +14,15 @@ export const blockContentTypes = [
     type: 'checklist',
   },
   {
+    type: 'ctaBlock',
+  },
+  {
     type: 'faqBlock',
   },
   {
     type: 'reference',
     title: 'Global Content',
     to: [{ type: 'globalContent' }],
-  },
-  {
-    type: 'hero',
   },
   // {
   //   type: 'iconList',
