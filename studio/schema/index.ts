@@ -37,13 +37,18 @@ import postsGrid from './objects/postsGrid'
 import form from './objects/form'
 import stat from './objects/stat'
 import statsBlock from './objects/statsBlock'
+import notFoundSettings from './singletons/notFoundSettings'
+import menu from './objects/menu'
+import menuItem from './objects/menuItem'
 
+// TODO: Remove home from schemaTypes, and SINGLETON_TYPES, and singletons directory
 export const SINGLETON_TYPES = new Set([
   'company',
   'home',
   'media.tag',
   'redirectSettings',
   'siteSettings',
+  'notFoundSettings',
 ])
 
 export const schemaTypes = [
@@ -67,6 +72,9 @@ export const schemaTypes = [
   linkExternal,
   linkInternal,
   logoCloud,
+  menu,
+  menuItem,
+  notFoundSettings,
   page,
   pageBuilder,
   portableText,

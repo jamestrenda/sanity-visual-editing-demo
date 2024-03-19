@@ -1,33 +1,12 @@
 import { defineField, defineType } from 'sanity'
 import { IconGear } from '../../icons/gear'
+import { IconCompass } from '~/icons/compass'
 
 export default defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
   icon: IconGear,
-  initialValue: {
-    title: 'Company Name',
-    tagline: 'Just another Sanity.io site',
-  },
-  groups: [
-    {
-      title: 'Site',
-      name: 'site',
-    },
-    // {
-    //   title: 'Company',
-    //   name: 'company',
-    // },
-    // {
-    //   title: 'Social',
-    //   name: 'social',
-    // },
-    {
-      title: 'Anayltics',
-      name: 'analytics',
-    },
-  ],
   // fieldsets: [
   //   {
   //     name: 'footer',
@@ -50,30 +29,15 @@ export default defineType({
       name: 'siteTitle',
       title: 'Site Title',
       type: 'string',
-      group: 'site',
       description:
         'The title that is displayed in the title bar of Web browsers and in search engine results pages (SERPs). If blank, the company name under Company Info will be used.',
     }),
-    // defineField({
-    //   name: 'tagline',
-    //   title: 'Tagline',
-    //   type: 'string',
-    //   initialValue: 'Just another Sanity.io site',
-    //   group: 'site',
-    // }),
-    // defineField({
-    //   name: 'logo',
-    //   title: 'Logo',
-    //   type: 'image',
-    //   group: 'site',
-    // }),
     defineField({
       name: 'siteUrl',
       title: 'Site URL',
       type: 'url',
       description:
         'Used for sitemap and canonical URLs (e.g. https://www.sanity.io).',
-      group: 'site',
       validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }).required(),
       // readOnly: true,
     }),
@@ -81,7 +45,6 @@ export default defineType({
       name: 'favicon',
       title: 'Favicon',
       type: 'image',
-      group: 'site',
     }),
     defineField({
       name: 'frontpage',
@@ -92,7 +55,6 @@ export default defineType({
       options: {
         filter: '!defined(isPostsPage) || isPostsPage == false',
       },
-      group: 'site',
     }),
     defineField({
       name: 'postsPage',
@@ -102,7 +64,6 @@ export default defineType({
       options: {
         filter: '!defined(isFrontpage) || isFrontpage == false',
       },
-      group: 'site',
     }),
     defineField({
       name: 'postsPerPage',
@@ -112,46 +73,58 @@ export default defineType({
       options: {
         list: [3, 6, 12, 15],
       },
-      group: 'site',
     }),
-    // defineField({
-    //   name: 'address',
-    //   title: 'Address',
-    //   type: 'address',
-    //   group: 'company',
-    // }),
-    // defineField({
-    //   name: 'phone',
-    //   title: 'Phone',
-    //   type: 'string',
-    //   group: 'company',
-    // }),
-    // defineField({
-    //   name: 'email',
-    //   title: 'Email',
-    //   type: 'email',
-    //   group: 'company',
-    // }),
-    // defineField({
-    //   name: 'socialMedia',
-    //   title: 'Social Media',
-    //   type: 'socialMedia',
-    //   group: 'social',
-    // }),
+    defineField({
+      name: 'headerMenu',
+      title: 'Header Menu',
+      type: 'reference',
+      to: { type: 'menu' },
+    }),
+    defineField({
+      name: 'menus',
+      title: 'Footer Menus',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'menuLink',
+          type: 'object',
+          icon: IconCompass,
+          preview: {
+            select: {
+              title: 'link.linkText',
+            },
+            prepare({ title }) {
+              return {
+                title,
+              }
+            },
+          },
+          fields: [
+            defineField({
+              name: 'link',
+              type: 'link',
+            }),
+          ],
+        }),
+        {
+          type: 'reference',
+          title: 'Menu',
+          to: [{ type: 'menu' }],
+        },
+      ],
+    }),
     defineField({
       name: 'googleSiteVerification',
       title: 'Google Site Verification',
       type: 'string',
       description:
         'To enable Google Search Console, enter your Verification ID.',
-      group: 'analytics',
     }),
     defineField({
       title: 'Google Tag Manager (GTM)',
       description: 'To enable GTM, enter your Container ID',
       name: 'gtmID',
       type: 'string',
-      group: 'analytics',
     }),
     defineField({
       title: 'Maintenance Mode',
@@ -160,7 +133,6 @@ export default defineType({
       name: 'maintenanceMode',
       type: 'boolean',
       initialValue: false,
-      group: 'site',
     }),
     // defineField({
     //   name: 'footerMenu',

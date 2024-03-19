@@ -16,6 +16,8 @@ import { IconUserCircle } from '~/icons/userCircle'
 import { IconFAQ } from '~/icons/iconFAQ'
 import { IconBuilding } from '~/icons/building'
 import { IconRedirect } from '~/icons/redirect'
+import { IconFileSlash } from '~/icons/fileSlash'
+import { IconCompass } from '~/icons/compass'
 
 export const structure: StructureResolver = async (S, context) => {
   const { currentUser } = context
@@ -104,6 +106,8 @@ export const structure: StructureResolver = async (S, context) => {
       S.list()
         .title('Settings')
         .items([
+          company,
+          S.divider(),
           S.listItem()
             .title('General')
             .icon(IconGear)
@@ -113,37 +117,12 @@ export const structure: StructureResolver = async (S, context) => {
                 documentId: 'siteSettings',
               }).title('General Settings'),
             ),
-          // S.listItem()
-          //   .title(menu.title + 's')
-          //   .icon(menu.icon)
-          //   .child(S.documentTypeList(menu.name).title(menu.title + 's')),
-          // S.listItem()
-          //   .title('Logo')
-          //   .icon(RiRainbowLine)
-          //   .child(
-          //     S.defaultDocument({
-          //       schemaType: logoSettings.name,
-          //       documentId: logoSettings.name,
-          //     }).title('Logo Settings')
-          //   ),
-          S.divider(),
-          S.listItem().title('Header'),
-          //   .icon(RiLayoutTop2Line)
-          //   .child(
-          //     S.defaultDocument({
-          //       schemaType: headerSettings.name,
-          //       documentId: headerSettings.name,
-          //     }).title(headerSettings.title as string)
-          // ),
-          S.listItem().title('Footer'),
-          // .icon(RiLayoutBottom2Line)
-          // .child(
-          //   S.defaultDocument({
-          //     schemaType: footerSettings.name,
-          //     documentId: footerSettings.name,
-          //   }).title(footerSettings.title as string)
-          // ),
-          S.divider(),
+          // S.divider(),
+          S.listItem()
+            .title('Menus')
+            .icon(IconCompass)
+            .child(S.documentTypeList('menu').title('Menus')),
+          // S.divider(),
           S.listItem()
             .title('Redirects')
             .icon(IconRedirect)
@@ -153,14 +132,15 @@ export const structure: StructureResolver = async (S, context) => {
                 documentId: 'redirectSettings',
               }).title('Redirects'),
             ),
-          S.listItem().title('404 Page'),
-          // .icon(RiFileWarningLine)
-          // .child(
-          //   S.defaultDocument({
-          //     schemaType: notFoundSettings.name,
-          //     documentId: notFoundSettings.name,
-          //   }).title('404 Settings')
-          // ),
+          S.listItem()
+            .title('404 - Page Not Found')
+            .icon(IconFileSlash)
+            .child(
+              S.defaultDocument({
+                schemaType: 'notFoundSettings',
+                documentId: 'notFoundSettings',
+              }).title('404 - Settings'),
+            ),
         ]),
     )
 
@@ -171,6 +151,7 @@ export const structure: StructureResolver = async (S, context) => {
         'category',
         'faq',
         'globalContent',
+        'menu',
         'page',
         'post',
         'service',
@@ -180,10 +161,10 @@ export const structure: StructureResolver = async (S, context) => {
 
   const nonAdminView = [pages, blog, services, team, faq, ...defaultListItems]
   const adminVieww = [
-    ...nonAdminView,
-    S.divider(),
     globalContent,
-    company,
+    S.divider(),
+    ...nonAdminView,
+    // company,
     S.divider(),
     settings,
   ]
