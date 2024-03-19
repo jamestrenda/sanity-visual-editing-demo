@@ -40,6 +40,7 @@ import statsBlock from './objects/statsBlock'
 import notFoundSettings from './singletons/notFoundSettings'
 import menu from './objects/menu'
 import menuItem from './objects/menuItem'
+import carousel from './objects/carousel'
 
 // TODO: Remove home from schemaTypes, and SINGLETON_TYPES, and singletons directory
 export const SINGLETON_TYPES = new Set([
@@ -56,6 +57,7 @@ export const schemaTypes = [
   badge,
   blockContent,
   button,
+  carousel,
   category,
   checklist,
   company,

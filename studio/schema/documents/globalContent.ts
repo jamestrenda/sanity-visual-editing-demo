@@ -31,6 +31,9 @@ export default defineType({
       validation: (Rule) => Rule.min(1).max(1),
       title: 'Content',
       of: [
+        // {
+        //   type: 'carousel',
+        // },
         {
           type: 'ctaBlock',
         },

@@ -10,6 +10,9 @@ export const blockContentTypes = [
   {
     type: 'button',
   },
+  // {
+  //   type: 'carousel',
+  // },
   {
     type: 'checklist',
   },
