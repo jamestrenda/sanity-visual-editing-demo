@@ -11,6 +11,10 @@ export default defineType({
       name: 'background',
     },
     {
+      title: 'Call to Action',
+      name: 'cta',
+    },
+    {
       title: 'Style',
       name: 'style',
     },
@@ -59,6 +63,18 @@ export default defineType({
       type: 'url',
       group: 'background',
       hidden: ({ parent }) => parent?.hideHero,
+    }),
+    defineField({
+      name: 'primaryCTA',
+      title: 'Primary Call to Action',
+      type: 'link',
+      group: 'cta',
+    }),
+    defineField({
+      name: 'secondaryCTA',
+      title: 'Secondary Call to Action',
+      type: 'link',
+      group: 'cta',
     }),
     defineField({
       name: 'style',
