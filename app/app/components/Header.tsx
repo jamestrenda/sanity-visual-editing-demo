@@ -1,15 +1,13 @@
 import { Container } from './Container'
 import { Link } from '@remix-run/react'
 import Image from './Image'
-import { SiteSettings } from '~/types/siteSettings'
 import { useWindowScroll } from '@uidotdev/usehooks'
 
-const Header = ({
-  email,
-  logo,
-  phone,
-}: Pick<SiteSettings, 'email' | 'logo' | 'phone'>) => {
+import type { Header as Props } from '~/types/header'
+
+const Header = ({ phone, email, logo, menu }: Props) => {
   const [{ y }] = useWindowScroll()
+
   return (
     <header
       className={`${y && y > 30 ? 'bg-black/80 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 `}
@@ -21,9 +19,7 @@ const Header = ({
             href={`tel:${phone}`}
             className="text-white flex items-center gap-2"
           >
-            {/* <IconPhone className="h-4 w-4" aria-hidden="true" /> */}
-            {/* {phoneFormatted} */}
-            555-555-5555
+            {phone}
           </a>
         ) : null}
         <Link

@@ -8,7 +8,7 @@ const BackgroundVideo = ({ mp4, webm, image }: Props) => {
         mp4,
         webm,
       }}
-      image={image}
+      image={image ?? undefined}
       className="w-full h-full object-cover absolute inset-0 -z-10 opacity-20 pointer-events-none"
     />
   )

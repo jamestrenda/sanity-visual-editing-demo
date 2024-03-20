@@ -6,6 +6,17 @@ export default defineType({
   title: 'Company Info',
   type: 'document',
   icon: IconBuilding,
+  preview: {
+    select: {
+      media: 'logo',
+    },
+    prepare({ media }) {
+      return {
+        title: 'Company Info',
+        media,
+      }
+    },
+  },
   fields: [
     defineField({
       name: 'name',

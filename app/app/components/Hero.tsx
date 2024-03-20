@@ -8,6 +8,7 @@ import { useMeasure, useWindowScroll } from '@uidotdev/usehooks'
 import { useEffect, useState } from 'react'
 import { BackgroundVideo } from './BackgroundVideo'
 import BackgroundParticles from './BackgroundParticles'
+import { Button } from './Button'
 // import { HeroImage } from '../heroImage';
 // import { RichText } from '../richText';
 
@@ -18,6 +19,8 @@ export default function Hero({
   image,
   video,
   style,
+  primaryCTA,
+  secondaryCTA,
 }: Hero) {
   const [ref, { height, width }] = useMeasure()
   const [{ y }] = useWindowScroll()
@@ -55,6 +58,30 @@ export default function Hero({
           {/* <RichText richText={data?.text} /> */}
           <p>{subtitle}</p>
         </div>
+        {primaryCTA || secondaryCTA ? (
+          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 text-center">
+            {primaryCTA ? (
+              <Button
+                {...primaryCTA}
+                theme="primary"
+                className=""
+                // replaceClassNames
+              >
+                {primaryCTA.linkText}
+              </Button>
+            ) : null}
+            {secondaryCTA ? (
+              <Button
+                {...secondaryCTA}
+                theme="secondary"
+                className=" text-white"
+                // replaceClassNames
+              >
+                {secondaryCTA.linkText}
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
       <ScrollDownIndicator show={showScrollIndicator} />
     </div>

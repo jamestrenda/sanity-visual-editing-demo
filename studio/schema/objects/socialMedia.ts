@@ -10,7 +10,6 @@ export default defineType({
     {
       name: 'facebook',
       title: 'Facebook',
-      icon: 'F',
       type: 'url',
     },
     {

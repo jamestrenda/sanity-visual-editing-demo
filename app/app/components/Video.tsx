@@ -7,7 +7,7 @@ type Props = {
     mp4: string | undefined
     webm: string | undefined
   }
-  image: SanityImageObjectExtended
+  image?: SanityImageObjectExtended
   className?: string
 }
 
@@ -37,7 +37,9 @@ const Video = (props: Props) => {
           <source src={props.src.mp4} type="video/mp4" />
         </video>
       )}
-      {isVideoLoaded ? null : <BackgroundImage image={props.image} />}
+      {isVideoLoaded ? null : props.image ? (
+        <BackgroundImage image={props.image} />
+      ) : null}
       {/* <div
         style={{
           backgroundImage: props.poster ? `url("${props.poster}")` : undefined,

@@ -7,6 +7,28 @@ export default defineType({
   title: 'Site Settings',
   type: 'document',
   icon: IconGear,
+  preview: {
+    select: {
+      title: 'siteTitle',
+      media: 'favicon',
+    },
+    prepare({ title, media }) {
+      return {
+        title: title || 'Site Settings',
+        media,
+      }
+    },
+  },
+  fieldsets: [
+    {
+      name: 'favicon',
+      title: 'Favicon',
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
+    },
+  ],
   // fieldsets: [
   //   {
   //     name: 'footer',
@@ -43,8 +65,10 @@ export default defineType({
     }),
     defineField({
       name: 'favicon',
-      title: 'Favicon',
+      title: 'File',
       type: 'image',
+      fieldset: 'favicon',
+      description: 'Upload a favicon for your site.',
     }),
     defineField({
       name: 'frontpage',
@@ -81,31 +105,31 @@ export default defineType({
       to: { type: 'menu' },
     }),
     defineField({
-      name: 'menus',
+      name: 'footerMenus',
       title: 'Footer Menus',
       type: 'array',
       of: [
-        defineField({
-          name: 'menuLink',
-          type: 'object',
-          icon: IconCompass,
-          preview: {
-            select: {
-              title: 'link.linkText',
-            },
-            prepare({ title }) {
-              return {
-                title,
-              }
-            },
-          },
-          fields: [
-            defineField({
-              name: 'link',
-              type: 'link',
-            }),
-          ],
-        }),
+        // defineField({
+        //   name: 'menuLink',
+        //   type: 'object',
+        //   icon: IconCompass,
+        //   preview: {
+        //     select: {
+        //       title: 'link.linkText',
+        //     },
+        //     prepare({ title }) {
+        //       return {
+        //         title,
+        //       }
+        //     },
+        //   },
+        //   fields: [
+        //     defineField({
+        //       name: 'link',
+        //       type: 'link',
+        //     }),
+        //   ],
+        // }),
         {
           type: 'reference',
           title: 'Menu',
