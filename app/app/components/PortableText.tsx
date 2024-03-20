@@ -3,18 +3,13 @@ import { type PortableTextBlock } from '@sanity/types'
 
 import { PortableTextBlocks } from './PortableTextBlocks'
 
-const PortableTextBlock = ({
-  portableText,
-}: {
-  portableText: PortableTextBlock
-  index?: number
-}) => {
+const PortableTextBlock = (props: PortableTextBlock) => {
   //   const value = React.useMemo(() => richTextZ.parse(richText), [richText]);
 
   return (
     <div>
       {/* {value ? ( */}
-      <PortableText value={portableText} components={PortableTextBlocks} />
+      <PortableText value={props} components={PortableTextBlocks} />
       {/* ) : null} */}
     </div>
   )

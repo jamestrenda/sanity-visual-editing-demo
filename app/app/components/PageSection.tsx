@@ -50,7 +50,7 @@ const Block = ({ block }: { block: Block }) => {
 
   return (
     <Suspense fallback={<></>}>
-      {_type ? <SectionComponent {...component} /> : <></>}
+      {_type ? <SectionComponent {...block} /> : <></>}
     </Suspense>
   )
 
