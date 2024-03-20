@@ -25,11 +25,10 @@ import PortableTextBlock from './PortableText'
 const blocksMap = {
   logoCloud: LogoCloud,
   block: PortableTextBlock,
-  globalContent: null,
 }
 
 export type Props = {
-  type: BlockType
+  _type: BlockType
   component: (typeof blocksMap)[BlockType]
   index: number
 }
@@ -41,22 +40,19 @@ export type Props = {
 export default function PageSection(props: PageSection) {
   const { _key, blocks } = props
 
-  // return blocks.map((block) => <Block block={block} key={_key} />)
-  return <></>
+  return blocks.map((block) => <Block block={block} key={_key} />)
 }
 
 const Block = ({ block }: { block: Block }) => {
   const { _type, ...component } = block
 
-  // const SectionComponent = blocksMap[_type] as React.FC<
-  //   Pick<Props, 'component'>
-  // >
+  const SectionComponent = blocksMap[_type] as React.FC<any>
 
-  // return (
-  //   <Suspense fallback={<></>}>
-  //     {_type ? <SectionComponent {...component} index={index} /> : <></>}
-  //   </Suspense>
-  // )
+  return (
+    <Suspense fallback={<></>}>
+      {_type ? <SectionComponent {...component} /> : <></>}
+    </Suspense>
+  )
 
   return <div></div>
 }

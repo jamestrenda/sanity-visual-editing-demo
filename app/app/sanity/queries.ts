@@ -84,8 +84,7 @@ const logoCloudFragment = groq`
 
 // TODO: need a globalContentFragment that contains all the types from the globalContent sanity schema
 const globalContentFragment = groq`
-  title,
-  "block": block[0] {
+  ...block[0] {
     _type,
     _key,
     _type == "logoCloud" => {
@@ -101,9 +100,6 @@ export const BLOCK_TYPES_QUERY = {
   logoCloud: groq`
     ${logoCloudFragment}
   `,
-  globalContent: groq`
-    ${globalContentFragment}
-  `,
 }
 
 // contains all the types from the blockContent sanity schema
@@ -111,7 +107,6 @@ const blockContentFragment = groq`
   _key,
   _type,
   _type == "reference" => @-> {
-    _type,
     _type == "globalContent" => {
       ${globalContentFragment}
     }
@@ -119,7 +114,10 @@ const blockContentFragment = groq`
   _type == "imageObject" => {
     "_type": "image",
     ${imageFieldsFragment}
-  }
+  },
+  _type == "block" => {
+    ...
+  },
 `
 export const heroBaseFields = groq`
   ${badgeFragment},
@@ -288,3 +286,68 @@ export const ROOT_QUERY = groq`{
 }`
 
 export const BLOCK_QUERIES = {}
+
+// data = await getPageIdWithModuleTypes({
+//   preview,
+//   slug: frontpage?.slug,
+// });
+
+// export async function getPageIdWithModuleTypes({
+//   preview = false,
+//   slug,
+// }: ClientProps & {
+//   slug?: string | null;
+// }): Promise<any> {
+//   if (client) {
+//     const data =
+//       (await getClient(preview).fetch(draftPageBySlugQuery, { slug })) ??
+//       (await getClient(preview).fetch(pageBySlugQuery, { slug }));
+//     // console.log({ data });
+//     return data;
+//   }
+//   return {} as any;
+// }
+
+// if (data) {
+//   const { _id, moduleTypes } = data;
+//   query = pageByIdQuery(moduleTypes);
+//   page = await getPageBySlug({ preview, slug: frontpage?.slug });
+
+//   return json({
+//     data: page,
+//     query: preview ? query : null,
+//     params: preview ? { _id, moduleTypes } : null,
+//   });
+
+// export const pageByIdQuery = (
+//   moduleTypes: string[] | undefined = []
+// ) => groq`*[_id == $_id][0]{
+//     _id,
+//     title,
+//     ${slugProjection},
+//     "isFrontpage": _id == ${frontpageId},
+//     "modules": coalesce(modules[_type in $moduleTypes]{
+//       _key,
+//       _type,
+//      ${moduleTypes
+//        .map(
+//          (type) =>
+//            `_type == "${type}" => ${
+//              MODULE_TYPE_QUERIES[type as keyof typeof MODULE_TYPE_QUERIES]
+//            }`
+//        )
+//        .join(',')}
+//     }, [])
+//   }`;
+
+//   export const pageBySlugQuery = groq`
+//   *[_type == "page" && slug.current == $slug][0] {
+//     ${pageFields}
+//   }
+// `;
+
+// const pageFields = groq`
+//   _id,
+//   ${slugProjection},
+//   "moduleTypes": coalesce(array::unique(modules[]._type), [])
+// `;

@@ -48,6 +48,14 @@ export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
 }
 
 export const loader = async () => {
+  // 1. get the page Id and its block types inside the pagebuilder field
+  //  - this is intended to reduce groq query size by only querying for the block types we need
+  //  -
+
+  // for the index we can query based on the isFrontpage field
+  // const pageDataWithBlockTypes = await loadQuery<PageBlockTypes>(HOME_QUERY)
+  // 2. get the page data using the page Id and return the page data with the block type data
+
   let initial =
     (await loadQuery<Page>(HOME_QUERY)) || (await loadQuery<any>(POST_QUERY))
 
@@ -60,6 +68,7 @@ export const loader = async () => {
 
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
+  // TODO: replace 'any' type with a Post type
   const { data, loading, error, encodeDataAttribute } = useQuery<Page | any>(
     query,
     params,

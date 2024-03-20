@@ -42,6 +42,9 @@ import menu from './objects/menu'
 import menuItem from './objects/menuItem'
 import carousel from './objects/carousel'
 
+// TODO: keep an eye on the attribute count at
+// https://aobr8whi.api.sanity.io/v1/data/stats/production
+
 // TODO: Remove home from schemaTypes, and SINGLETON_TYPES, and singletons directory
 export const SINGLETON_TYPES = new Set([
   'company',

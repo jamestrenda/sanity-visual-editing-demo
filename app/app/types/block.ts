@@ -14,7 +14,7 @@ type Blocks = Props['component']
 //   ...Object.keys(BLOCK_TYPES_QUERY).map((key) => z.literal(key as Blocks)),
 // ]
 
-export const blockZ = z.union([globalContentZ, logoCloudZ, textBlockZ])
+export const blockZ = z.union([logoCloudZ, textBlockZ])
 
 export type Block = z.infer<typeof blockZ>
 
