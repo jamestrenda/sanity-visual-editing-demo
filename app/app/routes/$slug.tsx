@@ -1,17 +1,65 @@
 // ./app/routes/$slug.tsx
 
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type {
+  LoaderFunctionArgs,
+  MetaFunction,
+  SerializeFrom,
+} from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import type { SanityDocument } from '@sanity/client'
 
 import { useQuery } from '~/sanity/loader'
 import { loadQuery } from '~/sanity/loader.server'
-import { POST_QUERY } from '~/sanity/queries'
+import { loader as rootLoader } from '~/root'
+import { PAGE_QUERY } from '~/sanity/queries'
+import { Page as Props } from '~/types/page'
+import { invariantResponse } from '~/utils/misc'
+import { Page } from '~/components/Page'
+import { GeneralErrorBoundary } from '~/components/ErrorBoundary'
+import PageNotFound from '~/components/PageNotFound'
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const initial = await loadQuery<SanityDocument>(POST_QUERY, params)
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+  params,
+  matches,
+}) => {
+  const rootData = matches.find((match) => match.id === `root`) as
+    | { data: SerializeFrom<typeof rootLoader> }
+    | undefined
 
-  return { initial, query: POST_QUERY, params }
+  const rootTitle = rootData?.data.initial.data.settings.siteTitle
+
+  let title
+  if (data?.initial) {
+    const { initial: pageData } = data
+    title = [pageData.data?.seo?.title ?? pageData.data?.title, rootTitle]
+      .filter(Boolean)
+      .join(' • ')
+
+    return [
+      { title },
+      {
+        tagName: 'link',
+        rel: 'canonical',
+        href: `${rootData?.data.initial.data.settings.siteUrl}/${params.slug}`,
+      },
+      {
+        name: 'description',
+        content: pageData.data.seo?.metaDescription ?? undefined,
+      },
+    ]
+  }
+  title = ['Page Not Found', rootTitle].filter(Boolean).join(' | ')
+  return [{ title }]
+}
+
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const query = PAGE_QUERY
+  let initial = await loadQuery<Props>(query, params)
+
+  invariantResponse(initial.data, `/${params.slug}`, { status: 404 })
+
+  return { initial, query, params: { slug: params.slug } }
 }
 
 export default function PageRoute() {
@@ -25,6 +73,15 @@ export default function PageRoute() {
     return <div>Loading...</div>
   }
 
-  //   return data ? <Post post={data} /> : null;
-  return data ? <p>Yo!</p> : null
+  return data ? <Page page={data} /> : null
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <GeneralErrorBoundary
+      statusHandlers={{
+        404: ({ params }) => <PageNotFound slug={`/${params.slug}`} />,
+      }}
+    />
+  )
 }

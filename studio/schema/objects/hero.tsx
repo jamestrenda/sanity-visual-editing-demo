@@ -69,12 +69,14 @@ export default defineType({
       title: 'Primary Call to Action',
       type: 'link',
       group: 'cta',
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'secondaryCTA',
       title: 'Secondary Call to Action',
       type: 'link',
       group: 'cta',
+      hidden: ({ parent }) => parent?.hideHero,
     }),
     defineField({
       name: 'style',

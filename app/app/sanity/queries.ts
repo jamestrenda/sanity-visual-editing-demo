@@ -286,7 +286,7 @@ export const COMPANY_QUERY = groq`*[_id == "company"][0]{
   }
 }`
 
-export const REDIRECTS_QUERY = groq`*[_type == "redirect"]`
+export const REDIRECTS_QUERY = groq`*[_type == "redirectSettings"][0].redirects[]`
 
 export const NOT_FOUND_QUERY = groq`*[_id == "notFoundSettings"][0]{
   title,

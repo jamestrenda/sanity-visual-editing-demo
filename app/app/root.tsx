@@ -24,6 +24,8 @@ import { useFontFaceObserver } from './hooks/useFontFaceObserver'
 import Footer from './components/Footer'
 import { GeneralErrorBoundary } from './components/ErrorBoundary'
 import { Company } from './types/company'
+import PageNotFound from './components/PageNotFound'
+import { middleware } from './http'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -35,6 +37,8 @@ type Root = {
 }
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   // const stegaEnabled = isStegaEnabled(request.url)
+
+  await middleware(request)
 
   const initial = await loadQuery<Root>(ROOT_QUERY)
 
@@ -189,7 +193,18 @@ export function ErrorBoundary() {
         favicon: 'https://fav.farm/💩',
       }}
     >
-      <GeneralErrorBoundary />
+      <GeneralErrorBoundary
+        statusHandlers={{
+          404: ({ error }) => (
+            <PageNotFound
+              title={error.data.title}
+              // text={error.data.text}
+              // image={error.data.image}
+              // quickLinks={error.data.quickLinks}
+            />
+          ),
+        }}
+      />
     </Document>
   )
 }

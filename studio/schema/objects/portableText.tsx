@@ -66,6 +66,7 @@ export const portableTextBlocks = defineArrayMember({
       },
     ],
     // Annotations can be any object structure – e.g. a link or a footnote.
+    // Add link styles components
     annotations: [
       {
         name: 'internalLink',
