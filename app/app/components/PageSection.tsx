@@ -7,6 +7,7 @@ import { Button } from './Button'
 import { Container } from './Container'
 import Image from './Image'
 import Badge from './Badge'
+import { FAQ } from './FAQ'
 
 // import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
 // import CallOutBlockWithImage from './callOutBlockWithImage';
@@ -32,6 +33,7 @@ const blocksMap = {
   button: Button,
   image: Image,
   logoCloud: LogoCloud,
+  faq: FAQ,
 }
 
 export type Props = {
@@ -56,7 +58,7 @@ const Block = ({ block }: { block: Block }) => {
 
   const SectionComponent = blocksMap[_type] as React.FC<any>
 
-  console.log('type:', _type == 'badge' ? block : null)
+  // console.log('type:', _type)
 
   switch (_type) {
     case 'button':
@@ -99,8 +101,6 @@ const Block = ({ block }: { block: Block }) => {
         </Container>
       )
     default:
-      return <SectionComponent {...block} />
+      return _type ? <SectionComponent {...block} /> : <></>
   }
-
-  // return _type ? <SectionComponent {...block} /> : <></>
 }

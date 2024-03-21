@@ -7,12 +7,26 @@ import { textBlockZ } from './textBlock'
 import { buttonZ } from './button'
 import { imageZ } from './image'
 import { badgeZ } from './badge'
+import { faqsZ } from './faqsZ'
 
 // export type BlockType = keyof typeof BLOCK_TYPES_QUERY
-export type BlockType = 'block' | 'button' | 'image' | 'badge' | 'logoCloud'
+export type BlockType =
+  | 'badge'
+  | 'block'
+  | 'button'
+  | 'faq'
+  | 'image'
+  | 'logoCloud'
 
 // can we infer the types from the union?
-export const blockZ = z.union([logoCloudZ, textBlockZ, buttonZ, imageZ, badgeZ])
+export const blockZ = z.union([
+  badgeZ,
+  buttonZ,
+  faqsZ,
+  imageZ,
+  logoCloudZ,
+  textBlockZ,
+])
 
 export type Block = z.infer<typeof blockZ>
 

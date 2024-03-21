@@ -3,6 +3,7 @@ import { defineField, defineType } from 'sanity'
 import { PAGE_TYPES } from '../../lib/constants'
 
 import { IconLink } from '../../icons/link'
+import anchor from './anchor'
 
 export default defineType({
   title: 'Internal Link',
@@ -44,11 +45,6 @@ export default defineType({
         filter: '!(_id in path("drafts.**"))',
       },
     },
-    defineField({
-      name: 'anchor',
-      title: 'Anchor',
-      type: 'string',
-      description: 'The ID of the HTML element to link to',
-    }),
+    anchor,
   ],
 })

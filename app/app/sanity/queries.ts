@@ -72,6 +72,25 @@ const portableTextFragment = groq`
   },
 `
 
+const faqBlockFraqment = groq`
+  _key,
+  "_type": "faq",
+  title,
+  text[] {
+    ${portableTextFragment}
+  },
+  faqs[]-> {
+    question,
+    _type,
+    _id,
+    answer[] {
+      ${portableTextFragment}
+    },
+    anchor
+  },
+  anchor
+`
+
 const logoCloudFragment = groq`
   _key,
   _type,
@@ -126,16 +145,8 @@ const globalContentFragment = groq`
 const blockContentFragment = groq`
   _key,
   _type,
-  _type == "reference" => @-> {
-    _type == "globalContent" => {
-      ${globalContentFragment}
-    }
-  },
-  _type == "imageObject" => {
-    "_type": "image",
-    image {
-      ${imageFieldsFragment}
-    }
+  _type == "badge" => {
+    ${badgeFragment}
   },
   _type == "block" => {
     ${portableTextFragment}
@@ -145,9 +156,20 @@ const blockContentFragment = groq`
       ${linkFragment}
     }
   },
-  _type == "badge" => {
-    ${badgeFragment}
-  }
+  _type == "faqBlock" => {
+    ${faqBlockFraqment}
+  },
+  _type == "imageObject" => {
+    "_type": "image",
+    image {
+      ${imageFieldsFragment}
+    }
+  },
+  _type == "reference" => @-> {
+    _type == "globalContent" => {
+      ${globalContentFragment}
+    }
+  },
 `
 export const heroBaseFields = groq`
   badge {

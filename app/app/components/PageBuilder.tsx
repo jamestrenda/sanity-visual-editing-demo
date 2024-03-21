@@ -34,7 +34,7 @@ export default function PageBuilder({ sections }: { sections: Props }) {
   // const { type, component, index } = sections
   // const SectionComponent = componentMap[type] as React.FC<Pick<Props, 'index'>>
 
-  console.log('sections:', sections)
+  // console.log('sections:', sections)
   return sections ? (
     sections.map((section, index) => (
       <section

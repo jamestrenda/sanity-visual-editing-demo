@@ -18,7 +18,7 @@ const BackgroundImage = ({ image }: Props) =>
         crop={image.crop}
         hotspot={image.hotspot}
         preview={image.asset.metadata?.lqip ?? ''}
-        className="absolute inset-0 h-full w-full object-cover opacity-30 transition duration-1000"
+        className="absolute inset-0 h-full w-full object-cover opacity-10 transition duration-1000"
         sizes="(min-width: 768px) 96vw, 100vw"
       />
     </div>

@@ -20,7 +20,7 @@ type Links =
 type Props = Links | ButtonHTMLAttributes<HTMLButtonElement>
 
 export const Button = (props: Props & Theme) => {
-  console.log('props:', props)
+  // console.log('props:', props)
   const theme = {
     base: 'inline-block text-center mx-auto rounded-md px-8 py-4 text-2xl font-bold uppercase leading-6 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky cursor-pointer',
     primary:
@@ -35,6 +35,8 @@ export const Button = (props: Props & Theme) => {
     ? props.className
     : twMerge(theme['base'], theme[selectedTheme], props.className)
 
+  // _type actually does exist on the props object.
+  // I'm not sure why it's not being recognized by typescript.
   switch (props._type) {
     case 'linkInternal':
       let slug = props.to

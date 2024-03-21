@@ -23,7 +23,7 @@ export const PortableTextBlocks: PortableTextComponents = {
       return <h3 className="text-2xl font-bold mb-2">{children}</h3>
     },
     normal: ({ children }) => {
-      return <p className="text-2xl">{children}</p>
+      return <p>{children}</p>
     },
     // add more block-level components here.
   },
@@ -41,7 +41,7 @@ export const PortableTextBlocks: PortableTextComponents = {
   },
   marks: {
     anchor: ({ value, children }) => {
-      return <span id={value.value}>{children}</span>
+      return <span id={value.anchorLink}>{children}</span>
     },
     externalLink: ({ value, children }) => {
       return (

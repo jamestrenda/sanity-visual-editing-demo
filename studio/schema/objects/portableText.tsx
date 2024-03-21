@@ -95,7 +95,7 @@ export const portableTextBlocks = defineArrayMember({
       },
       {
         type: 'object',
-        name: 'anchor',
+        name: 'anchorLink',
         icon: IconAnchor,
         fields: [anchor],
       },
