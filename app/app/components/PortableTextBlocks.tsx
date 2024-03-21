@@ -23,7 +23,7 @@ export const PortableTextBlocks: PortableTextComponents = {
       return <h3 className="text-2xl font-bold mb-2">{children}</h3>
     },
     normal: ({ children }) => {
-      return <p>{children}</p>
+      return <p className="prose">{children}</p>
     },
     // add more block-level components here.
   },

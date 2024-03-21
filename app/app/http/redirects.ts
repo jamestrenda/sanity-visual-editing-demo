@@ -20,7 +20,6 @@ import { redirect } from '@remix-run/node'
  */
 export async function handleRedirects(request: Request): Promise<void> {
   let initial = await loadQuery<Redirects>(REDIRECTS_QUERY)
-  console.log('initial', initial)
 
   const redirects: Redirect[] = initial.data?.reduce((redirects, next) => {
     let splat = false

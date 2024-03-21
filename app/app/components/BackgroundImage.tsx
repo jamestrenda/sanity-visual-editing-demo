@@ -7,7 +7,7 @@ type Props = {
 
 const BackgroundImage = ({ image }: Props) =>
   image.asset ? (
-    <div className="absolute inset-0 -z-10 [&>img]:transition-opacity [&>img]:duration-500 ">
+    <div className="absolute inset-0 -z-10 [&>img]:transition-opacity [&>img]:duration-500 pointer-events-none">
       <Image
         id={image.asset._id}
         alt={image.asset.altText ?? ''}

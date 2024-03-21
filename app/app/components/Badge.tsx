@@ -4,6 +4,7 @@ import { IconArrowRight } from './icons/IconArrowRight'
 import { Badge } from '~/types/badge'
 import { addHrefAnchor } from '~/utils/misc'
 import { IconChevronRight } from './icons/IconChevronRight'
+import IconDot from './icons/iconDot'
 
 type Props = Badge & { className?: string }
 
@@ -41,27 +42,26 @@ const Component = ({ title, text, className, link }: Omit<Props, '_type'>) => {
   return (
     <div
       className={twMerge(
-        'flex justify-center items-center text-md py-1 bg-secondary-green-500 text-black/70 px-1 rounded-full mb-4 uppercase font-bold tracking-wider',
+        'flex justify-center items-center text-xs py-1 bg-secondary-green-500 text-black/70 px-1 rounded-full mb-4 uppercase font-bold tracking-wider',
         className,
       )}
     >
       {title ? (
         <>
-          <span className="rounded-full px-2 font-bold bg-white">{title}</span>
-          {/* <svg
-            width="2"
-            height="2"
-            aria-hidden="true"
-            className="fill-black/70"
-          >
-            <circle cx="1" cy="1" r="1"></circle>
-          </svg> */}
+          <span className="hidden sm:flex flex-nowrap rounded-full px-2 py-0.5 font-bold bg-white relative pl-4">
+            <span className="animate-pulse">
+              <IconDot className="h-2.5 w-2.5 mr-1 fill-secondary-green-200 scale-110 absolute inset-y-0 left-[4px] my-auto" />
+            </span>
+            <IconDot className="h-2 w-2 mr-1 fill-secondary-green-500 absolute inset-y-0 left-[5px] my-auto" />
+
+            <span>{title}</span>
+          </span>
         </>
       ) : null}
       <span className="px-2">{text}</span>
       {link ? (
         <IconChevronRight
-          className="mr-1 text-violet-800 h-3 w-3"
+          className="mr-1 text-black/70 h-3 w-3"
           aria-hidden="true"
         />
       ) : null}

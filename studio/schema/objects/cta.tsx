@@ -47,18 +47,18 @@ export default defineType({
       type: 'image',
       group: 'background',
     }),
-    defineField({
-      name: 'mp4',
-      title: 'MP4 Video URL',
-      type: 'url',
-      group: 'background',
-    }),
-    defineField({
-      name: 'webm',
-      title: 'WEBM Video URL',
-      type: 'url',
-      group: 'background',
-    }),
+    // defineField({
+    //   name: 'mp4',
+    //   title: 'MP4 Video URL',
+    //   type: 'url',
+    //   group: 'background',
+    // }),
+    // defineField({
+    //   name: 'webm',
+    //   title: 'WEBM Video URL',
+    //   type: 'url',
+    //   group: 'background',
+    // }),
     defineField({
       name: 'primaryCTA',
       title: 'Primary Call to Action',

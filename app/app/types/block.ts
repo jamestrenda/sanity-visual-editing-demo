@@ -8,12 +8,14 @@ import { buttonZ } from './button'
 import { imageZ } from './image'
 import { badgeZ } from './badge'
 import { faqsZ } from './faqsZ'
+import { ctaBlockZ } from './ctaBlock'
 
 // export type BlockType = keyof typeof BLOCK_TYPES_QUERY
 export type BlockType =
   | 'badge'
   | 'block'
   | 'button'
+  | 'ctaBlock'
   | 'faq'
   | 'image'
   | 'logoCloud'
@@ -22,6 +24,7 @@ export type BlockType =
 export const blockZ = z.union([
   badgeZ,
   buttonZ,
+  ctaBlockZ,
   faqsZ,
   imageZ,
   logoCloudZ,
@@ -30,6 +33,7 @@ export const blockZ = z.union([
 
 export type Block = z.infer<typeof blockZ>
 
+// TODO: am i still using this?
 export const blocksZ = z.union([
   globalContentZ,
   logoCloudZ,

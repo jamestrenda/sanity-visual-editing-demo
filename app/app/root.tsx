@@ -156,7 +156,7 @@ export default function App() {
         />
         <main
           id="main"
-          className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:text-lg"
+          className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:!text-2xl"
         >
           <Outlet />
         </main>

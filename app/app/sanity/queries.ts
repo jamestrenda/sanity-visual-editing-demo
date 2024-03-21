@@ -91,6 +91,27 @@ const faqBlockFraqment = groq`
   anchor
 `
 
+const ctaBlockFragment = groq`
+  badge {
+    ${badgeFragment},
+  },
+  title,
+  subtitle,
+  image {
+    ${imageFieldsFragment}
+  },
+  primaryCTA {
+    ${linkFragment}
+  },
+  secondaryCTA {
+    ${linkFragment}
+  },
+  style {
+    fullHeight
+  },
+  anchor
+`
+
 const logoCloudFragment = groq`
   _key,
   _type,
@@ -110,6 +131,9 @@ const globalContentFragment = groq`
   ...block[0] {
     _type,
     _key,
+    _type == "ctaBlock" => {
+      ${ctaBlockFragment}
+    },
     _type == "logoCloud" => {
       ${logoCloudFragment}
     }
@@ -155,6 +179,9 @@ const blockContentFragment = groq`
     link {
       ${linkFragment}
     }
+  },
+  _type == "ctaBlock" => {
+    ${ctaBlockFragment}
   },
   _type == "faqBlock" => {
     ${faqBlockFraqment}

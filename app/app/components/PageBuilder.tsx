@@ -35,12 +35,9 @@ export default function PageBuilder({ sections }: { sections: Props }) {
   // const SectionComponent = componentMap[type] as React.FC<Pick<Props, 'index'>>
 
   // console.log('sections:', sections)
-  return sections ? (
+  return sections?.length ? (
     sections.map((section, index) => (
-      <section
-        key={index}
-        className="py-24 sm:py-32 px-6 md:px-8 space-y-8 flex flex-col items-center"
-      >
+      <section key={index} className="">
         <PageSection {...section} />
       </section>
     ))

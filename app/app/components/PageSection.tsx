@@ -8,6 +8,7 @@ import { Container } from './Container'
 import Image from './Image'
 import Badge from './Badge'
 import { FAQ } from './FAQ'
+import CallToAction from './CallToAction'
 
 // import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
 // import CallOutBlockWithImage from './callOutBlockWithImage';
@@ -34,6 +35,7 @@ const blocksMap = {
   image: Image,
   logoCloud: LogoCloud,
   faq: FAQ,
+  ctaBlock: CallToAction,
 }
 
 export type Props = {
@@ -46,16 +48,21 @@ export type Props = {
  *  Renders a page builder module based on the _type property.
  */
 export default function PageSection(props: PageSection) {
-  const { _key, blocks } = props
+  const { blocks } = props
 
   // console.log('props:', props)
 
-  return blocks.map((block, index) => <Block block={block} key={index} />)
+  return blocks?.length ? (
+    blocks.map((block, index) => <Block block={block} key={index} />)
+  ) : (
+    <></>
+  )
 }
 
 const Block = ({ block }: { block: Block }) => {
   const { _type } = block
 
+  // console.log('block:', _type, block)
   const SectionComponent = blocksMap[_type] as React.FC<any>
 
   // console.log('type:', _type)
@@ -101,6 +108,10 @@ const Block = ({ block }: { block: Block }) => {
         </Container>
       )
     default:
-      return _type ? <SectionComponent {...block} /> : <></>
+      return _type && _type in blocksMap ? (
+        <SectionComponent {...block} />
+      ) : (
+        <></>
+      )
   }
 }
