@@ -146,7 +146,7 @@ const Footer = ({
                       {menu.items?.length ? (
                         <ul role="list" className="mt-6 space-y-4">
                           {menu.items.map((item) =>
-                            item.link?.type === 'linkInternal' ? (
+                            item.link?._type === 'linkInternal' ? (
                               <li key={item._key}>
                                 <Link
                                   to={item.link?.to}
@@ -155,7 +155,7 @@ const Footer = ({
                                   {item.link?.linkText}
                                 </Link>
                               </li>
-                            ) : item.link?.type === 'linkExternal' ? (
+                            ) : item.link?._type === 'linkExternal' ? (
                               <li key={item._key}>
                                 <a
                                   href={item.link?.href}

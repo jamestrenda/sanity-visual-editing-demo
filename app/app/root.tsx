@@ -150,7 +150,10 @@ export default function App() {
             menu: settings.headerMenu,
           }}
         />
-        <main id="main" className="flex-grow">
+        <main
+          id="main"
+          className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:text-lg"
+        >
           <Outlet />
         </main>
         <Footer
@@ -170,7 +173,7 @@ export default function App() {
         }}
       />
       {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
-        <Suspense>
+        <Suspense fallback={<></>}>
           <LiveVisualEditing />
         </Suspense>
       ) : null}

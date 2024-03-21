@@ -6,14 +6,14 @@ const linkBaseZ = z.object({
 })
 
 export const linkInternalZ = linkBaseZ.extend({
-  type: z.literal('linkInternal'),
+  _type: z.literal('linkInternal'),
   to: z.string(),
   anchor: z.string().nullable(),
   prefetch: z.enum(['intent', 'viewport', 'render', 'none']).optional(),
 })
 
 export const linkExternalZ = linkBaseZ.extend({
-  type: z.literal('linkExternal'),
+  _type: z.literal('linkExternal'),
   newWindow: z.boolean().optional().nullable(),
   href: z.string(),
 })

@@ -10,6 +10,9 @@ interface Theme {
   replaceClassNames?: boolean
 }
 
+// interface Links extends LinkProps {
+
+// }
 type Links =
   | (LinkInternal & LinkProps)
   | (LinkExternal & AnchorHTMLAttributes<HTMLAnchorElement>)
@@ -17,10 +20,11 @@ type Links =
 type Props = Links | ButtonHTMLAttributes<HTMLButtonElement>
 
 export const Button = (props: Props & Theme) => {
+  console.log('props:', props)
   const theme = {
-    base: 'block rounded-sm px-3.5 py-2.5 text-sm font-semibold leading-6 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky cursor-pointer',
+    base: 'inline-block text-center mx-auto rounded-md px-8 py-4 text-2xl font-bold uppercase leading-6 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky cursor-pointer',
     primary:
-      'bg-primary-blue-500 text-white shadow-sm hover:bg-primary-blue-400',
+      'bg-primary-blue-500 text-white shadow-sm hover:bg-primary-blue-400 [text-shadow:_1px_1px_0_rgb(0_0_0_/_1)]',
     secondary: `bg-transparent text-black`,
     tertiary: 'bg-transparent',
   }
@@ -31,7 +35,7 @@ export const Button = (props: Props & Theme) => {
     ? props.className
     : twMerge(theme['base'], theme[selectedTheme], props.className)
 
-  switch (props.type) {
+  switch (props._type) {
     case 'linkInternal':
       let slug = props.to
         ? `/${props.to.replace(/^\//, '')}${
@@ -60,10 +64,11 @@ export const Button = (props: Props & Theme) => {
         >
           {props.linkText}
           {props.children ?? props.theme === 'secondary' ? (
-            <IconArrowRight
-              className="inline ml-2 w-4 h-4"
-              aria-hidden="true"
-            />
+            // <IconArrowRight
+            //   className="inline ml-2 w-4 h-4"
+            //   aria-hidden="true"
+            // />
+            <></>
           ) : null}
         </a>
       )

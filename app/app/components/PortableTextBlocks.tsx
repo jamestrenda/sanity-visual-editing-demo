@@ -2,22 +2,28 @@ import { PortableTextComponents } from '@portabletext/react'
 
 import { Link } from '@remix-run/react'
 import Image from './Image'
+import { Button } from './Button'
+import { Heading } from './Heading'
 
 // H1 is reserved for the page title, so we don't need to account for it here.
 export const PortableTextBlocks: PortableTextComponents = {
   block: {
     h2: ({ children }) => {
       return (
-        <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900 mb-6">
+        <Heading
+          as="h2"
+          // use="h1"
+          className="text-center"
+        >
           {children}
-        </h2>
+        </Heading>
       )
     },
     h3: ({ children }) => {
       return <h3 className="text-2xl font-bold mb-2">{children}</h3>
     },
     normal: ({ children }) => {
-      return <p className="mt-6">{children}</p>
+      return <p className="text-2xl">{children}</p>
     },
     // add more block-level components here.
   },
@@ -34,14 +40,43 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
   },
   marks: {
-    link: ({ value, children }) => {
+    anchor: ({ value, children }) => {
+      return <span id={value.value}>{children}</span>
+    },
+    externalLink: ({ value, children }) => {
       return (
-        <Link to={value.href} className="text-indigo-500 hover:underline">
+        <a
+          href={value.url}
+          target={value.newWindow ? '_blank' : '_self'}
+          className="text-primary-blue-500 no-underline hover:underline"
+        >
+          {children}
+        </a>
+      )
+    },
+    internalLink: ({ value, children }) => {
+      return (
+        <Link
+          to={value.href}
+          className="text-primary-blue-500 no-underline hover:underline"
+        >
           {children}
         </Link>
       )
     },
+    highlight: ({ children }) => {
+      return (
+        <span
+          style={{
+            background: 'linear-gradient(-180deg,#c1f99d 15%,#e0f5d3 94%)',
+          }}
+        >
+          {children}
+        </span>
+      )
+    },
   },
+  // TODO: the way I'm querying the blocks, I don't think these types will ever be used.
   types: {
     image: ({ value }) => {
       const { asset, hotspot, crop } = value.image
@@ -58,6 +93,18 @@ export const PortableTextBlocks: PortableTextComponents = {
           className={`object-cover w-full h-full my-8 rounded-lg shadow-md`}
           sizes={`min-width: ${asset.metadata?.dimensions.width}px) ${asset.metadata?.dimensions.width}px, 100vw`}
         />
+      )
+    },
+    button: ({ value }) => {
+      return (
+        <Button
+          {...value}
+          theme="primary"
+          className=""
+          // replaceClassNames
+        >
+          value.linkText
+        </Button>
       )
     },
   },

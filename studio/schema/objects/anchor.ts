@@ -1,7 +1,7 @@
 import { defineField } from 'sanity'
 
 export default defineField({
-  name: 'anchor',
+  name: 'value',
   title: 'Anchor',
   type: 'string',
   description: 'An anchor to link to within the same page.',

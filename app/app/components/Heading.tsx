@@ -12,7 +12,7 @@ export const Heading = (props: HeadingProps) => {
 
   let styles = {
     h1: 'font-montserrat text-5xl sm:text-7xl md:text-[100px] font-extrabold uppercase tracking-tight text-balance',
-    h2: 'font-montserrat font-extrabold tracking-tight text-3xl text-balance sm:text-5xl',
+    h2: 'font-montserrat font-extrabold tracking-tight text-3xl text-balance sm:text-4xl uppercase',
     h3: 'text-xl font-medium',
     h4: '',
     h5: '',
@@ -27,7 +27,7 @@ export const Heading = (props: HeadingProps) => {
       )
     case 'h2':
       return (
-        <h2 className={`text-balance ${twMerge(styles.h2, className)}`}>
+        <h2 className={`text-balance ${twMerge(styles[use ?? as], className)}`}>
           {children}
         </h2>
       )

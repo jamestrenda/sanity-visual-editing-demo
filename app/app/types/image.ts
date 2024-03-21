@@ -51,6 +51,11 @@ export const sanityImageObjectExtendedZ = z.object({
   hotspot: sanityImageHotspotZ.nullable().transform((v) => v ?? null),
 })
 
+export const imageZ = z.object({
+  _type: z.literal('image'),
+  image: sanityImageObjectExtendedZ,
+})
+
 export type SanityImageObjectExtended = z.infer<
   typeof sanityImageObjectExtendedZ
 >

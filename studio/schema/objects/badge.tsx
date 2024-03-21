@@ -8,6 +8,17 @@ export default defineType({
   title: 'Badge',
   type: 'object',
   icon: IconBadge,
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'text',
+    },
+    prepare({ title, subtitle }) {
+      return {
+        title: title || subtitle,
+      }
+    },
+  },
   fields: [
     defineField({
       name: 'title',

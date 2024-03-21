@@ -1,9 +1,16 @@
 import { HighlightIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import {
+  BlockDecoratorProps,
+  defineArrayMember,
+  defineField,
+  defineType,
+} from 'sanity'
 import HighlightDecorator from '~/components/HighlightDecorator'
 import { IconAnchor } from '~/icons/anchor'
 import { IconArrowUpRightFromSquare } from '~/icons/arrowUpRightFromSquare'
 import { IconLink } from '~/icons/link'
+import anchor from './anchor'
+import { IconAlignCenter } from '~/icons/alignCenter'
 
 export const portableTextBlocks = defineArrayMember({
   type: 'block',
@@ -34,6 +41,23 @@ export const portableTextBlocks = defineArrayMember({
       { title: 'Emphasis', value: 'em' },
       { title: 'Underline', value: 'underline' },
       { title: 'Strike', value: 'strike-through' },
+      // {
+      //   title: 'Align Center',
+      //   value: 'text-center',
+      //   icon: IconAlignCenter,
+      //   component: (props) => {
+      //     console.log('props', props)
+      //     return (
+      //       <div
+      //         style={{
+      //           textAlign: 'center',
+      //         }}
+      //       >
+      //         {props.children}
+      //       </div>
+      //     )
+      //   },
+      // },
       {
         title: 'Highlight',
         value: 'highlight',
@@ -73,13 +97,7 @@ export const portableTextBlocks = defineArrayMember({
         type: 'object',
         name: 'anchor',
         icon: IconAnchor,
-        fields: [
-          {
-            type: 'string',
-            name: 'value',
-            title: 'Anchor',
-          },
-        ],
+        fields: [anchor],
       },
     ],
   },

@@ -7,7 +7,7 @@ export const slugProjection = `"slug": ${slugFragment}`
 
 const linkFragment = groq`
   "_key": @.link[0]._key,
-  "type": @.link[0]._type,
+  "_type": @.link[0]._type,
   linkText,
   @.link[0]._type == "linkInternal" =>  {
     @.link[0].reference->isFrontpage => {
@@ -24,12 +24,10 @@ const linkFragment = groq`
 `
 
 export const badgeFragment = groq`
-  badge {
-    title,
-    text,
-    link {
-      ${linkFragment}
-    }
+  title,
+  text,
+  link {
+    ${linkFragment}
   }
 `
 
@@ -75,6 +73,12 @@ const portableTextFragment = groq`
 `
 
 const logoCloudFragment = groq`
+  _key,
+  _type,
+  badge {
+    ${badgeFragment}
+  },
+  title,
   "logos": logos[].image {
     ${imageFieldsFragment}
   }
@@ -93,14 +97,30 @@ const globalContentFragment = groq`
   }
 `
 
-export const BLOCK_TYPES_QUERY = {
-  block: groq`
-    ${portableTextFragment}
-  `,
-  logoCloud: groq`
-    ${logoCloudFragment}
-  `,
-}
+// this is really only being used in one place and that's in block.ts to create a type off the keys...
+// orginally this was copied from another project that had a different structure for the page builder
+// export const BLOCK_TYPES_QUERY = {
+//   badge: groq`
+//     badge {
+//       ${badgeFragment}
+//     },
+//   `,
+//   block: groq`
+//     ${portableTextFragment}
+//   `,
+//   logoCloud: groq`
+//     ${logoCloudFragment}
+//   `,
+//   button: groq`
+//     ${linkFragment}
+//   `,
+//   image: groq`{
+//     image {
+//       ${imageFieldsFragment}
+//     }
+//   }
+//   `,
+// }
 
 // contains all the types from the blockContent sanity schema
 const blockContentFragment = groq`
@@ -113,14 +133,26 @@ const blockContentFragment = groq`
   },
   _type == "imageObject" => {
     "_type": "image",
-    ${imageFieldsFragment}
+    image {
+      ${imageFieldsFragment}
+    }
   },
   _type == "block" => {
-    ...
+    ${portableTextFragment}
   },
+  _type == "button" => {
+    link {
+      ${linkFragment}
+    }
+  },
+  _type == "badge" => {
+    ${badgeFragment}
+  }
 `
 export const heroBaseFields = groq`
-  ${badgeFragment},
+  badge {
+    ${badgeFragment},
+  },
   title,
   subtitle,
   image {
