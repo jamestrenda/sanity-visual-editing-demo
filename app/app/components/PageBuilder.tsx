@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
 import { type PageBuilder as Props } from '~/types/pageBuilder'
 import PageSection from './PageSection'
+import { Block } from '~/types/block'
 
 // import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
 // import CallOutBlockWithImage from './callOutBlockWithImage';
@@ -30,20 +31,24 @@ import PageSection from './PageSection'
  *
  *  Renders a page builder module based on the _type property.
  */
-export default function PageBuilder({ sections }: { sections: Props }) {
+export default function PageBuilder({ sections }: { sections: Block[] }) {
   // const { type, component, index } = sections
   // const SectionComponent = componentMap[type] as React.FC<Pick<Props, 'index'>>
 
   // console.log('sections:', sections)
   return sections?.length ? (
-    sections.map((section, index) => (
-      <section
-        key={index}
-        className="py-24 sm:py-32 lg:py-40 flex flex-col group has-[.cta-block:last-child]:pb-0"
-      >
-        <PageSection {...section} />
-      </section>
-    ))
+    sections.map((section, index) => {
+      switch (section._type) {
+        case 'ctaBlock':
+          return <PageSection key={index} {...section} />
+        default:
+          return (
+            <section key={index} className="py-24 sm:py-32 lg:py-40">
+              <PageSection {...section} />
+            </section>
+          )
+      }
+    })
   ) : (
     <></>
   )

@@ -6,6 +6,7 @@ import { Button } from './Button'
 import { Heading } from './Heading'
 import { cn } from '~/utils/misc'
 import { c } from 'node_modules/vite/dist/node/types.d-FdqQ54oU'
+import Badge from './Badge'
 
 const proseCn =
   'max-w-5xl w-full text-xl md:text-2xl [&+*]:mt-8 mx-auto peer px-4 md:px-8'
@@ -18,7 +19,7 @@ export const PortableTextBlocks: PortableTextComponents = {
         <Heading
           as="h2"
           // use="h1"
-          className="text-center peer max-w-7xl mx-auto"
+          className=""
         >
           {children}
         </Heading>
@@ -26,24 +27,26 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
     h3: ({ children }) => {
       return (
-        <h3 className="text-2xl font-bold mb-2 peer max-w-7xl">{children}</h3>
+        <Heading as="h3" use="h3">
+          {children}
+        </Heading>
       )
     },
     normal: ({ children }) => {
-      return <p className={cn(proseCn)}>{children}</p>
+      return <p className="">{children}</p>
     },
     // add more block-level components here.
   },
   list: {
     bullet: ({ children }) => {
       return (
-        <ul role="list" className={cn('list-item mt-8 space-y-8', proseCn)}>
+        <ul role="list" className="">
           {children}
         </ul>
       )
     },
     number: ({ children }) => {
-      return <ol className={cn('list-decimal', proseCn)}>{children}</ol>
+      return <ol className="">{children}</ol>
     },
   },
   marks: {
@@ -62,6 +65,7 @@ export const PortableTextBlocks: PortableTextComponents = {
       )
     },
     internalLink: ({ value, children }) => {
+      console.log(value)
       return (
         <Link
           id={value.anchor ?? undefined}
@@ -84,9 +88,8 @@ export const PortableTextBlocks: PortableTextComponents = {
       )
     },
   },
-  // TODO: the way I'm querying the blocks, I don't think these types will ever be used.
   types: {
-    image: ({ value }) => {
+    imageObject: ({ value }) => {
       const { asset, hotspot, crop } = value.image
       return (
         <Image
@@ -98,10 +101,13 @@ export const PortableTextBlocks: PortableTextComponents = {
           crop={crop}
           preview={asset.metadata?.lqip ?? ''}
           alt={asset.altText ?? ''}
-          className={`object-cover w-full h-full my-8 rounded-lg shadow-md`}
+          className={`object-cover w-full h-full my-8 rounded-lg shadow-md md:my-16`}
           sizes={`min-width: ${asset.metadata?.dimensions.width}px) ${asset.metadata?.dimensions.width}px, 100vw`}
         />
       )
+    },
+    badge: ({ value }) => {
+      return <Badge {...value} />
     },
     button: ({ value }) => {
       return (

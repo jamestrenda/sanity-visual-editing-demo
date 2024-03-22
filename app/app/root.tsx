@@ -84,7 +84,7 @@ function Document({
         <link rel="icon" href={favicon} type="image/png" />
         <Links />
       </head>
-      <body className="">
+      <body className="group">
         <Link to="#main" className="sr-only focus:not-sr-only">
           Skip to main content
         </Link>
@@ -156,7 +156,7 @@ export default function App() {
         />
         <main
           id="main"
-          className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:!text-2xl"
+          className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:!text-2xl [&_.prose]:!max-w-7xl"
         >
           <Outlet />
         </main>

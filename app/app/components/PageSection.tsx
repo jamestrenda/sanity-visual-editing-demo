@@ -31,7 +31,7 @@ import Checklist from './Checklist'
 
 const blocksMap = {
   badge: Badge,
-  block: PortableTextBlock,
+  textBlock: PortableTextBlock,
   button: Button,
   checklist: Checklist,
   ctaBlock: CallToAction,
@@ -49,17 +49,20 @@ export type Props = {
  *
  *  Renders a page builder module based on the _type property.
  */
-export default function PageSection(props: PageSection) {
-  const { blocks } = props
+export default function PageSection(props: Block) {
+  // const { blocks } = props
 
   // console.log('props:', props)
+  // console.log('props:', props)
 
-  console.log('blocks:', blocks)
+  // console.log('blocks:', blocks)
 
-  return blocks?.length ? (
-    blocks.map((block, index) => <Block block={block} key={index} />)
-  ) : (
-    <></>
+  // return blocks?.length ? (
+  // blocks.map((block, index) =>
+  return (
+    <Block block={props} />
+    // ) : (
+    // <></>
   )
 }
 
@@ -109,9 +112,6 @@ const Block = ({ block }: { block: Block }) => {
           <SectionComponent {...props} />
         </Container>
       )
-    case 'block':
-      console.log('block:', block)
-      return <SectionComponent {...block} className="peer" />
     default:
       return _type && _type in blocksMap ? (
         <SectionComponent {...block} className="peer" />

@@ -15,7 +15,6 @@ const Checklist = ({ _type, items, anchor, className }: Props) => {
       )}
     >
       {items.map(({ item, _key }) => {
-        console.log('item:', item)
         return (
           <li key={_key} className="flex flex-nowrap items-start">
             <IconCircleCheck className="h-7 w-7 mr-4 mt-1 fill-secondary-green-500" />

@@ -32,7 +32,9 @@ export const Heading = (props: HeadingProps) => {
         </h2>
       )
     case 'h3':
-      return <h3 className={twMerge(styles.h3, className)}>{children}</h3>
+      return (
+        <h3 className={twMerge(styles[use ?? as], className)}>{children}</h3>
+      )
     case 'h4':
       return <h4>{children}</h4>
     case 'h5':

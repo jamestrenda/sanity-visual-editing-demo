@@ -2,14 +2,19 @@ import { PortableText } from '@portabletext/react'
 import { type PortableTextBlock } from '@sanity/types'
 
 import { PortableTextBlocks } from './PortableTextBlocks'
+import { Container } from './Container'
 // import { Container } from './Container'
 
-const PortableTextBlock = (props: PortableTextBlock) => {
+const PortableTextBlock = ({
+  portableText,
+}: {
+  portableText: PortableTextBlock
+}) => {
   //   const value = React.useMemo(() => richTextZ.parse(richText), [richText]);
   return (
-    // <div className="[&>p]:prose [&>ul]:prose [&>ol]:prose mx-auto">
-    <PortableText value={props} components={PortableTextBlocks} />
-    // </div>
+    <Container className="prose mx-auto group">
+      <PortableText value={portableText} components={PortableTextBlocks} />
+    </Container>
   )
 }
 

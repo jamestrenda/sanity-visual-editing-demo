@@ -54,15 +54,12 @@ export const imageFieldsFragment = groq`
 const portableTextFragment = groq`
   ...,
   markDefs[]{
+    ...,
     _type == "internalLink" => {
-      _type,
-      _key,
       "slug": @.linkInternal.reference->slug.current,
       "anchor": @.linkInternal.anchor
     },
     _type == "externalLink" => {
-      _type,
-      _key,
       "url": @.linkExternal.url,
       "newWindow": @.linkExternal.newWindow
     },
@@ -70,6 +67,14 @@ const portableTextFragment = groq`
       ...
     }
   },
+  _type == "imageObject" => {
+    "image": image {
+      ${imageFieldsFragment}
+    }
+  },
+  !(_type in ["imageObject"]) => {
+    ...
+  }
 `
 
 const faqBlockFraqment = groq`
@@ -184,8 +189,10 @@ const blockContentFragment = groq`
   _type == "badge" => {
     ${badgeFragment}
   },
-  _type == "block" => {
-    ${portableTextFragment}
+  _type == "textBlock" => {
+    portableText [] {
+      ${portableTextFragment}
+    }
   },
   _type == "button" => {
     link {
@@ -211,7 +218,7 @@ const blockContentFragment = groq`
     _type == "globalContent" => {
       ${globalContentFragment}
     }
-  },
+  }
 `
 export const heroBaseFields = groq`
   badge {
@@ -246,9 +253,7 @@ const pageFields = groq`
   "sections": pageBuilder[] {
     _type,
     _key,
-    blocks[] {
-      ${blockContentFragment}
-    }
+    ${blockContentFragment}
   },
   "slug": ${slugFragment},
   isFrontpage,

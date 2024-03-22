@@ -1,16 +1,10 @@
 import { HighlightIcon } from '@sanity/icons'
-import {
-  BlockDecoratorProps,
-  defineArrayMember,
-  defineField,
-  defineType,
-} from 'sanity'
+import { defineArrayMember, defineType } from 'sanity'
 import HighlightDecorator from '~/components/HighlightDecorator'
 import { IconAnchor } from '~/icons/anchor'
 import { IconArrowUpRightFromSquare } from '~/icons/arrowUpRightFromSquare'
 import { IconLink } from '~/icons/link'
 import anchor from './anchor'
-import { IconAlignCenter } from '~/icons/alignCenter'
 
 export const portableTextBlocks = defineArrayMember({
   type: 'block',
@@ -107,5 +101,13 @@ export const portableTextBlocks = defineArrayMember({
 export default defineType({
   name: 'portableText',
   type: 'array',
-  of: [portableTextBlocks],
+  of: [
+    portableTextBlocks,
+    {
+      type: 'badge',
+    },
+    {
+      type: 'imageObject',
+    },
+  ],
 })

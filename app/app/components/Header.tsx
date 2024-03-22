@@ -10,7 +10,7 @@ const Header = ({ phone, email, logo, menu }: Props) => {
 
   return (
     <header
-      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 `}
+      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 group-has-[.page-not-found]:!bg-black/90 group-has-[.no-hero]:!bg-black/90`}
     >
       <Container className="grid grid-cols-3 items-center justify-center">
         {phone ? (

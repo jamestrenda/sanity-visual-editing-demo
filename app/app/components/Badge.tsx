@@ -41,7 +41,7 @@ const Component = ({ title, text, className, link }: Omit<Props, '_type'>) => {
   return (
     <div
       className={twMerge(
-        'badge group-has-[.badge]:self-center [&:not(:first-child)]:mt-24 flex justify-center items-center text-xs py-1 bg-secondary-green-500 text-black/70 px-1 rounded-full mb-4 uppercase font-bold tracking-wider',
+        'badge group-has-[.prose]:w-fit mx-auto flex justify-center items-center text-xs py-1 bg-secondary-green-500 text-black/70 px-1 rounded-full mb-4 uppercase font-bold tracking-wider',
         className,
       )}
     >

@@ -10,12 +10,11 @@ export default defineType({
   icon: IconBadge,
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'text',
+      title: 'text',
     },
-    prepare({ title, subtitle }) {
+    prepare({ title }) {
       return {
-        title: title || subtitle,
+        title: title || 'Badge',
       }
     },
   },

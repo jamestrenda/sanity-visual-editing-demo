@@ -11,7 +11,7 @@ export const Page = ({ page }: { page: Props }) => {
       {page.hero && !page.hero.hideHero ? (
         <Hero {...page.hero} />
       ) : (
-        <Container className="">
+        <Container className="no-hero min-h-[400px] grid items-center">
           <Heading as="h1" use="h1" className="pt-24 sm:pt-32">
             {page.title}
           </Heading>

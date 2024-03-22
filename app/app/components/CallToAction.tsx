@@ -22,7 +22,7 @@ export default function CallToAction({
   return (
     <div
       className={cn(
-        `cta-block my-16 last:mb-0 bg-primary-dark-900 relative isolate px-6 py-24 sm:py-32 lg:px-8 grid place-items-center ${className} ${style?.fullHeight ? 'min-h-screen' : ''}`,
+        `cta-block bg-primary-dark-900 relative isolate px-6 py-24 sm:py-32 lg:px-8 grid place-items-center ${className} ${style?.fullHeight ? 'min-h-screen' : ''}`,
       )}
     >
       {image?.asset ? (

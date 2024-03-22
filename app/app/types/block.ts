@@ -14,7 +14,7 @@ import { checklistZ } from './checklist'
 // export type BlockType = keyof typeof BLOCK_TYPES_QUERY
 export type BlockType =
   | 'badge'
-  | 'block'
+  | 'textBlock'
   | 'button'
   | 'checklist'
   | 'ctaBlock'

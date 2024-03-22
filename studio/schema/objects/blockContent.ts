@@ -1,9 +1,28 @@
-import { defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 import PageBuilderInput from '~/components/PageBuilderInput'
-import { portableTextBlocks } from './portableText'
+import portableText, { portableTextBlocks } from './portableText'
 
 export const blockContentTypes = [
-  portableTextBlocks,
+  {
+    type: 'object',
+    title: 'Rich Text',
+    name: 'textBlock',
+    // icon: RiText,
+    preview: {
+      prepare() {
+        return {
+          title: 'Rich Text',
+        }
+      },
+    },
+    fields: [
+      defineField({
+        title: 'Rich Text',
+        name: 'portableText',
+        type: 'portableText',
+      }),
+    ],
+  },
   {
     type: 'badge',
   },

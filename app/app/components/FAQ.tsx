@@ -11,15 +11,12 @@ import PortableTextBlock from './PortableText'
 
 export function FAQ({ title, text, faqs, anchor }: FAQ) {
   return (
-    <Container
-      className="faqs [&:not(:first-child)]:py-24"
-      id={anchor ?? 'faq'}
-    >
+    <Container className="faqs" id={anchor ?? 'faq'}>
       <Heading use="h2" as="h2" className="text-center">
         {title ?? 'Frequently Asked Questions'}
       </Heading>
       <div className="text-lg md:[&>p]:text-2xl my-6 max-w-3xl mx-auto text-center">
-        <PortableText value={text} />
+        <PortableTextBlock portableText={text} />
       </div>
       <dl className="mt-10 divide-y divide-gray-900/10">
         {faqs.map((faq) => (
@@ -33,7 +30,7 @@ export function FAQ({ title, text, faqs, anchor }: FAQ) {
               <>
                 <dt>
                   <Disclosure.Button className="bg-gray-100 flex w-full items-start justify-between text-left text-gray-900 relative">
-                    <Heading as="h3" className="p-6 pr-14">
+                    <Heading use="h3" as="h3" className="p-6 pr-14">
                       {faq.question}
                     </Heading>
                     <span className="ml-6 flex items-center absolute inset-y-0 right-6 my-atuo">
@@ -50,11 +47,11 @@ export function FAQ({ title, text, faqs, anchor }: FAQ) {
                 </dt>
                 <Disclosure.Panel
                   as="dd"
-                  className="mt-2 pr-12 p-6 [&>.prose]:!text-lg md:[&>.prose]:!text-2xl"
+                  className="mt-2 pr-12 p-6 [&>.prose]:!w-full [&>.prose]:!max-w-none"
                 >
                   {faq.answer?.length ? (
                     faq.answer.map((block: any) => (
-                      <PortableTextBlock {...block} />
+                      <PortableTextBlock portableText={block} />
                     ))
                   ) : (
                     <p className="text-gray-900">
