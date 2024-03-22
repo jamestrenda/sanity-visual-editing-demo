@@ -4,6 +4,11 @@ import { Link } from '@remix-run/react'
 import Image from './Image'
 import { Button } from './Button'
 import { Heading } from './Heading'
+import { cn } from '~/utils/misc'
+import { c } from 'node_modules/vite/dist/node/types.d-FdqQ54oU'
+
+const proseCn =
+  'max-w-5xl w-full text-xl md:text-2xl [&+*]:mt-8 mx-auto peer px-4 md:px-8'
 
 // H1 is reserved for the page title, so we don't need to account for it here.
 export const PortableTextBlocks: PortableTextComponents = {
@@ -13,35 +18,37 @@ export const PortableTextBlocks: PortableTextComponents = {
         <Heading
           as="h2"
           // use="h1"
-          className="text-center"
+          className="text-center peer max-w-7xl mx-auto"
         >
           {children}
         </Heading>
       )
     },
     h3: ({ children }) => {
-      return <h3 className="text-2xl font-bold mb-2">{children}</h3>
+      return (
+        <h3 className="text-2xl font-bold mb-2 peer max-w-7xl">{children}</h3>
+      )
     },
     normal: ({ children }) => {
-      return <p className="prose">{children}</p>
+      return <p className={cn(proseCn)}>{children}</p>
     },
     // add more block-level components here.
   },
   list: {
     bullet: ({ children }) => {
       return (
-        <ul role="list" className="mt-8 space-y-8 text-gray-600">
+        <ul role="list" className={cn('list-item mt-8 space-y-8', proseCn)}>
           {children}
         </ul>
       )
     },
     number: ({ children }) => {
-      return <ol className="list-decimal">{children}</ol>
+      return <ol className={cn('list-decimal', proseCn)}>{children}</ol>
     },
   },
   marks: {
-    anchor: ({ value, children }) => {
-      return <span id={value.anchorLink}>{children}</span>
+    anchorLink: ({ value, children }) => {
+      return <span id={value.anchor}>{children}</span>
     },
     externalLink: ({ value, children }) => {
       return (
@@ -57,7 +64,8 @@ export const PortableTextBlocks: PortableTextComponents = {
     internalLink: ({ value, children }) => {
       return (
         <Link
-          to={value.href}
+          id={value.anchor ?? undefined}
+          to={`/${value.slug}`}
           className="text-primary-blue-500 no-underline hover:underline"
         >
           {children}

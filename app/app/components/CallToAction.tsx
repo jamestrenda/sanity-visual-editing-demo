@@ -5,6 +5,9 @@ import { BackgroundImage } from './BackgroundImage'
 import BackgroundParticles from './BackgroundParticles'
 import { Button } from './Button'
 import { CallToActionBlock } from '~/types/ctaBlock'
+import { cn } from '~/utils/misc'
+
+type Props = CallToActionBlock & { className?: string }
 
 export default function CallToAction({
   title,
@@ -14,15 +17,20 @@ export default function CallToAction({
   style,
   primaryCTA,
   secondaryCTA,
-}: CallToActionBlock) {
+  className,
+}: Props) {
   return (
     <div
-      className={`bg-primary-dark-900 relative isolate px-6 py-24 sm:py-32 lg:px-8 grid place-items-center [&_canvas]:!-z-10 [&_canvas]:!absolute [&_#tsparticles]:absolute [&_#tsparticles]:inset-0 [&_#tsparticles]:pointer-events-none ${style?.fullHeight ? 'min-h-screen' : ''}`}
+      className={cn(
+        `cta-block my-16 last:mb-0 bg-primary-dark-900 relative isolate px-6 py-24 sm:py-32 lg:px-8 grid place-items-center ${className} ${style?.fullHeight ? 'min-h-screen' : ''}`,
+      )}
     >
       {image?.asset ? (
         <BackgroundImage image={image} />
       ) : (
-        <BackgroundParticles />
+        <div className="[&_canvas]:!-z-10 [&_canvas]:!absolute [&_#tsparticles]:absolute [&_#tsparticles]:inset-0 [&_#tsparticles]:pointer-events-none">
+          <BackgroundParticles />
+        </div>
       )}
 
       <div className="mx-auto max-w-sm md:max-w-2xl text-center flex flex-col items-center justify-center z-10">

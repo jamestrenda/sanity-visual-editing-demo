@@ -37,7 +37,10 @@ export default function PageBuilder({ sections }: { sections: Props }) {
   // console.log('sections:', sections)
   return sections?.length ? (
     sections.map((section, index) => (
-      <section key={index} className="">
+      <section
+        key={index}
+        className="py-24 sm:py-32 lg:py-40 flex flex-col group has-[.cta-block:last-child]:pb-0"
+      >
         <PageSection {...section} />
       </section>
     ))

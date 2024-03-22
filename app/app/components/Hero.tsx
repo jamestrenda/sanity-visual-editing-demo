@@ -40,7 +40,7 @@ export default function Hero({
   return (
     <section
       ref={ref}
-      className={`!bg-transparent relative isolate px-6 py-24 sm:py-32 lg:px-8 grid place-items-center [&_canvas]:!-z-10 [&_canvas]:!absolute [&_#tsparticles]:absolute [&_#tsparticles]:inset-0 [&_#tsparticles]:pointer-events-none ${style?.fullHeight ? 'min-h-screen' : ''}`}
+      className={`!bg-transparent relative isolate px-6 py-24 sm:py-32 lg:px-8 grid place-items-center ${style?.fullHeight ? 'min-h-screen' : ''}`}
     >
       {/* {image?.asset ? <BackgroundImage image={image} /> : null} */}
       <div className="absolute inset-0 pointer-events-none -skew-y-6 md:-skew-y-12 overflow-hidden origin-[0]">
@@ -50,7 +50,9 @@ export default function Hero({
           ) : image?.asset ? (
             <BackgroundImage image={image} />
           ) : (
-            <BackgroundParticles />
+            <div className="[&_canvas]:!-z-10 [&_canvas]:!absolute [&_#tsparticles]:absolute [&_#tsparticles]:inset-0 [&_#tsparticles]:pointer-events-none">
+              <BackgroundParticles />
+            </div>
           )}
         </div>
       </div>

@@ -12,7 +12,7 @@ export const Page = ({ page }: { page: Props }) => {
         <Hero {...page.hero} />
       ) : (
         <Container className="">
-          <Heading use="h1" className="pt-24 sm:pt-32">
+          <Heading as="h1" use="h1" className="pt-24 sm:pt-32">
             {page.title}
           </Heading>
         </Container>

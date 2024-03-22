@@ -9,6 +9,7 @@ import Image from './Image'
 import Badge from './Badge'
 import { FAQ } from './FAQ'
 import CallToAction from './CallToAction'
+import Checklist from './Checklist'
 
 // import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
 // import CallOutBlockWithImage from './callOutBlockWithImage';
@@ -32,10 +33,11 @@ const blocksMap = {
   badge: Badge,
   block: PortableTextBlock,
   button: Button,
+  checklist: Checklist,
+  ctaBlock: CallToAction,
   image: Image,
   logoCloud: LogoCloud,
   faq: FAQ,
-  ctaBlock: CallToAction,
 }
 
 export type Props = {
@@ -51,6 +53,8 @@ export default function PageSection(props: PageSection) {
   const { blocks } = props
 
   // console.log('props:', props)
+
+  console.log('blocks:', blocks)
 
   return blocks?.length ? (
     blocks.map((block, index) => <Block block={block} key={index} />)
@@ -70,11 +74,9 @@ const Block = ({ block }: { block: Block }) => {
   switch (_type) {
     case 'button':
       return (
-        <Container className="max-w-2xl my-12 text-center">
-          <SectionComponent {...block.link} className="">
-            {block.link.linkText}
-          </SectionComponent>
-        </Container>
+        <SectionComponent {...block.link} className="text-center peer">
+          {block.link.linkText}
+        </SectionComponent>
       )
     case 'image':
       const props = {
@@ -86,11 +88,11 @@ const Block = ({ block }: { block: Block }) => {
         crop: block.image.crop,
         hotspot: block.image.hotspot,
         preview: block.image.asset?.metadata?.lqip ?? '',
-        // className: 'absolute inset-0 h-full w-full object-cover opacity-30 transition duration-1000',
+        className: 'my-8',
         // sizes: '(min-width: 768px) 96vw, 100vw',
       }
       return (
-        <Container>
+        <Container className="peer">
           {/* <Image
         id={image.asset._id}
         alt={image.asset.altText ?? ''}
@@ -107,9 +109,12 @@ const Block = ({ block }: { block: Block }) => {
           <SectionComponent {...props} />
         </Container>
       )
+    case 'block':
+      console.log('block:', block)
+      return <SectionComponent {...block} className="peer" />
     default:
       return _type && _type in blocksMap ? (
-        <SectionComponent {...block} />
+        <SectionComponent {...block} className="peer" />
       ) : (
         <></>
       )

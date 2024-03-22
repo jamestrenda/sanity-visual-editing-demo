@@ -1,4 +1,4 @@
-import type { IconProps } from './type'
+import { IconProps } from '.'
 
 const IconCircleCheck = (props: IconProps) => {
   return (

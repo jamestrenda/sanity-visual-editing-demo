@@ -22,7 +22,7 @@ const BackgroundParticles = memo(() => {
   }, [])
 
   const particlesLoaded = async (container?: Container): Promise<void> => {
-    console.log(container)
+    return
   }
   const options: ISourceOptions = useMemo(
     () => ({

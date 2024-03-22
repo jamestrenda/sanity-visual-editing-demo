@@ -91,6 +91,18 @@ const faqBlockFraqment = groq`
   anchor
 `
 
+const checklistFragment = groq`
+  _type,
+  _key,
+  items[] {
+    _key,
+    item[] {
+      ${portableTextFragment}
+    }
+  },
+  anchor
+`
+
 const ctaBlockFragment = groq`
   badge {
     ${badgeFragment},
@@ -179,6 +191,9 @@ const blockContentFragment = groq`
     link {
       ${linkFragment}
     }
+  },
+  _type == "checklist" => {
+    ${checklistFragment}
   },
   _type == "ctaBlock" => {
     ${ctaBlockFragment}
