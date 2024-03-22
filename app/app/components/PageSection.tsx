@@ -10,6 +10,8 @@ import Badge from './Badge'
 import { FAQ } from './FAQ'
 import CallToAction from './CallToAction'
 import Checklist from './Checklist'
+import Team from './Team'
+import Stats from './Stats'
 
 // import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
 // import CallOutBlockWithImage from './callOutBlockWithImage';
@@ -38,6 +40,8 @@ const blocksMap = {
   image: Image,
   logoCloud: LogoCloud,
   faq: FAQ,
+  statsBlock: Stats,
+  teamGrid: Team,
 }
 
 export type Props = {
@@ -50,13 +54,6 @@ export type Props = {
  *  Renders a page builder module based on the _type property.
  */
 export default function PageSection(props: Block) {
-  // const { blocks } = props
-
-  // console.log('props:', props)
-  // console.log('props:', props)
-
-  // console.log('blocks:', blocks)
-
   // return blocks?.length ? (
   // blocks.map((block, index) =>
   return (
@@ -69,10 +66,7 @@ export default function PageSection(props: Block) {
 const Block = ({ block }: { block: Block }) => {
   const { _type } = block
 
-  // console.log('block:', _type, block)
   const SectionComponent = blocksMap[_type] as React.FC<any>
-
-  // console.log('type:', _type)
 
   switch (_type) {
     case 'button':
@@ -91,26 +85,14 @@ const Block = ({ block }: { block: Block }) => {
         crop: block.image.crop,
         hotspot: block.image.hotspot,
         preview: block.image.asset?.metadata?.lqip ?? '',
-        className: 'my-8',
+        className:
+          'block-image my-8 group-has-[.block-image]:my-0 h-full w-full object-cover',
         // sizes: '(min-width: 768px) 96vw, 100vw',
       }
       return (
-        <Container className="peer">
-          {/* <Image
-        id={image.asset._id}
-        alt={image.asset.altText ?? ''}
-        width={1920}
-        loading="eager"
-        // height={image.asset.metadata?.dimensions.height ?? 1080}
-        queryParams={{ q: 100, fm: 'webp' }}
-        crop={image.crop}
-        hotspot={image.hotspot}
-        preview={image.asset.metadata?.lqip ?? ''}
-        className="absolute inset-0 h-full w-full object-cover opacity-30 transition duration-1000"
-        sizes="(min-width: 768px) 96vw, 100vw"
-      /> */}
+        <div className="h-[50vw] max-h-[600px] min-h-[400px]">
           <SectionComponent {...props} />
-        </Container>
+        </div>
       )
     default:
       return _type && _type in blocksMap ? (

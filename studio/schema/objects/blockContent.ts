@@ -1,13 +1,14 @@
 import { defineField, defineType } from 'sanity'
 import PageBuilderInput from '~/components/PageBuilderInput'
 import portableText, { portableTextBlocks } from './portableText'
+import { IconText } from '~/icons/text'
 
 export const blockContentTypes = [
   {
     type: 'object',
     title: 'Rich Text',
     name: 'textBlock',
-    // icon: RiText,
+    icon: IconText,
     preview: {
       prepare() {
         return {
@@ -32,9 +33,9 @@ export const blockContentTypes = [
   // {
   //   type: 'carousel',
   // },
-  {
-    type: 'checklist',
-  },
+  // {
+  //   type: 'checklist',
+  // },
   {
     type: 'ctaBlock',
   },
@@ -74,8 +75,11 @@ export const blockContentTypes = [
     type: 'statsBlock',
   },
   {
-    type: 'video',
+    type: 'teamGrid',
   },
+  // {
+  //   type: 'video',
+  // },
 ]
 
 export default defineType({

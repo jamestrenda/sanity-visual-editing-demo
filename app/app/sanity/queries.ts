@@ -67,12 +67,17 @@ const portableTextFragment = groq`
       ...
     }
   },
+  _type == "button" => {
+    link {
+      ${linkFragment}
+    }
+  },
   _type == "imageObject" => {
     "image": image {
       ${imageFieldsFragment}
     }
   },
-  !(_type in ["imageObject"]) => {
+  !(_type in ["imageObject", "button"]) => {
     ...
   }
 `
@@ -141,6 +146,31 @@ const logoCloudFragment = groq`
   }
 `
 
+const teamFragment = groq`
+  _key,
+  _type,
+  badge {
+    ${badgeFragment}
+  },
+  title,
+  text,
+  members[]-> {
+    _type,
+    _id,
+    firstName,
+    lastName,
+    position,
+    "image": @.image.image {
+      ${imageFieldsFragment}
+    },
+    socialMedia {
+      instagram,
+      linkedin,
+      x
+    }
+  }
+`
+
 //!(_type in ["image", "imageObject"]) => {
 
 // TODO: need a globalContentFragment that contains all the types from the globalContent sanity schema
@@ -154,6 +184,28 @@ const globalContentFragment = groq`
     _type == "logoCloud" => {
       ${logoCloudFragment}
     }
+  }
+`
+
+const statsFragment = groq`
+  _key,
+  _type,
+  badge {
+    ${badgeFragment}
+  },
+  title,
+  text[] {
+    ${portableTextFragment}
+  },
+  image {
+    ${imageFieldsFragment}
+  },
+  stats[] {
+    _key,
+    name,
+    value,
+    prefix,
+    suffix
   }
 `
 
@@ -213,6 +265,12 @@ const blockContentFragment = groq`
     image {
       ${imageFieldsFragment}
     }
+  },
+  _type == "teamGrid" => {
+    ${teamFragment}
+  },
+  _type == "statsBlock" => {
+    ${statsFragment}
   },
   _type == "reference" => @-> {
     _type == "globalContent" => {

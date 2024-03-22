@@ -13,7 +13,6 @@ type Address = {
 }
 
 export function AddressInput(props: ObjectInputProps<Address>) {
-  console.log('props', props)
   const { members } = props
 
   const street = members.find(

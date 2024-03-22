@@ -107,6 +107,9 @@ export default defineType({
       type: 'badge',
     },
     {
+      type: 'button',
+    },
+    {
       type: 'imageObject',
     },
   ],

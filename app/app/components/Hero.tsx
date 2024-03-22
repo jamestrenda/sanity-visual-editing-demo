@@ -55,7 +55,7 @@ export default function Hero({
           )}
         </div>
       </div>
-      <div className="mx-auto max-w-sm md:max-w-2xl text-center flex flex-col items-center justify-center z-10 relative lg:pt-20">
+      <div className="mx-auto max-w-sm md:max-w-5xl text-center flex flex-col items-center justify-center z-10 relative lg:pt-20 px-6 md:px-8">
         {badge ? <Badge {...badge} className="" /> : null}
         <Heading as="h1" use="h1" className="mt-2  text-white">
           {title}
@@ -67,12 +67,7 @@ export default function Hero({
         {primaryCTA || secondaryCTA ? (
           <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 text-center">
             {primaryCTA ? (
-              <Button
-                {...primaryCTA}
-                theme="primary"
-                className=""
-                // replaceClassNames
-              >
+              <Button {...primaryCTA} theme="primary">
                 {primaryCTA.linkText}
               </Button>
             ) : null}
@@ -89,6 +84,20 @@ export default function Hero({
           </div>
         ) : null}
       </div>
+      {/*  TODO: add wisteria video
+      <div className="grid place-items-center sm:p-8 md:p-16 -mb-10 relative z-10 mt-16">
+        <script
+          src="https://fast.wistia.com/embed/medias/n3lfx22xle.jsonp"
+          async
+        ></script>
+        <script
+          src="https://fast.wistia.com/assets/external/E-v1.js"
+          async
+        ></script>
+        <span className="wistia_embed wistia_async_n3lfx22xle popover=true inline-block w-[90vw] h-[50vw] md:h-[40vw] md:w-[80vw] max-w-[800px] max-h-[450px] relative shadow-xl rounded-md">
+          &nbsp;
+        </span>
+      </div> */}
       <ScrollDownIndicator show={showScrollIndicator} />
       <Stripes />
     </section>

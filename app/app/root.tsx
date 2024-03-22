@@ -12,12 +12,11 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import { lazy, Suspense, useEffect } from 'react'
-import { Container } from './components/Container'
-import dayjs from 'dayjs'
+
 import { loadQuery, useQuery } from '@sanity/react-loader'
-import { ROOT_QUERY, SETTINGS_QUERY } from './sanity/queries'
+import { ROOT_QUERY } from './sanity/queries'
 import { SiteSettings } from './types/siteSettings'
-import Image from './components/Image'
+
 import { parsePhoneNumber } from 'awesome-phonenumber'
 import Header from './components/Header'
 import { useFontFaceObserver } from './hooks/useFontFaceObserver'
@@ -26,6 +25,8 @@ import { GeneralErrorBoundary } from './components/ErrorBoundary'
 import { Company } from './types/company'
 import PageNotFound from './components/PageNotFound'
 import { middleware } from './http'
+
+import { LazyMotion, domAnimation } from 'framer-motion'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -145,32 +146,34 @@ export default function App() {
         favicon: settings.favicon ?? 'https://fav.farm/🔥',
       }}
     >
-      <div className="flex flex-col min-h-screen">
-        <Header
-          {...{
-            email: company.email,
-            logo: company.logo,
-            phone: phoneFormatted,
-            menu: settings.headerMenu,
-          }}
-        />
-        <main
-          id="main"
-          className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:!text-2xl [&_.prose]:!max-w-7xl"
-        >
-          <Outlet />
-        </main>
-        <Footer
-          {...{
-            logo: company.logo,
-            tagline: company.tagline,
-            socialMedia: company.socialMedia,
-            address: company.address,
-            siteTitle,
-            menus: settings.footerMenus,
-          }}
-        />
-      </div>
+      <LazyMotion strict features={domAnimation}>
+        <div className="flex flex-col min-h-screen">
+          <Header
+            {...{
+              email: company.email,
+              logo: company.logo,
+              phone: phoneFormatted,
+              menu: settings.headerMenu,
+            }}
+          />
+          <main
+            id="main"
+            className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:!text-xl sm:[&_.prose]:!text-2xl [&_.prose]:!max-w-7xl"
+          >
+            <Outlet />
+          </main>
+          <Footer
+            {...{
+              logo: company.logo,
+              tagline: company.tagline,
+              socialMedia: company.socialMedia,
+              address: company.address,
+              siteTitle,
+              menus: settings.footerMenus,
+            }}
+          />
+        </div>
+      </LazyMotion>
       <script
         dangerouslySetInnerHTML={{
           __html: `window.ENV = ${JSON.stringify(ENV)}`,

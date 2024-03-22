@@ -33,7 +33,7 @@ export const PortableTextBlocks: PortableTextComponents = {
       )
     },
     normal: ({ children }) => {
-      return <p className="">{children}</p>
+      return <p>{children}</p>
     },
     // add more block-level components here.
   },
@@ -65,7 +65,7 @@ export const PortableTextBlocks: PortableTextComponents = {
       )
     },
     internalLink: ({ value, children }) => {
-      console.log(value)
+      // console.log(value)
       return (
         <Link
           id={value.anchor ?? undefined}
@@ -111,13 +111,8 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
     button: ({ value }) => {
       return (
-        <Button
-          {...value}
-          theme="primary"
-          className=""
-          // replaceClassNames
-        >
-          value.linkText
+        <Button {...value.link} className="">
+          {value.linkText}
         </Button>
       )
     },

@@ -9,10 +9,8 @@ export default defineType({
   icon: IconVideo,
   fields: [
     defineField({
-      name: 'url',
-      description: 'TODO: use Wistia plugin?',
-      title: 'Url',
-      type: 'url',
+      name: 'video',
+      type: 'wistiaMedia',
     }),
     anchor,
   ],

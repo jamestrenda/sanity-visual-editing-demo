@@ -1,11 +1,9 @@
-import { SanityImageObjectExtended } from '~/types/image'
 import Image from './Image'
 import { LogoCloud } from '~/types/logoCloud'
 import Badge from './Badge'
 import { Heading } from './Heading'
 
 const LogoCloud = ({ badge, title, logos }: LogoCloud) => {
-  console.log('logos:', logos)
   return logos.length ? (
     <div className="px-6 lg:px-8 flex flex-col items-center justify-cente">
       {badge ? <Badge {...badge} /> : null}
