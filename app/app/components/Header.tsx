@@ -10,7 +10,7 @@ const Header = ({ phone, email, logo, menu }: Props) => {
 
   return (
     <header
-      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 group-has-[.page-not-found]:!bg-black/90 group-has-[.no-hero]:!bg-black/90`}
+      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 group-has-[.page-not-found]:!bg-black/90 group-has-[.no-hero]:!bg-black/90 text-xl`}
     >
       <Container className="grid grid-cols-3 items-center justify-center">
         {phone ? (
@@ -39,7 +39,7 @@ const Header = ({ phone, email, logo, menu }: Props) => {
               hotspot={logo.hotspot}
               preview={logo.asset.metadata?.lqip ?? ''}
               queryParams={{ q: 100, w: 80 }}
-              className="h-10 w-10 invert"
+              className={`h-12 w-auto transition ${y && y > 30 ? 'filter brightness-[20]' : ''}`}
               // sizes="(min-width: 768px) 240px, 100vw"
             />
           ) : null}

@@ -94,7 +94,7 @@ const Footer = ({
                   hotspot={logo.hotspot}
                   preview={logo.asset.metadata?.lqip ?? ''}
                   queryParams={{ q: 100, w: 56 }}
-                  className="h-7 w-7 invert"
+                  className="h-10 w-auto"
                   // sizes="(min-width: 768px) 240px, 100vw"
                 />
               ) : null}
