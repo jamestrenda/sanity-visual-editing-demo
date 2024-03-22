@@ -40,9 +40,8 @@ export default function Hero({
   return (
     <section
       ref={ref}
-      className={`!bg-transparent relative isolate px-6 py-24 sm:py-32 lg:px-8 grid place-items-center ${style?.fullHeight ? 'min-h-screen' : ''}`}
+      className={`!bg-transparent relative isolate py-24 sm:py-32 !pt-48 ${style?.fullHeight ? 'min-h-screen' : ''}`}
     >
-      {/* {image?.asset ? <BackgroundImage image={image} /> : null} */}
       <div className="absolute inset-0 pointer-events-none -skew-y-6 md:-skew-y-12 overflow-hidden origin-[0]">
         <div className="bg-primary-dark-900 skew-y-6 md:skew-y-12 absolute inset-0 pointer-events-none scale-[1.3] overflow-hidden [&>*]:object-cover">
           {(video?.mp4 || video?.webm) && width && width > 1023 ? (
@@ -56,7 +55,7 @@ export default function Hero({
           )}
         </div>
       </div>
-      <div className="mx-auto max-w-sm md:max-w-2xl text-center flex flex-col items-center justify-center z-10">
+      <div className="mx-auto max-w-sm md:max-w-2xl text-center flex flex-col items-center justify-center z-10 relative">
         {badge ? <Badge {...badge} className="" /> : null}
         <Heading as="h1" use="h1" className="mt-2  text-white">
           {title}
