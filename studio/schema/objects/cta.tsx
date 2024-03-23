@@ -45,6 +45,9 @@ export default defineType({
       name: 'image',
       title: 'Background Image',
       type: 'image',
+      options: {
+        hotspot: true,
+      },
       group: 'background',
     }),
     // defineField({
