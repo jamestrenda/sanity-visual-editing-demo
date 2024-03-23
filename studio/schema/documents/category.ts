@@ -1,5 +1,6 @@
 import { HashIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
+import { slugField } from '../objects/slug'
 
 export default defineType({
   name: 'category',
@@ -13,15 +14,7 @@ export default defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'name',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
+    slugField({ source: 'name' }),
     defineField({
       name: 'description',
       title: 'Description',
