@@ -4,7 +4,7 @@ import { badgeZ } from './badge'
 
 export const logoCloudZ = z.object({
   _type: z.literal('logoCloud'),
-  _key: z.string(),
+  _key: z.string().optional(),
   badge: badgeZ.optional(),
   title: z.string(),
   text: z.any(), // TOOD: add portable text type

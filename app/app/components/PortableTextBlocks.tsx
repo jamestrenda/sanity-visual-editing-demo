@@ -19,7 +19,7 @@ export const PortableTextBlocks: PortableTextComponents = {
         <Heading
           as="h2"
           // use="h1"
-          className=""
+          className="peer"
         >
           {children}
         </Heading>
@@ -27,26 +27,26 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
     h3: ({ children }) => {
       return (
-        <Heading as="h3" use="h3">
+        <Heading as="h3" use="h3" className="peer">
           {children}
         </Heading>
       )
     },
     normal: ({ children }) => {
-      return <p>{children}</p>
+      return <p className="peer">{children}</p>
     },
     // add more block-level components here.
   },
   list: {
     bullet: ({ children }) => {
       return (
-        <ul role="list" className="">
+        <ul role="list" className="peer">
           {children}
         </ul>
       )
     },
     number: ({ children }) => {
-      return <ol className="">{children}</ol>
+      return <ol className="peer">{children}</ol>
     },
   },
   marks: {
@@ -107,11 +107,11 @@ export const PortableTextBlocks: PortableTextComponents = {
       )
     },
     badge: ({ value }) => {
-      return <Badge {...value} />
+      return <Badge {...value} className="peer" />
     },
     button: ({ value }) => {
       return (
-        <Button {...value.link} className="">
+        <Button {...value.link} className="peer">
           {value.linkText}
         </Button>
       )

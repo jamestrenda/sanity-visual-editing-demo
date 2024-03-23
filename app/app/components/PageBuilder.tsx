@@ -40,7 +40,7 @@ export default function PageBuilder({ sections }: { sections: Block[] }) {
     sections.map((section, index) => {
       switch (section._type) {
         case 'ctaBlock':
-          return <PageSection key={index} {...section} />
+          return <PageSection key={section._key} {...section} />
         default:
           return (
             <section

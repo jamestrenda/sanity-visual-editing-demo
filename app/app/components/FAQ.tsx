@@ -19,10 +19,10 @@ export function FAQ({ title, text, faqs, anchor }: FAQ) {
         <PortableTextBlock portableText={text} />
       </div>
       <dl className="mt-10 divide-y divide-gray-900/10">
-        {faqs.map((faq) => (
+        {faqs.map((faq, index) => (
           <Disclosure
             as="div"
-            key={faq.question}
+            key={faq._id}
             className=""
             id={faq.anchor ?? undefined}
           >

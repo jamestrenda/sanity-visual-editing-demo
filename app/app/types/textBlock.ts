@@ -6,7 +6,7 @@ export type TextBlock = PortableTextBlock
 
 export const textBlockZ = schemaForType<TextBlock>()(
   z.object({
-    _type: z.literal('block'),
+    _type: z.literal('textBlock'),
     _key: z.string(),
     markDefs: z.array(z.unknown()),
     style: z.string(),

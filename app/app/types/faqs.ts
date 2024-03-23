@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const faqsZ = z.object({
   _type: z.literal('faq'),
-  _key: z.string(),
+  _key: z.string().optional(),
   title: z.string(),
   anchor: z.string(),
   text: z.any(), // TODO: portableTextZ

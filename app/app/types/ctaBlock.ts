@@ -5,6 +5,8 @@ import { videoZ } from './video'
 import { linkZ } from './link'
 
 export const ctaBlockZ = z.object({
+  _key: z.string().optional(),
+  _type: z.literal('ctaBlock'),
   badge: badgeZ.nullable(),
   title: z.string().nullable(),
   subtitle: z.string().nullable(),

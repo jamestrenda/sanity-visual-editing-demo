@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const checklistZ = z.object({
   _type: z.literal('checklist'),
-  _key: z.string(),
+  _key: z.string().optional(),
   items: z.array(
     z.object({
       _key: z.string(),
