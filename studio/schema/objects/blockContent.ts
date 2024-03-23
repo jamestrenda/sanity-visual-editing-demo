@@ -1,6 +1,5 @@
 import { defineField, defineType } from 'sanity'
 import PageBuilderInput from '~/components/PageBuilderInput'
-import portableText, { portableTextBlocks } from './portableText'
 import { IconText } from '~/icons/text'
 
 export const blockContentTypes = [
