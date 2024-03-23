@@ -1,15 +1,12 @@
-// import { twMerge } from 'tailwind-merge'
 import { Disclosure } from '@headlessui/react'
-// import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
-import { FAQ } from '~/types/faqs'
+import { FAQ as Props } from '~/types/faqs'
 import { Heading } from './Heading'
 import { IconChevronUp } from './icons/IconChevronUp'
 import { IconChevronDown } from './icons/IconChevronDown'
-import { PortableText } from '@portabletext/react'
 import { Container } from './Container'
 import PortableTextBlock from './PortableText'
 
-export function FAQ({ title, text, faqs, anchor }: FAQ) {
+export function FAQ({ title, text, faqs, anchor }: Props) {
   return (
     <Container className="faqs" id={anchor ?? 'faq'}>
       <Heading use="h2" as="h2" className="text-center">
@@ -50,8 +47,8 @@ export function FAQ({ title, text, faqs, anchor }: FAQ) {
                   className="mt-2 pr-12 p-6 [&>.prose]:!w-full [&>.prose]:!max-w-none"
                 >
                   {faq.answer?.length ? (
-                    faq.answer.map((block: any) => (
-                      <PortableTextBlock portableText={block} />
+                    faq.answer.map((block: any, index: number) => (
+                      <PortableTextBlock key={index} portableText={block} />
                     ))
                   ) : (
                     <p className="text-gray-900">
