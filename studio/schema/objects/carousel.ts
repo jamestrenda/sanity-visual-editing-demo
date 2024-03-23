@@ -26,9 +26,9 @@ export default defineType({
         {
           type: 'imageObject',
         },
-        {
-          type: 'video',
-        },
+        // {
+        //   type: 'video',
+        // },
       ],
     }),
     anchor,
