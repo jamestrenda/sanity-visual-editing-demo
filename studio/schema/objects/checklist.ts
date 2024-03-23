@@ -44,7 +44,7 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
       ],
-      options: {},
+      // options: {},
       validation: (Rule) => Rule.required().min(1),
     }),
     anchor,
