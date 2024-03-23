@@ -10,7 +10,8 @@ export default defineType({
   fields: [
     defineField({
       name: 'video',
-      type: 'wistiaMedia',
+      // type: 'wistiaMedia',
+      type: 'url',
     }),
     anchor,
   ],

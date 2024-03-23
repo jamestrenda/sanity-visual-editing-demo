@@ -12,7 +12,7 @@ import { isAdminUser } from './lib/misc'
 import { PAGE_TYPES } from './lib/constants'
 import { PublishSettingsAction } from './actions/publishSettingsAction'
 import { PublishDocumentWithSlugAction } from './actions/publishDocumentWithSlug'
-import { wistiaInput } from 'sanity-plugin-wistia-input'
+// import { wistiaInput } from 'sanity-plugin-wistia-input'
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
 export const dataset = process.env.SANITY_STUDIO_DATASET!
@@ -37,9 +37,9 @@ export default defineConfig({
     media(),
     unsplashImageAsset(),
     noteField(),
-    wistiaInput({
-      token: 'd1ece8f302fc8c9be5618c60755c33c54aca0111dc8629622651082b33058cb6',
-    }),
+    // wistiaInput({
+    //   token: 'd1ece8f302fc8c9be5618c60755c33c54aca0111dc8629622651082b33058cb6',
+    // }),
   ],
   schema: {
     types: schemaTypes,
