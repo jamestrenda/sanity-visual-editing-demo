@@ -45,7 +45,7 @@ export default function PageBuilder({ sections }: { sections: Block[] }) {
           return (
             <section
               key={index}
-              className="py-24 sm:py-32 lg:py-40 group has-[.block-image]:py-0"
+              className="py-24 sm:py-32 lg:py-40 group has-[.block-image]:py-0 has-[.stats]:relative"
             >
               <PageSection {...section} />
             </section>

@@ -5,42 +5,66 @@ import Badge from './Badge'
 import { Stat, Stats } from '~/types/stats'
 import { useEffect, useRef } from 'react'
 import { animate, useInView, useMotionValue } from 'framer-motion'
+import { BackgroundImage } from './BackgroundImage'
 
-export default function Stats({ badge, title, text, stats }: Stats) {
+export default function Stats({
+  badge,
+  title,
+  text,
+  stats,
+  image,
+  anchor,
+}: Stats) {
   return (
-    <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
-      <div className="mx-auto max-w-2xl">
+    <div
+      id={anchor ?? 'stats'}
+      className="stats mx-auto max-w-7xl px-6 lg:px-8"
+    >
+      <div className="mx-auto max-w-5xl">
         {badge ? <Badge {...badge} /> : null}
         <Heading as="h2" use="h2" className="text-center">
           {title}
         </Heading>
-        {text ? <PortableTextBlock portableText={text} /> : null}
-      </div>
-      <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
-        {stats?.map((stat, index) => (
-          <div key={index} className="flex flex-col bg-gray-400/5 p-8">
-            <dt className="text-base leading-7 text-white lowercase tracking-wider">
-              {stat?.name}
-            </dt>
-            {stat.value ? (
-              <Stat
-                value={stat.value}
-                suffix={stat.suffix}
-                prefix={stat.prefix}
-              />
-            ) : null}
+        {text ? (
+          <div className="text-center">
+            <PortableTextBlock portableText={text} />
           </div>
-        ))}
+        ) : null}
+      </div>
+      <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl sm:grid-cols-2 xl:grid-cols-4 max-w-96 sm:max-w-none mx-auto">
+        {stats?.map((stat, index) =>
+          stat.value ? (
+            <div
+              key={index}
+              className="flex flex-col bg-white/50 backdrop-blur-md p-8"
+            >
+              <dt className="text-lg leading-7 tracking-wider mb-5 font-bold border-b-4 pb-2 border-primary-dark-500 border-solid">
+                {stat?.name}
+              </dt>
+
+              {/* // <Stat
+              //   value={stat.value}
+              //   suffix={stat.suffix}
+              //   prefix={stat.prefix}
+              // /> */}
+              <>
+                <dd className="text-6xl tracking-tight sm:text-5xl font-bold">
+                  {stat.prefix && <span>{stat.prefix}</span>}
+                  <span>{stat.value}</span>
+                  {stat.suffix && <span>{stat.suffix}</span>}
+                </dd>
+                <dd className="text-sm leading-7 mt-5">{stat?.description}</dd>
+              </>
+            </div>
+          ) : null,
+        )}
       </dl>
+      {image ? <BackgroundImage image={image} /> : null}
     </div>
   )
 }
 
-function Stat({
-  value = 0,
-  prefix = '',
-  suffix = '',
-}: Pick<Stat, 'value' | 'prefix' | 'suffix'>) {
+function Stat({ value = 0, prefix = '', suffix = '' }: Stat) {
   const count = useMotionValue(0)
   // const rounded = useTransform(count, Math.round);
 
@@ -80,10 +104,10 @@ function Stat({
   }, [isInView])
 
   return (
-    <dd className="order-first text-4xl font-light tracking-tight text-lime sm:text-5xl">
-      {prefix && <span>{prefix}</span>}
+    <dd className="text-4xl font-bold sm:text-5xl">
+      {prefix ? <span>{prefix}</span> : null}
       <span ref={ref}>0</span>
-      {suffix && <span>{suffix}</span>}
+      {suffix ? <span>{suffix}</span> : null}
     </dd>
   )
 }

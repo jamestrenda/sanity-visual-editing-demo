@@ -29,6 +29,11 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'description',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
       name: 'value',
       type: 'number',
       validation: (Rule) => Rule.required(),

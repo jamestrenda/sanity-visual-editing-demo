@@ -3,12 +3,13 @@ import { sanityImageObjectExtendedZ } from './image'
 import { badgeZ } from './badge'
 
 export const statZ = z.object({
-  _key: z.string(),
-  _type: z.literal('stat'),
-  name: z.string().nullable(),
-  value: z.number().nullable(),
-  prefix: z.string().nullable(),
-  suffix: z.string().nullable(),
+  _key: z.string().optional(),
+  _type: z.literal('stat').optional(),
+  name: z.string().optional().nullable(),
+  description: z.string().optional().nullable(),
+  value: z.number().optional().nullable(),
+  prefix: z.string().optional().nullable(),
+  suffix: z.string().optional().nullable(),
 })
 
 export const statsZ = z.object({
@@ -19,6 +20,7 @@ export const statsZ = z.object({
   text: z.any().nullable(), // PortableTextBlock
   image: sanityImageObjectExtendedZ,
   stats: z.array(statZ).nullable(),
+  anchor: z.string().nullable(),
 })
 
 export type Stat = z.infer<typeof statZ>

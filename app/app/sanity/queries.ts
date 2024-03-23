@@ -203,10 +203,12 @@ const statsFragment = groq`
   stats[] {
     _key,
     name,
+    description,
     value,
     prefix,
     suffix
-  }
+  },
+  anchor
 `
 
 // this is really only being used in one place and that's in block.ts to create a type off the keys...
