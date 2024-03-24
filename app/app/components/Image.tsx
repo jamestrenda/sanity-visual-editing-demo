@@ -51,7 +51,34 @@ export default function Image(
   // console.log({ source })
   const focalpoint = hotspot ?? getDefaultHotspot()
 
-  console.log({ focalpoint })
+  // console.log({ focalpoint })
+  // const MotionImage = m(SanityImage)
+
+  // return asset ? (
+  // <m.div
+
+  // >
+  //   <MotionImage
+  //     baseUrl={baseUrl}
+  //     id={asset._id}
+  //     alt={alt ?? asset.altText ?? ''}
+  //     width={Number(width) ?? sourceWidth}
+  //     height={Number(height) ?? sourceHeight}
+  //     loading="eager"
+  //     //   height={500}
+  //     queryParams={{ q: 100, fm: 'webp' }}
+  //     crop={crop ?? undefined}
+  //     hotspot={hotspot ?? undefined}
+  //     // preview={asset.metadata?.lqip ?? ''}
+  //     className={cn(`h-auto w-full`, className)}
+  //     sizes="(min-width: 768px) 96vw, 100vw"
+  //     initial="initial"
+  //     whileInView="visible"
+  //     viewport={{ once: true }}
+  //     variants={variants}
+  //   />
+  // ) : // </m.div>
+  // null
 
   return asset ? (
     <m.img
