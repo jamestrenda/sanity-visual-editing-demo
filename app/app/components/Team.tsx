@@ -32,7 +32,7 @@ export default React.forwardRef(function Team(
         {members?.map((person, index) => {
           const { image } = person.image
           return (
-            <li key={person._id}>
+            <li key={index}>
               {image?.asset ? (
                 <Image
                   alt={image.asset.altText ?? undefined}
