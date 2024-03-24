@@ -89,15 +89,14 @@ export const SectionBlock = ({ block }: { block: Block }) => {
       ) : null
     default:
       return _type && _type in blocksMap ? (
-        <m.div
-          variants={variants()}
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <SectionComponent {...block} className="peer" />
-        </m.div>
+        // <m.div
+        //   initial="initial"
+        //   whileInView="visible"
+        //   viewport={{ once: true }}
+        // >
+        <SectionComponent {...block} className="peer" />
       ) : (
+        // </m.div>
         <></>
       )
   }

@@ -65,14 +65,14 @@ export const Button = (props: Props & Theme) => {
         : '#'
 
       return (
-        <MotionLink
+        <Link
           to={slug}
           prefetch={props.prefetch ?? 'intent'}
           className={cn}
-          initial="initial"
-          whileInView="visible"
-          variants={props.variants}
-          viewport={{ once: true }}
+          // initial="initial"
+          // whileInView="visible"
+          // variants={props.variants}
+          // viewport={{ once: true }}
           onMouseMove={handleMouseMove}
         >
           <m.div
@@ -96,7 +96,7 @@ export const Button = (props: Props & Theme) => {
               />
             ) : null}
           </span>
-        </MotionLink>
+        </Link>
       )
     case 'linkExternal':
       return (

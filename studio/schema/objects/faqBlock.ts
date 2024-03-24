@@ -27,7 +27,8 @@ export default defineType({
     defineField({
       title: 'Text',
       name: 'text',
-      type: 'portableText',
+      type: 'text',
+      rows: 3,
     }),
     defineField({
       title: 'FAQs',

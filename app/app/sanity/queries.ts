@@ -95,9 +95,7 @@ const faqBlockFraqment = groq`
   _key,
   "_type": "faq",
   title,
-  text[] {
-    ${portableTextFragment}
-  },
+  text,
   faqs[]-> {
     question,
     _type,

@@ -202,9 +202,16 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
     button: ({ value }) => {
       return (
-        <Button {...value.link} className="peer" variants={variants()}>
-          {value.linkText}
-        </Button>
+        <m.div
+          initial="initial"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={variants()}
+        >
+          <Button {...value.link} className="peer">
+            {value.linkText}
+          </Button>
+        </m.div>
       )
     },
   },

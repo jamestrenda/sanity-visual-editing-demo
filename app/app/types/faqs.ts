@@ -5,7 +5,7 @@ export const faqsZ = z.object({
   _key: z.string().optional(),
   title: z.string(),
   anchor: z.string(),
-  text: z.any(), // TODO: portableTextZ
+  text: z.string(), // TODO: portableTextZ
   faqs: z.array(
     z.object({
       question: z.string(),

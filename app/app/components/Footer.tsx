@@ -109,25 +109,35 @@ const Footer = ({
                 </m.p>
               ) : null}
               {address ? (
-                <div className="text-sm leading-6 text-gray-300">
+                <m.div
+                  className="text-sm leading-6 text-gray-300"
+                  initial="initial"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={variants(2)}
+                >
                   <address>
                     {address.street}
                     <br />
                     {address.city}, {address.state} {address.zip}
                   </address>
-                </div>
+                </m.div>
               ) : null}
               {socialMedia ? (
                 <div className="flex space-x-6">
                   {Object.keys(socialMedia)
                     .sort()
-                    .map((item) => {
+                    .map((item, index) => {
                       const href = socialMedia[item as keyof typeof socialMedia]
                       return href ? (
-                        <a
+                        <m.a
                           key={item}
                           href={href}
                           className="text-gray-500 hover:text-gray-400"
+                          initial="initial"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          variants={variants(3 + index)}
                         >
                           <span className="sr-only">{item}</span>
                           {icons
@@ -135,7 +145,7 @@ const Footer = ({
                             ?.icon({
                               className: 'h-6 w-6',
                             })}
-                        </a>
+                        </m.a>
                       ) : null
                     })}
                 </div>
@@ -143,27 +153,37 @@ const Footer = ({
             </div>
             <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:grid-cols-3 lg:col-span-2 lg:mt-0">
               {menus?.length
-                ? menus.map((menu) => (
+                ? menus.map((menu, index) => (
                     <div key={menu._id}>
                       {menu.title ? (
-                        <h3 className="text-sm font-semibold leading-6 text-white">
+                        <m.h3
+                          className="text-sm font-semibold leading-6 text-white"
+                          initial="initial"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          variants={variants(4 + index)}
+                        >
                           {menu.title}
-                        </h3>
+                        </m.h3>
                       ) : null}
                       {menu.items?.length ? (
                         <ul role="list" className="mt-6 space-y-4">
-                          {menu.items.map((item) =>
-                            item.link?._type === 'linkInternal' ? (
-                              <li key={item._key}>
+                          {menu.items.map((item, index) => (
+                            <m.li
+                              key={item._key}
+                              initial="initial"
+                              whileInView="visible"
+                              viewport={{ once: true }}
+                              variants={variants(5 + index)}
+                            >
+                              {item.link?._type === 'linkInternal' ? (
                                 <Link
                                   to={item.link?.to}
                                   className="text-sm leading-6 text-gray-300 hover:text-white"
                                 >
                                   {item.link?.linkText}
                                 </Link>
-                              </li>
-                            ) : item.link?._type === 'linkExternal' ? (
-                              <li key={item._key}>
+                              ) : item.link?._type === 'linkExternal' ? (
                                 <a
                                   href={item.link?.href}
                                   target={
@@ -174,9 +194,9 @@ const Footer = ({
                                 >
                                   {item.link?.linkText}
                                 </a>
-                              </li>
-                            ) : null,
-                          )}
+                              ) : null}
+                            </m.li>
+                          ))}
                         </ul>
                       ) : null}
                     </div>

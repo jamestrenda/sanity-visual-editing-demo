@@ -18,7 +18,12 @@ const Badge = (props: Props & MotionProps) => {
       const href = link.anchor ? addHrefAnchor(link.to, link.anchor) : link.to
       return (
         <Link to={href} className="cursor" prefetch="intent">
-          <Component title={title} text={text} link={link} />
+          <Component
+            title={title}
+            text={text}
+            link={link}
+            variants={variants}
+          />
         </Link>
       )
     case 'linkExternal':
@@ -28,7 +33,12 @@ const Badge = (props: Props & MotionProps) => {
           target={link.newWindow ? '_blank' : '_self'}
           rel="noreferrer"
         >
-          <Component title={title} text={text} link={link} />
+          <Component
+            title={title}
+            text={text}
+            link={link}
+            variants={variants}
+          />
         </a>
       )
   }
