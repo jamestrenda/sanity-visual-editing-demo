@@ -19,6 +19,7 @@ export const PortableTextBlocks: PortableTextComponents = {
           as="h2"
           // use="h1"
           className="peer"
+          variants={variants()}
         >
           {children}
         </Heading>
@@ -26,7 +27,28 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
     h3: ({ children }) => {
       return (
-        <Heading as="h3" use="h3" className="peer">
+        <Heading as="h3" use="h3" className="peer" variants={variants()}>
+          {children}
+        </Heading>
+      )
+    },
+    h4: ({ children }) => {
+      return (
+        <Heading as="h4" use="h4" className="peer" variants={variants()}>
+          {children}
+        </Heading>
+      )
+    },
+    h5: ({ children }) => {
+      return (
+        <Heading as="h5" use="h5" className="peer" variants={variants()}>
+          {children}
+        </Heading>
+      )
+    },
+    h6: ({ children }) => {
+      return (
+        <Heading as="h6" use="h6" className="peer" variants={variants()}>
           {children}
         </Heading>
       )
@@ -71,6 +93,18 @@ export const PortableTextBlocks: PortableTextComponents = {
   listItem: {
     // Ex. 1: customizing common list types
     bullet: ({ children }) => (
+      <m.li
+        variants={variants()}
+        initial="initial"
+        whileInView="visible"
+        viewport={{
+          once: true,
+        }}
+      >
+        {children}
+      </m.li>
+    ),
+    number: ({ children }) => (
       <m.li
         variants={variants()}
         initial="initial"
@@ -155,9 +189,15 @@ export const PortableTextBlocks: PortableTextComponents = {
             // sizes={`min-width: ${asset.metadata?.dimensions.width}px) ${asset.metadata?.dimensions.width}px, 100vw`}
           />
           {caption ? (
-            <figcaption className="text-left text-sm text-gray-500">
+            <m.figcaption
+              className="text-left text-sm text-gray-500"
+              initial="initial"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={variants(1)}
+            >
               {value.caption}
-            </figcaption>
+            </m.figcaption>
           ) : null}
         </figure>
       ) : null
@@ -167,7 +207,7 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
     button: ({ value }) => {
       return (
-        <Button {...value.link} className="peer">
+        <Button {...value.link} className="peer" variants={variants()}>
           {value.linkText}
         </Button>
       )

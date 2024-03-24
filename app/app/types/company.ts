@@ -23,6 +23,7 @@ export const companyZ = z.object({
   name: z.string().nullable(),
   tagline: z.string().nullable(),
   logo: sanityImageObjectExtendedZ,
+  logoMobile: sanityImageObjectExtendedZ,
   address: addressZ.nullable(),
   phone: z.string().nullable(),
   email: z.string().email().nullable(),

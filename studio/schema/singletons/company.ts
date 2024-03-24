@@ -35,6 +35,11 @@ export default defineType({
       type: 'image',
     }),
     defineField({
+      name: 'logoMobile',
+      title: 'Logo (Mobile)',
+      type: 'image',
+    }),
+    defineField({
       name: 'address',
       title: 'Address',
       type: 'address',

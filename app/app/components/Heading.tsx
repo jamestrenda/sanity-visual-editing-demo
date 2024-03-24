@@ -15,12 +15,19 @@ export const Heading = (props: HeadingProps & MotionProps) => {
 
   let styles = {
     h1: 'font-montserrat text-5xl sm:text-7xl md:text-[96px] lg:text-[120px] font-extrabold uppercase tracking-tighter text-balance',
-    h2: 'font-montserrat font-extrabold tracking-tighter text-3xl text-balance md:text-[64px] md:leading-[1.2] uppercase group-has-[h2]:mb-8',
-    h3: 'text-xl md:text-3xl font-bold text-balance',
-    h4: '',
-    h5: '',
+    h2: 'font-montserrat font-extrabold tracking-tighter text-3xl text-balance sm:text-5xl md:text-[64px] sm:leading-[1.2] uppercase group-has-[h2]:mb-8',
+    h3: 'text-2xl sm:text-4xl font-bold text-balance',
+    h4: 'text-xl sm:text-3xl font-bold text-balance',
+    h5: 'font-bold',
     h6: '',
     p: '',
+  }
+
+  const motionConfig = {
+    whileInView: 'visible',
+    viewport: { once: true },
+    initial: 'initial',
+    variants,
   }
 
   switch (as) {
@@ -28,10 +35,7 @@ export const Heading = (props: HeadingProps & MotionProps) => {
       return (
         <m.h1
           className={twMerge(styles[use ?? as], className)}
-          whileInView="visible"
-          viewport={{ once: true }}
-          initial="initial"
-          variants={variants}
+          {...motionConfig}
         >
           {children}
         </m.h1>
@@ -40,24 +44,47 @@ export const Heading = (props: HeadingProps & MotionProps) => {
       return (
         <m.h2
           className={`text-balance ${twMerge(styles[use ?? as], className)}`}
-          whileInView="visible"
-          viewport={{ once: true }}
-          initial="initial"
-          variants={variants}
+          {...motionConfig}
         >
           {children}
         </m.h2>
       )
     case 'h3':
       return (
-        <h3 className={twMerge(styles[use ?? as], className)}>{children}</h3>
+        <m.h3
+          className={twMerge(styles[use ?? as], className)}
+          {...motionConfig}
+        >
+          {children}
+        </m.h3>
       )
     case 'h4':
-      return <h4>{children}</h4>
+      return (
+        <m.h4
+          className={twMerge(styles[use ?? as], className)}
+          {...motionConfig}
+        >
+          {children}
+        </m.h4>
+      )
     case 'h5':
-      return <h5>{children}</h5>
+      return (
+        <m.h5
+          className={twMerge(styles[use ?? as], className)}
+          {...motionConfig}
+        >
+          {children}
+        </m.h5>
+      )
     case 'h6':
-      return <h6>{children}</h6>
+      return (
+        <m.h6
+          className={twMerge(styles[use ?? as], className)}
+          {...motionConfig}
+        >
+          {children}
+        </m.h6>
+      )
     default:
       const Component = as || 'p'
       return (

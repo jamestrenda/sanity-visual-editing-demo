@@ -384,6 +384,9 @@ export const COMPANY_QUERY = groq`*[_id == "company"][0]{
   logo {
     ${imageFieldsFragment}
   },
+  logoMobile {
+    ${imageFieldsFragment}
+  },
   address,
   phone,
   email,

@@ -152,13 +152,14 @@ export default function App() {
             {...{
               email: company.email,
               logo: company.logo,
+              logoMobile: company.logoMobile,
               phone: phoneFormatted,
               menu: settings.headerMenu,
             }}
           />
           <main
             id="main"
-            className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:!text-xl sm:[&_.prose]:!text-2xl [&_.prose]:!max-w-7xl"
+            className="flex-grow [&>section:nth-child(odd)]:bg-gray-100 [&_.prose]:!text-xl md:[&_.prose]:!text-2xl [&_.prose]:!max-w-7xl"
           >
             <Outlet />
           </main>

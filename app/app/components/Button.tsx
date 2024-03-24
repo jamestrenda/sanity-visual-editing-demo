@@ -4,7 +4,13 @@ import { twMerge } from 'tailwind-merge'
 import { LinkExternal, LinkInternal } from '~/types/link'
 import { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 import { IconArrowRight } from './icons/IconArrowRight'
-import { useMotionTemplate, useMotionValue, m } from 'framer-motion'
+import {
+  useMotionTemplate,
+  useMotionValue,
+  m,
+  MotionProps,
+} from 'framer-motion'
+import { variants } from '~/utils/misc'
 
 interface Theme {
   theme?: 'primary' | 'secondary' | 'tertiary'
@@ -18,7 +24,7 @@ type Links =
   | (LinkInternal & LinkProps)
   | (LinkExternal & AnchorHTMLAttributes<HTMLAnchorElement>)
 
-type Props = Links | ButtonHTMLAttributes<HTMLButtonElement>
+type Props = Links & ButtonHTMLAttributes<HTMLButtonElement> & MotionProps
 
 export const Button = (props: Props & Theme) => {
   // console.log('props:', props)
@@ -46,6 +52,8 @@ export const Button = (props: Props & Theme) => {
     mouseY.set(clientY - top)
   }
 
+  const MotionLink = m(Link)
+
   // _type actually does exist on the props object.
   // I'm not sure why it's not being recognized by typescript.
   switch (props._type) {
@@ -57,10 +65,14 @@ export const Button = (props: Props & Theme) => {
         : '#'
 
       return (
-        <Link
+        <MotionLink
           to={slug}
           prefetch={props.prefetch ?? 'intent'}
           className={cn}
+          initial="initial"
+          whileInView="visible"
+          variants={props.variants}
+          viewport={{ once: true }}
           onMouseMove={handleMouseMove}
         >
           <m.div
@@ -84,7 +96,7 @@ export const Button = (props: Props & Theme) => {
               />
             ) : null}
           </span>
-        </Link>
+        </MotionLink>
       )
     case 'linkExternal':
       return (
