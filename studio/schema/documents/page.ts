@@ -68,7 +68,7 @@ export default defineType({
     defineField({
       name: 'hero',
       type: 'hero',
-      group: ['content'],
+      // group: ['content'],
     }),
     defineField({
       name: 'blogPageNote',

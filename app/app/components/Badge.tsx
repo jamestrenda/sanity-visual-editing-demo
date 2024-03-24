@@ -4,11 +4,12 @@ import { Badge } from '~/types/badge'
 import { addHrefAnchor } from '~/utils/misc'
 import { IconChevronRight } from './icons/IconChevronRight'
 import IconDot from './icons/IconDot'
+import { MotionProps, m } from 'framer-motion'
 
 type Props = Badge & { className?: string }
 
-const Badge = (props: Props) => {
-  const { title, text, link, className } = props
+const Badge = (props: Props & MotionProps) => {
+  const { title, text, link, className, variants } = props
 
   switch (link?._type) {
     case 'linkInternal':
@@ -33,17 +34,33 @@ const Badge = (props: Props) => {
   }
 
   return (
-    <Component title={title} text={text} link={link} className={className} />
+    <Component
+      title={title}
+      text={text}
+      link={link}
+      className={className}
+      variants={variants}
+    />
   )
 }
 
-const Component = ({ title, text, className, link }: Omit<Props, '_type'>) => {
+const Component = ({
+  title,
+  text,
+  className,
+  link,
+  variants,
+}: Omit<Props, '_type'> & MotionProps) => {
   return (
-    <div
+    <m.div
       className={twMerge(
         'badge group-has-[.prose]:w-fit mx-auto flex justify-center items-center text-xs py-1 bg-secondary-green-500 text-black/70 px-1 rounded-full mb-4 uppercase font-bold tracking-wider',
         className,
       )}
+      variants={variants}
+      initial="initial"
+      whileInView="visible"
+      viewport={{ once: true }}
     >
       {title ? (
         <>
@@ -64,7 +81,7 @@ const Component = ({ title, text, className, link }: Omit<Props, '_type'>) => {
           aria-hidden="true"
         />
       ) : null}
-    </div>
+    </m.div>
   )
 }
 

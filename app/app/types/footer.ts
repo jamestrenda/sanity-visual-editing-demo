@@ -9,7 +9,7 @@ export const footerZ = z.object({
   tagline: z.string().nullable(),
   address: addressZ.nullable(),
   socialMedia: socialMediaZ.nullable(),
-  logo: sanityImageObjectExtendedZ,
+  logo: sanityImageObjectExtendedZ.nullable(),
   menus: z.array(menuZ).nullable(),
 })
 

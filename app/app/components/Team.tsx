@@ -3,8 +3,12 @@ import { Heading } from './Heading'
 import Image from './Image'
 import PortableTextBlock from './PortableText'
 import Badge from './Badge'
+import React from 'react'
 
-export default function Team({ badge, title, text, members }: Team) {
+export default React.forwardRef(function Team(
+  { badge, title, text, members }: Team,
+  ref,
+) {
   return (
     <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
       <div className="mx-auto max-w-2xl">
@@ -21,7 +25,7 @@ export default function Team({ badge, title, text, members }: Team) {
         {members?.map((person) => {
           return (
             <li key={person._id}>
-              {person.image?.asset ? (
+              {/* {person.image?.asset ? (
                 <Image
                   id={person.image.asset?._id}
                   alt={person.image.asset.altText ?? ''}
@@ -33,7 +37,7 @@ export default function Team({ badge, title, text, members }: Team) {
                   preview={person.image.asset.metadata?.lqip ?? ''}
                   className="mx-auto h-40 w-40 sm:h-56 sm:w-56 rounded-full"
                 />
-              ) : null}
+              ) : null} */}
               <Heading as="h3" use="h3" className="mt-4">
                 {person.firstName} {person.lastName}
               </Heading>
@@ -90,4 +94,4 @@ export default function Team({ badge, title, text, members }: Team) {
       </ul>
     </div>
   )
-}
+})

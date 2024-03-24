@@ -14,13 +14,14 @@ export default defineType({
     select: {
       title: 'image.asset.originalFilename',
       subtitle: 'altText',
+      caption: 'caption',
       altText: 'image.asset.altText',
       media: 'image',
     },
-    prepare({ title, subtitle, altText, media }) {
+    prepare({ title, subtitle, altText, caption, media }) {
       return {
         title: title ?? 'Untitled',
-        subtitle: subtitle ?? altText ?? '',
+        subtitle: caption ?? subtitle ?? altText ?? '',
         media,
       }
     },

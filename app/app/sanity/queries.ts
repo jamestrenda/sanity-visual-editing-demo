@@ -32,10 +32,12 @@ export const badgeFragment = groq`
 `
 
 export const imageFieldsFragment = groq`
+  _type,
   crop,
   hotspot,
   asset->{
     _id,
+    _ref,
     _type,
     altText,
     url,
@@ -48,7 +50,16 @@ export const imageFieldsFragment = groq`
         width
       }
     },
-  }
+  }`
+
+export const imageObjectFragment = groq`
+  _type,
+  altText,
+  caption,
+  image {
+    ${imageFieldsFragment}
+  },
+  anchor
 `
 
 const portableTextFragment = groq`
@@ -73,9 +84,7 @@ const portableTextFragment = groq`
     }
   },
   _type == "imageObject" => {
-    "image": image {
-      ${imageFieldsFragment}
-    }
+    ${imageObjectFragment}
   },
   !(_type in ["imageObject", "button"]) => {
     ...
@@ -141,8 +150,8 @@ const logoCloudFragment = groq`
     ${badgeFragment}
   },
   title,
-  "logos": logos[].image {
-    ${imageFieldsFragment}
+  logos[] {
+    ${imageObjectFragment}
   }
 `
 
@@ -160,8 +169,8 @@ const teamFragment = groq`
     firstName,
     lastName,
     position,
-    "image": @.image.image {
-      ${imageFieldsFragment}
+    image {
+      ${imageObjectFragment}
     },
     socialMedia {
       instagram,
@@ -253,9 +262,6 @@ const blockContentFragment = groq`
       ${linkFragment}
     }
   },
-  _type == "checklist" => {
-    ${checklistFragment}
-  },
   _type == "ctaBlock" => {
     ${ctaBlockFragment}
   },
@@ -263,10 +269,7 @@ const blockContentFragment = groq`
     ${faqBlockFraqment}
   },
   _type == "imageObject" => {
-    "_type": "image",
-    image {
-      ${imageFieldsFragment}
-    }
+    ${imageObjectFragment}
   },
   _type == "teamGrid" => {
     ${teamFragment}

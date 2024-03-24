@@ -10,6 +10,7 @@ import { BackgroundVideo } from './BackgroundVideo'
 import BackgroundParticles from './BackgroundParticles'
 import { Button } from './Button'
 import Stripes from './Stripes'
+import { variants } from '~/utils/misc'
 // import { HeroImage } from '../heroImage';
 // import { RichText } from '../richText';
 

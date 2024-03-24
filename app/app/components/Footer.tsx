@@ -3,6 +3,8 @@ import { Link } from '@remix-run/react'
 import Image from './Image'
 import { Footer } from '~/types/footer'
 import dayjs from 'dayjs'
+import { variants } from '~/utils/misc'
+import { m } from 'framer-motion'
 
 const icons = [
   {
@@ -82,24 +84,29 @@ const Footer = ({
         <div className="pt-16 sm:pt-24 lg:pt-32 pb-8">
           <div className="lg:grid lg:grid-cols-3 lg:gap-8">
             <div className="space-y-8">
-              {/* TODO: add sanity overlay for logo */}
               {logo?.asset ? (
                 <Image
-                  id={logo.asset._id}
-                  alt="Logo"
-                  width={56}
-                  loading="eager"
-                  // height={service.image.asset.metadata?.dimensions.height ?? 1080}
-                  crop={logo.crop}
-                  hotspot={logo.hotspot}
-                  preview={logo.asset.metadata?.lqip ?? ''}
-                  queryParams={{ q: 100, w: 56 }}
-                  className="h-10 w-auto"
-                  // sizes="(min-width: 768px) 240px, 100vw"
+                  source={logo.asset}
+                  alt={logo.asset.altText ?? 'Logo'}
+                  // width={1920}
+                  // loading="eager"
+                  height={56}
+                  // preview={logo.asset.metadata?.lqip ?? ''}
+                  className={`h-auto max-h-20 max-w-40`}
+                  variants={variants(0)}
+                  // sizes="(min-width: 768px) 96vw, 100vw"
                 />
               ) : null}
               {tagline ? (
-                <p className="text-sm leading-6 text-gray-300">{tagline}</p>
+                <m.p
+                  initial="initial"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={variants(1)}
+                  className="text-sm leading-6 text-gray-300"
+                >
+                  {tagline}
+                </m.p>
               ) : null}
               {address ? (
                 <div className="text-sm leading-6 text-gray-300">

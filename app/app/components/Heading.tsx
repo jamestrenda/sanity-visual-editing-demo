@@ -1,4 +1,7 @@
+import { MotionProps } from 'framer-motion'
 import { twMerge } from 'tailwind-merge'
+
+import { m } from 'framer-motion'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
@@ -7,8 +10,8 @@ type HeadingProps = {
   children: React.ReactNode
 }
 
-export const Heading = (props: HeadingProps) => {
-  const { as, use = 'h2', className = '', children } = props
+export const Heading = (props: HeadingProps & MotionProps) => {
+  const { as, use = 'h2', className = '', children, variants } = props
 
   let styles = {
     h1: 'font-montserrat text-5xl sm:text-7xl md:text-[96px] lg:text-[120px] font-extrabold uppercase tracking-tighter text-balance',
@@ -23,13 +26,27 @@ export const Heading = (props: HeadingProps) => {
   switch (as) {
     case 'h1':
       return (
-        <h1 className={twMerge(styles[use ?? as], className)}>{children}</h1>
+        <m.h1
+          className={twMerge(styles[use ?? as], className)}
+          whileInView="visible"
+          viewport={{ once: true }}
+          initial="initial"
+          variants={variants}
+        >
+          {children}
+        </m.h1>
       )
     case 'h2':
       return (
-        <h2 className={`text-balance ${twMerge(styles[use ?? as], className)}`}>
+        <m.h2
+          className={`text-balance ${twMerge(styles[use ?? as], className)}`}
+          whileInView="visible"
+          viewport={{ once: true }}
+          initial="initial"
+          variants={variants}
+        >
           {children}
-        </h2>
+        </m.h2>
       )
     case 'h3':
       return (

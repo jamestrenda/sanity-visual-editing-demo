@@ -17,10 +17,9 @@ export type BlockType =
   | 'badge'
   | 'textBlock'
   | 'button'
-  | 'checklist'
   | 'ctaBlock'
   | 'faq'
-  | 'image'
+  | 'imageObject'
   | 'logoCloud'
   | 'statsBlock'
 
@@ -29,7 +28,6 @@ export const blockZ = z.union([
   badgeZ,
   buttonZ,
   ctaBlockZ,
-  checklistZ,
   faqsZ,
   imageZ,
   logoCloudZ,

@@ -1,6 +1,4 @@
-import React, { Suspense } from 'react'
-import { type PageBuilder as Props } from '~/types/pageBuilder'
-import PageSection from './PageSection'
+import { SectionBlock } from './PageSection'
 import { Block } from '~/types/block'
 
 // import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
@@ -40,14 +38,14 @@ export default function PageBuilder({ sections }: { sections: Block[] }) {
     sections.map((section, index) => {
       switch (section._type) {
         case 'ctaBlock':
-          return <PageSection key={section._key} {...section} />
+          return <SectionBlock key={section._key} block={section} />
         default:
           return (
             <section
-              key={index}
+              key={section._key}
               className="py-24 sm:py-32 lg:py-40 group has-[.block-image]:py-0 has-[.stats]:relative"
             >
-              <PageSection {...section} />
+              <SectionBlock block={section} />
             </section>
           )
       }

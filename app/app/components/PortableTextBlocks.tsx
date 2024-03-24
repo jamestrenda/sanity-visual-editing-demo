@@ -4,12 +4,11 @@ import { Link } from '@remix-run/react'
 import Image from './Image'
 import { Button } from './Button'
 import { Heading } from './Heading'
-import { cn } from '~/utils/misc'
-import { c } from 'node_modules/vite/dist/node/types.d-FdqQ54oU'
 import Badge from './Badge'
-
-const proseCn =
-  'max-w-5xl w-full text-xl md:text-2xl [&+*]:mt-8 mx-auto peer px-4 md:px-8'
+import { ImageObject } from '~/types/image'
+import { m } from 'framer-motion'
+import { variants } from '~/utils/misc'
+import { IconCircleCheck } from './icons/IconCircleCheck'
 
 // H1 is reserved for the page title, so we don't need to account for it here.
 export const PortableTextBlocks: PortableTextComponents = {
@@ -33,11 +32,24 @@ export const PortableTextBlocks: PortableTextComponents = {
       )
     },
     normal: ({ children }) => {
-      return <p className="peer">{children}</p>
+      return (
+        <m.p
+          className="peer"
+          initial="initial"
+          whileInView="visible"
+          viewport={{
+            once: true,
+          }}
+          variants={variants(0)}
+        >
+          {children}
+        </m.p>
+      )
     },
     // add more block-level components here.
   },
   list: {
+    // can we map over children and fade them in?
     bullet: ({ children }) => {
       return (
         <ul role="list" className="peer">
@@ -48,6 +60,42 @@ export const PortableTextBlocks: PortableTextComponents = {
     number: ({ children }) => {
       return <ol className="peer">{children}</ol>
     },
+    check: ({ children }) => {
+      return (
+        <ul className="peer checklist list-image-[url(/circle-check-sharp-solid.svg)]">
+          {children}
+        </ul>
+      )
+    },
+  },
+  listItem: {
+    // Ex. 1: customizing common list types
+    bullet: ({ children }) => (
+      <m.li
+        variants={variants()}
+        initial="initial"
+        whileInView="visible"
+        viewport={{
+          once: true,
+        }}
+      >
+        {children}
+      </m.li>
+    ),
+    check: ({ children }) => (
+      <m.li
+        variants={variants()}
+        initial="initial"
+        whileInView="visible"
+        viewport={{
+          once: true,
+        }}
+        className="[&::marker]:text-[xxx-large]"
+      >
+        {children}
+      </m.li>
+    ),
+    // Ex. 2: customizing specific list items
   },
   marks: {
     anchorLink: ({ value, children }) => {
@@ -89,25 +137,33 @@ export const PortableTextBlocks: PortableTextComponents = {
     },
   },
   types: {
-    imageObject: ({ value }) => {
-      const { asset, hotspot, crop } = value.image
-      return (
-        <Image
-          id={asset._id ?? ''}
-          width={asset.metadata?.dimensions?.width ?? undefined}
-          height={asset.metadata?.dimensions?.height ?? undefined}
-          mode="cover"
-          hotspot={hotspot}
-          crop={crop}
-          preview={asset.metadata?.lqip ?? ''}
-          alt={asset.altText ?? ''}
-          className={`object-cover w-full h-full my-8 rounded-lg shadow-md md:my-16`}
-          sizes={`min-width: ${asset.metadata?.dimensions.width}px) ${asset.metadata?.dimensions.width}px, 100vw`}
-        />
-      )
+    imageObject: ({ value }: { value: ImageObject }) => {
+      const { image, altText, caption } = value
+      // return false
+      return image.asset ? (
+        <figure className="my-8 md:my-16">
+          <Image
+            source={image.asset}
+            width={1920}
+            // mode="cover"
+            // hotspot={hotspot}
+            // crop={crop}
+            // preview={asset.metadata?.lqip ?? ''}
+            variants={variants()}
+            alt={altText ?? undefined}
+            className={`object-cover w-full h-full rounded-lg shadow-md`}
+            // sizes={`min-width: ${asset.metadata?.dimensions.width}px) ${asset.metadata?.dimensions.width}px, 100vw`}
+          />
+          {caption ? (
+            <figcaption className="text-left text-sm text-gray-500">
+              {value.caption}
+            </figcaption>
+          ) : null}
+        </figure>
+      ) : null
     },
     badge: ({ value }) => {
-      return <Badge {...value} className="peer" />
+      return <Badge {...value} className="peer" variants={variants()} />
     },
     button: ({ value }) => {
       return (

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { sanityImageObjectExtendedZ } from './image'
+import { imageZ, sanityImageObjectExtendedZ } from './image'
 import { badgeZ } from './badge'
 
 export const logoCloudZ = z.object({
@@ -8,7 +8,7 @@ export const logoCloudZ = z.object({
   badge: badgeZ.optional(),
   title: z.string(),
   text: z.any(), // TOOD: add portable text type
-  logos: z.array(sanityImageObjectExtendedZ),
+  logos: z.array(imageZ),
 })
 
 export type LogoCloud = z.infer<typeof logoCloudZ>

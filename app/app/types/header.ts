@@ -5,7 +5,7 @@ import { menuZ } from './menu'
 export const headerZ = z.object({
   email: z.string().nullable(),
   phone: z.string().nullable(),
-  logo: sanityImageObjectExtendedZ,
+  logo: sanityImageObjectExtendedZ.nullable(),
   menu: menuZ.nullable(),
 })
 

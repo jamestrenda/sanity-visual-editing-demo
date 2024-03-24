@@ -30,15 +30,16 @@ const Header = ({ phone, email, logo, menu }: Props) => {
           {/* TODO: add sanity overlay for logo */}
           {logo?.asset ? (
             <Image
-              id={logo.asset._id}
-              alt="Logo"
+              // id={logo.asset._id}
+              source={logo.asset}
+              alt={logo.asset.altText ?? 'Logo'}
               width={80}
               loading="eager"
               // height={service.image.asset.metadata?.dimensions.height ?? 1080}
-              crop={logo.crop}
-              hotspot={logo.hotspot}
-              preview={logo.asset.metadata?.lqip ?? ''}
-              queryParams={{ q: 100, w: 80 }}
+              // crop={logo.crop}
+              // hotspot={logo.hotspot}
+              // preview={logo.asset.metadata?.lqip ?? ''}
+              // queryParams={{ q: 100, w: 80 }}
               className={`h-12 w-auto transition ${y && y > 30 ? 'filter brightness-[20]' : ''}`}
               // sizes="(min-width: 768px) 240px, 100vw"
             />

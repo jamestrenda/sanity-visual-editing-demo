@@ -25,7 +25,7 @@ export const sanityImageHotspotZ = schemaForType<SanityImageHotspot>()(
 
 export const sanityImageZ = z.object({
   _id: z.string(),
-  _type: z.string(),
+  _type: z.literal('image'),
   altText: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
   url: z.string().url(),
@@ -52,11 +52,16 @@ export const sanityImageObjectExtendedZ = z.object({
 })
 
 export const imageZ = z.object({
-  _type: z.literal('image'),
-  _key: z.string().optional(),
+  _type: z.literal('imageObject'),
+  _key: z.string().nullable(),
+  altText: z.string().nullable(),
+  caption: z.string().nullable(),
+  anchor: z.string().nullable(),
   image: sanityImageObjectExtendedZ,
 })
 
 export type SanityImageObjectExtended = z.infer<
   typeof sanityImageObjectExtendedZ
 >
+
+export type ImageObject = z.infer<typeof imageZ>
