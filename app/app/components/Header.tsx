@@ -16,7 +16,7 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
   const [ref, { width }] = useMeasure()
 
   useEffect(() => {
-    if (width && width < 768) {
+    if (width && width < 640) {
       setIsMobile(true)
     } else {
       setIsMobile(false)
@@ -26,7 +26,7 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
   return (
     <header
       ref={ref}
-      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 group-has-[.page-not-found]:!bg-black/90 group-has-[.no-hero]:!bg-black/90 text-xl`}
+      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 group-has-[.page-not-found]:!bg-black/90 group-has-[.no-hero]:!bg-black/90 md:text-xl`}
     >
       <Container className="grid grid-cols-3 items-center justify-center">
         {phone ? (
@@ -35,7 +35,9 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
             href={`tel:${phone}`}
             className="text-white flex items-center gap-2"
           >
-            <IconPhone className="fill-secondary-yellow-500 sm:hidden" />
+            <IconPhone
+              className={`sm:hidden text-xl ${y && y > 30 ? 'fill-white' : 'fill-secondary-yellow-500'}`}
+            />
 
             <span className="hidden sm:inline-flex">{phone}</span>
           </a>
@@ -58,7 +60,7 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
                 // hotspot={logo.hotspot}
                 // preview={logo.asset.metadata?.lqip ?? ''}
                 // queryParams={{ q: 100, w: 80 }}
-                className={`h-12 w-auto transition ${y && y > 30 ? 'filter brightness-[20]' : ''}`}
+                className={`h-10 w-auto transition ${y && y > 30 ? 'filter brightness-[20]' : ''}`}
                 // sizes="(min-width: 768px) 240px, 100vw"
               />
             ) : null
@@ -74,7 +76,7 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
               // hotspot={logo.hotspot}
               // preview={logo.asset.metadata?.lqip ?? ''}
               // queryParams={{ q: 100, w: 80 }}
-              className={`h-12 w-auto transition ${y && y > 30 ? 'filter brightness-[20]' : ''}`}
+              className={`h-10 md:h-12 w-auto transition ${y && y > 30 ? 'filter brightness-[20]' : ''}`}
               // sizes="(min-width: 768px) 240px, 100vw"
             />
           ) : null}
@@ -85,7 +87,9 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
             href={`mailto:${email}`}
             className="text-white text-right flex items-center justify-self-end"
           >
-            <IconPaperAirplane className="fill-secondary-yellow-500 sm:hidden" />
+            <IconPaperAirplane
+              className={`sm:hidden text-xl ${y && y > 30 ? 'fill-white' : 'fill-secondary-yellow-500'}`}
+            />
             <span className="hidden sm:inline-flex">{email}</span>
           </a>
         ) : null}
