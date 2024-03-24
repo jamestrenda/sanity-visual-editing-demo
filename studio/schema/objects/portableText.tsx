@@ -5,6 +5,7 @@ import { IconAnchor } from '~/icons/anchor'
 import { IconArrowUpRightFromSquare } from '~/icons/arrowUpRightFromSquare'
 import { IconLink } from '~/icons/link'
 import anchor from './anchor'
+import CheckListDecorator from '~/components/CheckListDecorator'
 
 export const portableTextBlocks = defineArrayMember({
   type: 'block',
@@ -25,6 +26,12 @@ export const portableTextBlocks = defineArrayMember({
   lists: [
     { title: 'Bullet', value: 'bullet' },
     { title: 'Number', value: 'number' },
+    {
+      title: 'Check',
+      value: 'check',
+      icon: () => '✅',
+      component: CheckListDecorator,
+    },
   ],
   // Marks let you mark up inline text in the block editor.
   marks: {
