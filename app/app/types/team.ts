@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { sanityImageObjectExtendedZ } from './image'
+import { imageZ } from './image'
 import { socialMediaZ } from './company'
 import { badgeZ } from './badge'
 
@@ -10,7 +10,7 @@ export const teamMemberZ = z.object({
   firstName: z.string().nullable(),
   lastName: z.string().nullable(),
   position: z.string().nullable(),
-  image: sanityImageObjectExtendedZ,
+  image: imageZ,
   socialMedia: socialMediaZ,
 })
 

@@ -10,25 +10,11 @@ import CallToAction from './CallToAction'
 import Team from './Team'
 import Stats from './Stats'
 import { m } from 'framer-motion'
+import { variants } from '~/utils/misc'
 
-// import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
-// import CallOutBlockWithImage from './callOutBlockWithImage';
-// import CallOutBlockWithImageTiles from './callOutBlockWithImageTiles';
-// import Cards from './cards';
-// import ImageBlock from './imageBlock';
-// import RichTextModule from './richTextModule';
-// import { Block } from '~/types/block';
-
-// with Remix we don't need to use the lazy import because this will run on the server
-// const componentMap = {
-//   imageBlock: ImageBlock,
-//   callOutBlockWithBgImage: CallOutBlockWithBgImage,
-//   callOutBlockWithImage: CallOutBlockWithImage,
-//   callOutBlockWithImageTiles: CallOutBlockWithImageTiles,
-//   cards: Cards,
-//   richTextBlock: RichTextModule,
-// };
-
+// the different blocks that can be added to pages and posts in the body field
+// are determined by the sanity schema, but the React components that render each of those
+// blocks are defined here.
 const blocksMap = {
   badge: Badge,
   textBlock: PortableTextBlock,
@@ -46,11 +32,6 @@ export type Props = {
   component: (typeof blocksMap)[BlockType]
 }
 
-const variants = {
-  initial: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-}
-
 /**
  *
  *  Renders a page builder block based on the _type property.
@@ -60,25 +41,30 @@ export const SectionBlock = ({ block }: { block: Block }) => {
 
   const SectionComponent = blocksMap[_type] as React.FC<any>
 
-  const MotionComponent = m(SectionComponent)
+  // I would prefer to do someting like this:
+  // const MotionComponent = m(SectionComponent)
+  // and then use <MotionComponent /> below,
+  // but that seems to break the app with an error message:
+  // "Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
+  // so I'm using the m.div wrapper below instead for now..
 
   switch (_type) {
     case 'button':
       return (
-        <MotionComponent
-          {...block.link}
-          className="text-center peer"
-          variants={variants}
+        <m.div
+          variants={variants()}
           initial="initial"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {block.link.linkText}
-        </MotionComponent>
+          <SectionComponent {...block.link} className="text-center peer">
+            {block.link.linkText}
+          </SectionComponent>
+        </m.div>
       )
     case 'imageObject':
       const props = {
-        source: block.image.asset,
+        source: block.image,
         alt: block.altText ?? block.image.asset?.altText ?? '',
         width: 1920,
         // loading: 'eager',
@@ -91,26 +77,26 @@ export const SectionBlock = ({ block }: { block: Block }) => {
         // sizes: '(min-width: 768px) 96vw, 100vw',
       }
       return block.image.asset ? (
-        <div className="h-[50vw] max-h-[600px] min-h-[400px]">
-          <MotionComponent
-            {...props}
-            variants={variants}
-            initial="initial"
-            whileInView="visible"
-            viewport={{ once: true }}
-          />
-        </div>
+        <m.div
+          className="h-[50vw] max-h-[600px] min-h-[400px]"
+          variants={variants()}
+          initial="initial"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <SectionComponent {...props} />
+        </m.div>
       ) : null
     default:
       return _type && _type in blocksMap ? (
-        <SectionComponent
-          {...block}
-          className="peer"
-          // variants={variants}
-          // initial="initial"
-          // whileInView="visible"
-          // viewport={{ once: true }}
-        />
+        <m.div
+          variants={variants()}
+          initial="initial"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <SectionComponent {...block} className="peer" />
+        </m.div>
       ) : (
         <></>
       )

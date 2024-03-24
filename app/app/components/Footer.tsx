@@ -86,7 +86,7 @@ const Footer = ({
             <div className="space-y-8">
               {logo?.asset ? (
                 <Image
-                  source={logo.asset}
+                  source={logo}
                   alt={logo.asset.altText ?? 'Logo'}
                   // width={1920}
                   // loading="eager"

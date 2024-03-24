@@ -51,7 +51,7 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
             logoMobile?.asset ? (
               <Image
                 // id={logo.asset._id}
-                source={logoMobile.asset}
+                source={logoMobile}
                 alt={logoMobile.asset.altText ?? 'Logo'}
                 width={80}
                 loading="eager"
@@ -67,7 +67,7 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
           ) : logo?.asset ? (
             <Image
               // id={logo.asset._id}
-              source={logo.asset}
+              source={logo}
               alt={logo.asset.altText ?? 'Logo'}
               width={80}
               loading="eager"

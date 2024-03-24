@@ -17,7 +17,7 @@ const LogoCloud = ({ badge, title, logos }: LogoCloud) => {
           return logo.image.asset ? (
             <Image
               key={index}
-              source={logo.image.asset}
+              source={logo.image}
               alt={logo.altText ?? logo.image.asset.altText ?? ''}
               // width={1920}
               // loading="eager"

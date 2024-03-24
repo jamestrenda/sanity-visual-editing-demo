@@ -48,7 +48,7 @@ export default function Hero({
           {(video?.mp4 || video?.webm) && width && width > 1023 ? (
             <BackgroundVideo {...{ ...video, image }} />
           ) : image?.asset ? (
-            <BackgroundImage image={image} />
+            <BackgroundImage source={image} />
           ) : (
             <div className="[&_canvas]:!-z-10 [&_canvas]:!absolute [&_#tsparticles]:absolute [&_#tsparticles]:inset-0 [&_#tsparticles]:pointer-events-none">
               <BackgroundParticles />

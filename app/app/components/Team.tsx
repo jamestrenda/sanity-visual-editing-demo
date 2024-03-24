@@ -1,9 +1,11 @@
 import { Team } from '~/types/team'
 import { Heading } from './Heading'
 import Image from './Image'
+import { m } from 'framer-motion'
 import PortableTextBlock from './PortableText'
 import Badge from './Badge'
 import React from 'react'
+import { variants } from '~/utils/misc'
 
 export default React.forwardRef(function Team(
   { badge, title, text, members }: Team,
@@ -12,8 +14,13 @@ export default React.forwardRef(function Team(
   return (
     <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
       <div className="mx-auto max-w-2xl">
-        <Badge {...badge} />
-        <Heading as="h2" use="h2" className="text-center">
+        <Badge {...badge} variants={variants()} />
+        <Heading
+          as="h2"
+          use="h2"
+          className="text-center"
+          variants={variants(1)}
+        >
           {title}
         </Heading>
         {text ? <PortableTextBlock portableText={text} /> : null}
@@ -22,32 +29,47 @@ export default React.forwardRef(function Team(
         role="list"
         className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
       >
-        {members?.map((person) => {
+        {members?.map((person, index) => {
+          const { image } = person.image
           return (
             <li key={person._id}>
-              {/* {person.image?.asset ? (
+              {image?.asset ? (
                 <Image
-                  id={person.image.asset?._id}
-                  alt={person.image.asset.altText ?? ''}
-                  loading="eager"
-                  height={256}
-                  queryParams={{ q: 100, fm: 'webp' }}
-                  crop={person.image.crop}
-                  hotspot={person.image.hotspot}
-                  preview={person.image.asset.metadata?.lqip ?? ''}
+                  alt={image.asset.altText ?? undefined}
+                  height={450}
+                  width={450}
+                  // @ts-ignore
+                  source={image}
+                  variants={variants(2 + index)}
                   className="mx-auto h-40 w-40 sm:h-56 sm:w-56 rounded-full"
                 />
-              ) : null} */}
-              <Heading as="h3" use="h3" className="mt-4">
+              ) : null}
+              <Heading
+                as="h3"
+                use="h3"
+                className="mt-4"
+                variants={variants(3 + index)}
+              >
                 {person.firstName} {person.lastName}
               </Heading>
-              <p className="text-lg leading-6 text-gray-600">
+              <m.p
+                className="text-lg leading-6 text-gray-600"
+                initial="initial"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={variants(4 + index)}
+              >
                 {person.position}
-              </p>
+              </m.p>
               {person.socialMedia ? (
                 <ul role="list" className="mt-6 flex justify-center gap-x-6">
                   {person.socialMedia.x ? (
-                    <li>
+                    <m.li
+                      initial="initial"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={variants(5 + index)}
+                    >
                       <a
                         href={person.socialMedia.x}
                         className="text-gray-400 hover:text-gray-500"
@@ -62,7 +84,7 @@ export default React.forwardRef(function Team(
                           <path d="M11.4678 8.77491L17.2961 2H15.915L10.8543 7.88256L6.81232 2H2.15039L8.26263 10.8955L2.15039 18H3.53159L8.87581 11.7878L13.1444 18H17.8063L11.4675 8.77491H11.4678ZM9.57608 10.9738L8.95678 10.0881L4.02925 3.03974H6.15068L10.1273 8.72795L10.7466 9.61374L15.9156 17.0075H13.7942L9.57608 10.9742V10.9738Z" />
                         </svg>
                       </a>
-                    </li>
+                    </m.li>
                   ) : null}
                   {person.socialMedia.linkedin ? (
                     <li>

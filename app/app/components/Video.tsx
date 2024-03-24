@@ -38,7 +38,7 @@ const Video = (props: Props) => {
         </video>
       )}
       {isVideoLoaded ? null : props.image ? (
-        <BackgroundImage image={props.image} />
+        <BackgroundImage source={props.image} />
       ) : null}
       {/* <div
         style={{

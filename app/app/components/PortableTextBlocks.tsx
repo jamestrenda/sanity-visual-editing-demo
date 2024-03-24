@@ -174,19 +174,14 @@ export const PortableTextBlocks: PortableTextComponents = {
     imageObject: ({ value }: { value: ImageObject }) => {
       const { image, altText, caption } = value
       // return false
-      return image.asset ? (
+      return image?.asset ? (
         <figure className="my-8 md:my-16">
           <Image
-            source={image.asset}
+            source={image}
             width={1920}
-            // mode="cover"
-            // hotspot={hotspot}
-            // crop={crop}
-            // preview={asset.metadata?.lqip ?? ''}
             variants={variants()}
             alt={altText ?? undefined}
             className={`object-cover w-full h-full rounded-lg shadow-md`}
-            // sizes={`min-width: ${asset.metadata?.dimensions.width}px) ${asset.metadata?.dimensions.width}px, 100vw`}
           />
           {caption ? (
             <m.figcaption

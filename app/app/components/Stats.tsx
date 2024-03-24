@@ -59,7 +59,7 @@ export default function Stats({
           ) : null,
         )}
       </dl>
-      {image ? <BackgroundImage image={image} /> : null}
+      {image ? <BackgroundImage source={image} /> : null}
     </div>
   )
 }
