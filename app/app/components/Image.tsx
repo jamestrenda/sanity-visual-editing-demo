@@ -1,28 +1,12 @@
 import { MotionProps, m } from 'framer-motion'
-// import type { PortableTextComponentProps } from '@portabletext/react'
-import type {
-  SanityImageAsset,
-  SanityImageObjectStub,
-  SanityImageSource,
-} from '@sanity/asset-utils'
-import {
-  getDefaultHotspot,
-  getImageAsset,
-  getImageDimensions,
-} from '@sanity/asset-utils'
-// import urlBuilder from '@sanity/image-url'
+import { getDefaultHotspot, getImageDimensions } from '@sanity/asset-utils'
 
-import { dataset, projectId } from '~/sanity/projectDetails'
 import { cn } from '~/utils/misc'
 import imageUrlBuilder from '@sanity/image-url'
 
 import { client } from '~/sanity/client'
 import { FitMode } from '@sanity/image-url/lib/types/types'
-import { ImageObject, SanityImageObjectExtended } from '~/types/image'
-
-// type SanityImageAssetWithAlt = SanityImageSource & {
-//   altText?: string | null
-// }
+import { SanityImageObjectExtended } from '~/types/image'
 
 // const baseUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
 
@@ -30,16 +14,25 @@ const builder = imageUrlBuilder(client)
 
 export type ImageProps = {
   source: SanityImageObjectExtended
-  alt?: string | null
-  fit?: FitMode | null
+  alt?: string
+  fit?: FitMode
+  q?: number
 }
 
 export default function Image(
   props: ImageProps & MotionProps & React.ImgHTMLAttributes<HTMLImageElement>,
 ) {
-  // return <> </>
-  const { source, variants, className, width, height, alt, fit, ...rest } =
-    props
+  const {
+    source,
+    variants,
+    className,
+    width,
+    height,
+    alt,
+    q,
+    fit = 'crop',
+    ...rest
+  } = props
 
   const { asset, hotspot, crop } = source
 
@@ -47,51 +40,27 @@ export default function Image(
     ? getImageDimensions(asset)
     : { width: 0, height: 0 }
 
-  // console.log({ asset, hotspot, crop })
-  // console.log({ source })
   const focalpoint = hotspot ?? getDefaultHotspot()
 
-  // console.log({ focalpoint })
-  // const MotionImage = m(SanityImage)
+  if (!asset) return null
 
-  // return asset ? (
-  // <m.div
+  const src = builder.image(asset).withOptions({
+    w: width ? Number(width) : undefined,
+    h: height ? Number(height) : undefined,
+    fit: fit ?? 'crop',
+    crop: 'focalpoint',
+    focalPoint: {
+      x: focalpoint.x,
+      y: focalpoint.y,
+    },
+    q: q ?? 80,
+    auto: 'format',
+  })
 
-  // >
-  //   <MotionImage
-  //     baseUrl={baseUrl}
-  //     id={asset._id}
-  //     alt={alt ?? asset.altText ?? ''}
-  //     width={Number(width) ?? sourceWidth}
-  //     height={Number(height) ?? sourceHeight}
-  //     loading="eager"
-  //     //   height={500}
-  //     queryParams={{ q: 100, fm: 'webp' }}
-  //     crop={crop ?? undefined}
-  //     hotspot={hotspot ?? undefined}
-  //     // preview={asset.metadata?.lqip ?? ''}
-  //     className={cn(`h-auto w-full`, className)}
-  //     sizes="(min-width: 768px) 96vw, 100vw"
-  //     initial="initial"
-  //     whileInView="visible"
-  //     viewport={{ once: true }}
-  //     variants={variants}
-  //   />
-  // ) : // </m.div>
-  // null
-
-  return asset ? (
+  return (
     <m.img
       className={cn(`h-auto w-full`, className)}
-      src={builder
-        .image(asset)
-        .width(width ? Number(width) : sourceWidth)
-        .height(height ? Number(height) : sourceHeight)
-        .fit(fit ?? 'crop')
-        .crop('focalpoint')
-        .focalPoint(focalpoint.x, focalpoint.y)
-        .auto('format')
-        .url()}
+      src={src.url()}
       alt={alt ?? asset.altText ?? ''}
       loading="lazy"
       variants={variants}
@@ -107,25 +76,5 @@ export default function Image(
       }}
       {...rest}
     />
-  ) : null
+  )
 }
-
-// const Image = (
-//   props: { id: string } & Omit<
-//     React.ComponentProps<typeof SanityImage>,
-//     'baseUrl' | 'dataset' | 'projectId'
-//   >,
-// ) => {
-//   const MotionImage = m(React.forwardRef(SanityImage))
-//   return (
-//     <MotionImage
-//       {...props}
-//       baseUrl={baseUrl}
-//       initial="initial"
-//       animate="visible"
-//       viewport={{ once: true }}
-//     />
-//   )
-// }
-
-// export default Image
