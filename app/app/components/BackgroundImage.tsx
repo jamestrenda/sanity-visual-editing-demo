@@ -8,6 +8,7 @@ const BackgroundImage = ({ source }: ImageProps) =>
         width={1920}
         loading="eager"
         className="absolute inset-0 h-full w-full object-cover opacity-10 transition duration-1000"
+        q={70}
       />
     </div>
   ) : null
