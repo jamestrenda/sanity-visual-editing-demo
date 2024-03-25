@@ -1,5 +1,4 @@
 import { Heading } from './Heading'
-import Image from './Image'
 import PortableTextBlock from './PortableText'
 import Badge from './Badge'
 import { Stat, Stats } from '~/types/stats'
@@ -72,14 +71,6 @@ export default function Stats({
                     description={stat.description}
                     variants={variants(4 + index)}
                   />
-                  {/* <>
-                <dd className="text-6xl tracking-tight sm:text-5xl font-bold">
-                  {stat.prefix && <span>{stat.prefix}</span>}
-                  <span>{stat.value}</span>
-                  {stat.suffix && <span>{stat.suffix}</span>}
-                </dd>
-                <dd className="text-sm leading-7 mt-5">{stat?.description}</dd>
-              </> */}
                 </m.div>
               ) : (
                 false
@@ -100,10 +91,8 @@ function Stat({
   variants,
 }: Stat & MotionProps) {
   const count = useMotionValue(0)
-  // const rounded = useTransform(count, Math.round);
 
   const ref = useRef(null)
-  //   const valueRef = useRef<string | number>(0);
 
   const isInView = useInView(ref)
   const isDecimal = value ? value % 1 != 0 : false
