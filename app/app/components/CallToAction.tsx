@@ -35,7 +35,7 @@ export default function CallToAction({
       )}
 
       <div className="mx-auto max-w-sm md:max-w-2xl text-center flex flex-col items-center justify-center z-10">
-        {badge ? <Badge {...badge} variants={variants(0)} /> : null}
+        {badge ? <Badge {...badge} /> : null}
         <Heading
           as="h1"
           use="h1"

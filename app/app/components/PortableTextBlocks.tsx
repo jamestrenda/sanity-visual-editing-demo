@@ -198,7 +198,7 @@ export const PortableTextBlocks: PortableTextComponents = {
       ) : null
     },
     badge: ({ value }) => {
-      return <Badge {...value} className="peer" variants={variants()} />
+      return <Badge {...value} className="peer" />
     },
     button: ({ value }) => {
       return (

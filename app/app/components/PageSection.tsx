@@ -67,11 +67,6 @@ export const SectionBlock = ({ block }: { block: Block }) => {
         source: block.image,
         alt: block.altText ?? block.image.asset?.altText ?? '',
         width: 1920,
-        // loading: 'eager',
-        // queryParams: { q: 100, fm: 'webp' },
-        // crop: block.image.crop,
-        // hotspot: block.image.hotspot,
-        // preview: block.image.asset?.metadata?.lqip ?? '',
         className:
           'block-image my-8 group-has-[.block-image]:my-0 h-full w-full object-cover',
         // sizes: '(min-width: 768px) 96vw, 100vw',
