@@ -3,6 +3,25 @@ import { IconFile } from '~/icons/file'
 import { blockContentTypes } from './objects/blockContent'
 import { slugField } from './objects/slug'
 import { titleField } from './objects/title'
+import PageBuilderInput from '~/components/PageBuilderInput'
+
+// Title
+// Category
+// Date
+// Social Share Links (Facebook, Twitter, LinkedIn, Pinterest, Email)
+// Author?
+// -- Avatar
+// -- Full Name
+// -- Bio
+// Tags?
+// SEO (Meta Title, Meta Description, Meta Keywords, Canonical URL, Robots, Open Graph
+
+// Block Content (Body)
+// Video - wistia, youtube, vimeo?
+// Button
+//
+
+// Related Posts
 
 export default defineType({
   name: 'post',
@@ -10,6 +29,14 @@ export default defineType({
   type: 'document',
   icon: IconFile,
   groups: [
+    {
+      name: 'content',
+      title: 'Content',
+    },
+    {
+      name: 'meta',
+      title: 'Metadata',
+    },
     {
       title: 'SEO',
       name: 'seo',
@@ -73,8 +100,23 @@ export default defineType({
       name: 'body',
       title: 'Body',
       type: 'array',
-      of: blockContentTypes.filter((block) => block.type !== 'hero'),
+      of: blockContentTypes.filter((block) =>
+        [
+          // 'badge',
+          // 'button',
+          'ctaBlock',
+          'imageObject',
+          'logoCloud',
+          'textBlock',
+          'reference',
+          'statsBlock',
+          'video',
+        ].includes(String(block.type === 'object' ? block.name : block.type)),
+      ),
       validation: (Rule) => Rule.required(),
+      components: {
+        input: PageBuilderInput,
+      },
     }),
     defineField({
       name: 'publishedAt',
