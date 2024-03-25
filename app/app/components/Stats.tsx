@@ -4,8 +4,15 @@ import PortableTextBlock from './PortableText'
 import Badge from './Badge'
 import { Stat, Stats } from '~/types/stats'
 import { useEffect, useRef } from 'react'
-import { animate, useInView, useMotionValue } from 'framer-motion'
+import {
+  animate,
+  useInView,
+  useMotionValue,
+  m,
+  MotionProps,
+} from 'framer-motion'
 import { BackgroundImage } from './BackgroundImage'
+import { variants } from '~/utils/misc'
 
 export default function Stats({
   badge,
@@ -21,50 +28,77 @@ export default function Stats({
       className="stats mx-auto max-w-7xl px-6 lg:px-8"
     >
       <div className="mx-auto max-w-5xl">
-        {badge ? <Badge {...badge} /> : null}
-        <Heading as="h2" use="h2" className="text-center">
+        {badge ? <Badge {...badge} variants={variants()} /> : null}
+        <Heading
+          as="h2"
+          use="h2"
+          className="text-center"
+          variants={variants(1)}
+        >
           {title}
         </Heading>
         {text ? (
-          <div className="text-center">
+          <m.div
+            className="text-center"
+            initial="initial"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={variants(2)}
+          >
             <PortableTextBlock portableText={text} />
-          </div>
+          </m.div>
         ) : null}
       </div>
       <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl sm:grid-cols-2 xl:grid-cols-4 max-w-96 sm:max-w-none mx-auto">
-        {stats?.map((stat, index) =>
-          stat.value ? (
-            <div
-              key={index}
-              className="flex flex-col bg-white/50 backdrop-blur-md p-8"
-            >
-              <dt className="text-lg leading-7 tracking-wider mb-5 font-bold border-b-4 pb-2 border-primary-dark-500 border-solid">
-                {stat?.name}
-              </dt>
+        {stats?.length
+          ? stats.map((stat, index) =>
+              stat?.value && stat.value > 0 ? (
+                <m.div
+                  key={index}
+                  className="flex flex-col bg-white/50 backdrop-blur-md p-8"
+                  initial="initial"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={variants(3 + index)}
+                >
+                  <dt className="text-lg leading-7 tracking-wider mb-5 font-bold border-b-4 pb-2 border-primary-dark-500 border-solid">
+                    {stat?.name}
+                  </dt>
 
-              {/* // <Stat
-              //   value={stat.value}
-              //   suffix={stat.suffix}
-              //   prefix={stat.prefix}
-              // /> */}
-              <>
+                  <Stat
+                    value={stat.value}
+                    suffix={stat.suffix}
+                    prefix={stat.prefix}
+                    description={stat.description}
+                    variants={variants(4 + index)}
+                  />
+                  {/* <>
                 <dd className="text-6xl tracking-tight sm:text-5xl font-bold">
                   {stat.prefix && <span>{stat.prefix}</span>}
                   <span>{stat.value}</span>
                   {stat.suffix && <span>{stat.suffix}</span>}
                 </dd>
                 <dd className="text-sm leading-7 mt-5">{stat?.description}</dd>
-              </>
-            </div>
-          ) : null,
-        )}
+              </> */}
+                </m.div>
+              ) : (
+                false
+              ),
+            )
+          : null}
       </dl>
       {image ? <BackgroundImage source={image} /> : null}
     </div>
   )
 }
 
-function Stat({ value = 0, prefix = '', suffix = '' }: Stat) {
+function Stat({
+  value = 0,
+  prefix = '',
+  suffix = '',
+  description,
+  variants,
+}: Stat & MotionProps) {
   const count = useMotionValue(0)
   // const rounded = useTransform(count, Math.round);
 
@@ -98,16 +132,28 @@ function Stat({ value = 0, prefix = '', suffix = '' }: Stat) {
               : Math.round(latest)
         },
       })
-
-      return animation.stop
     }
+    return
   }, [isInView])
 
   return (
-    <dd className="text-4xl font-bold sm:text-5xl">
-      {prefix ? <span>{prefix}</span> : null}
-      <span ref={ref}>0</span>
-      {suffix ? <span>{suffix}</span> : null}
-    </dd>
+    <>
+      <dd className="text-4xl font-bold sm:text-5xl">
+        {prefix ? <span>{prefix}</span> : null}
+        <span ref={ref}>0</span>
+        {suffix ? <span>{suffix}</span> : null}
+      </dd>
+      {description ? (
+        <m.dd
+          initial="initial"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={variants}
+          className="text-sm leading-7 mt-5"
+        >
+          {description}
+        </m.dd>
+      ) : null}
+    </>
   )
 }
