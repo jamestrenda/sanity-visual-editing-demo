@@ -4,37 +4,11 @@ import { IconText } from '~/icons/text'
 
 export const blockContentTypes = [
   {
-    type: 'object',
-    title: 'Rich Text',
-    name: 'textBlock',
-    icon: IconText,
-    preview: {
-      prepare() {
-        return {
-          title: 'Rich Text',
-        }
-      },
-    },
-    fields: [
-      defineField({
-        title: 'Rich Text',
-        name: 'portableText',
-        type: 'portableText',
-      }),
-    ],
-  },
-  {
     type: 'badge',
   },
   {
     type: 'button',
   },
-  // {
-  //   type: 'carousel',
-  // },
-  // {
-  //   type: 'checklist',
-  // },
   {
     type: 'ctaBlock',
   },
@@ -54,18 +28,29 @@ export const blockContentTypes = [
   // },
   {
     type: 'imageObject',
-    // inline edit form, skip modal
-    // components: {
-    //   block: (props) => {
-    //     return props.renderDefault({
-    //       ...props,
-    //       renderPreview: () => props.children,
-    //     })
-    //   },
-    // },
   },
   {
     type: 'logoCloud',
+  },
+  {
+    type: 'object',
+    title: 'Rich Text',
+    name: 'textBlock',
+    icon: IconText,
+    preview: {
+      prepare() {
+        return {
+          title: 'Rich Text',
+        }
+      },
+    },
+    fields: [
+      defineField({
+        title: 'Rich Text',
+        name: 'portableText',
+        type: 'portableText',
+      }),
+    ],
   },
   {
     type: 'servicesBlock',
