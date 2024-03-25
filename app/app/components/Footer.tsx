@@ -116,7 +116,7 @@ const Footer = ({
                   viewport={{ once: true }}
                   variants={variants(2)}
                 >
-                  <address>
+                  <address className="not-italic">
                     {address.street}
                     <br />
                     {address.city}, {address.state} {address.zip}
