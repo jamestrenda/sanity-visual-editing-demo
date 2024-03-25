@@ -7,7 +7,7 @@ import anchor from './anchor'
 
 export default defineType({
   name: 'imageObject',
-  title: 'Image',
+  title: 'Full-Width Image',
   type: 'object',
   icon: IconImage,
   preview: {

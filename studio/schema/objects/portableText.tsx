@@ -118,6 +118,7 @@ export default defineType({
     },
     {
       type: 'imageObject',
+      title: 'Image',
     },
   ],
 })

@@ -40,6 +40,7 @@ export default defineType({
       of: [
         {
           type: 'imageObject',
+          title: 'Logo',
         },
       ],
     }),
