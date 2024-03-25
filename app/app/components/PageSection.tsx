@@ -50,6 +50,10 @@ export const SectionBlock = ({ block }: { block: Block }) => {
 
   switch (_type) {
     case 'button':
+      if (!block.link) return null
+
+      // if (block.link?._type === 'linkExternal' && !block.link?.href)
+      //   return <></>
       return (
         <m.div
           variants={variants()}
