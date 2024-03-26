@@ -1,6 +1,6 @@
 body {
-  @apply text-primary-dark-500;
+  @apply text-primary-dark-500 font-light font-montserrat;
 }
-body.font-loaded {
+/* body.font-loaded {
   @apply font-montserrat;
-}
+} */
