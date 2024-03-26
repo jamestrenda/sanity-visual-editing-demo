@@ -50,7 +50,7 @@ export const Posts = ({
               variants={variants(index)}
               className="py-8 md:py-0"
             >
-              <Link to={post.slug} className="group relative">
+              <Link to={post.slug} className="group relative block">
                 <Badge
                   className="absolute top-4 left-4 bg-white text-primary-dark-500 z-10"
                   text={post.category.name ?? 'Uncategorized'}

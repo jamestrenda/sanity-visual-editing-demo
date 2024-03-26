@@ -63,7 +63,7 @@ const Component = ({
   return (
     <m.div
       className={twMerge(
-        'badge group-has-[.prose]:w-fit mx-auto flex justify-center items-center text-xs py-1 bg-secondary-green-500 text-black/70 px-1 rounded-full mb-4 uppercase font-bold tracking-wider',
+        'badge w-fit group-has-[.prose]:w-fit mx-auto flex justify-center items-center text-xs py-1 bg-secondary-green-500 text-black/70 px-1 rounded-full mb-4 uppercase font-bold tracking-wider',
         className,
       )}
       variants={variants()}
