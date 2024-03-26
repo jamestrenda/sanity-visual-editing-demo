@@ -17,40 +17,41 @@ import { GeneralErrorBoundary } from '~/components/ErrorBoundary'
 import PageNotFound from '~/components/PageNotFound'
 import { Post } from '~/components/Post'
 
-// export const meta: MetaFunction<typeof loader> = ({
-//   data,
-//   params,
-//   matches,
-// }) => {
-//   const rootData = matches.find((match) => match.id === `root`) as
-//     | { data: SerializeFrom<typeof rootLoader> }
-//     | undefined
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+  params,
+  matches,
+}) => {
+  const rootData = matches.find((match) => match.id === `root`) as
+    | { data: SerializeFrom<typeof rootLoader> }
+    | undefined
 
-//   const rootTitle = rootData?.data.initial.data.settings.siteTitle
+  const rootTitle = rootData?.data.initial.data.settings.siteTitle
 
-//   let title
-//   if (data?.initial) {
-//     const { initial: pageData } = data
-//     title = [pageData.data?.seo?.title ?? pageData.data?.title, rootTitle]
-//       .filter(Boolean)
-//       .join(' • ')
+  let title
+  if (data?.initial) {
+    const { initial: pageData } = data
+    title = [pageData.data?.seo?.title ?? pageData.data?.title, rootTitle]
+      .filter(Boolean)
+      .join(' • ')
+    // TODO: could make the separate a field in the site settings, so I don't have to redeclare it in each meta function
 
-//     return [
-//       { title },
-//       {
-//         tagName: 'link',
-//         rel: 'canonical',
-//         href: `${rootData?.data.initial.data.settings.siteUrl}/${params.slug}`,
-//       },
-//       {
-//         name: 'description',
-//         content: pageData.data.seo?.metaDescription ?? undefined,
-//       },
-//     ]
-//   }
-//   title = ['Page Not Found', rootTitle].filter(Boolean).join(' | ')
-//   return [{ title }]
-// }
+    return [
+      { title },
+      {
+        tagName: 'link',
+        rel: 'canonical',
+        href: `${rootData?.data.initial.data.settings.siteUrl}/${params.slug}/${params.post}`,
+      },
+      {
+        name: 'description',
+        content: pageData.data.seo?.metaDescription ?? undefined,
+      },
+    ]
+  }
+  title = ['Page Not Found', rootTitle].filter(Boolean).join(' | ')
+  return [{ title }]
+}
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   // console.log({ params })

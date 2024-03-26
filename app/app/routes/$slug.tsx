@@ -16,7 +16,7 @@ import { invariantResponse } from '~/utils/misc'
 import { Page } from '~/components/Page'
 import { GeneralErrorBoundary } from '~/components/ErrorBoundary'
 import PageNotFound from '~/components/PageNotFound'
-import { Post, PostListing, Posts, PostsPage } from '~/types/post'
+import { PostsPage } from '~/types/post'
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

@@ -285,7 +285,7 @@ export const heroBaseFields = groq`
   badge {
     ${badgeFragment},
   },
-  title,
+  "title": coalesce(title, ^.title),
   subtitle,
   image {
     ${imageFieldsFragment}
@@ -309,7 +309,7 @@ export const heroBaseFields = groq`
 const pageFields = groq`
   _id,
   _type,
-  "title": coalesce(seo.title, hero.title, title),
+  "title": coalesce(seo.title, title),
   seo,
   "sections": pageBuilder[] {
     _type,
@@ -358,6 +358,7 @@ const postListingFields = groq`
     name,
     "slug": ${slugFragment}
   },
+  teaser,
   body[]{
     _type == "textBlock" => {
       "teaser": array::join(string::split(pt::text(portableText), "")[0..200], "")

@@ -46,7 +46,8 @@ export const Posts = ({
       <ul className="divide-y divide-gray-200 md:grid md:grid-cols-3 md:gap-8 md:divide-y-0 md:justify-center">
         {posts.map((post, index) => {
           const { featuredImage, author, publishedAt, body } = post
-          const teaser = body?.[0]?.teaser?.replace(/\.$/, '')
+
+          const teaser = post.teaser ?? body?.[0]?.teaser ?? ''
           return (
             <m.li
               key={post._id}
@@ -102,7 +103,9 @@ export const Posts = ({
                   </time>
                 </div>
                 {teaser ? (
-                  <p className="mt-2 line-clamp-3">{teaser}...</p>
+                  <p className="mt-2 line-clamp-3">
+                    {teaser.replace(/\.$/, '')}...
+                  </p>
                 ) : null}
                 <p className="mt-2 text-primary-blue-500 group-hover:underline underline-offset-4 transition">
                   Read More

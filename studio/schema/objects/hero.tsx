@@ -35,18 +35,18 @@ export default defineType({
         ),
       },
       hidden: ({ parent }) => parent?.hideHero,
-      validation: (Rule) =>
-        Rule.custom((title, context: ValidationContext) => {
-          // @ts-ignore
-          const { hideHero } = context.parent
+      // validation: (Rule) =>
+      //   Rule.custom((title, context: ValidationContext) => {
+      //     // @ts-ignore
+      //     const { hideHero } = context.parent
 
-          if (hideHero) {
-            // don't require the title if the hero is hidden
-            return true
-          }
-          if (title) return true
-          return 'Required'
-        }),
+      //     if (hideHero) {
+      //       // don't require the title if the hero is hidden
+      //       return true
+      //     }
+      //     if (title) return true
+      //     return 'Required'
+      //   }),
     }),
     defineField({
       name: 'subtitle',

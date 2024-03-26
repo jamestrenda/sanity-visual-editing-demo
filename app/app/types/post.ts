@@ -22,6 +22,7 @@ export const postZ = postBaseZ.extend({
 })
 
 export const postListingZ = postBaseZ.extend({
+  teaser: z.string(),
   body: z
     .array(
       z.object({
