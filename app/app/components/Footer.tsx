@@ -5,6 +5,7 @@ import { Footer } from '~/types/footer'
 import dayjs from 'dayjs'
 import { variants } from '~/utils/misc'
 import { m } from 'framer-motion'
+import { useMemo } from 'react'
 
 const icons = [
   {
@@ -75,6 +76,10 @@ const Footer = ({
   menus,
   socialMedia,
 }: Footer) => {
+  const singleMenu = menus?.length === 1
+  const singleMenuItemsCount =
+    useMemo(() => (singleMenu ? menus[0]?.items?.length : 0), [singleMenu]) || 0
+
   return (
     <footer className="bg-black" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
@@ -82,8 +87,12 @@ const Footer = ({
       </h2>
       <Container>
         <div className="pt-16 sm:pt-24 lg:pt-32 pb-8">
-          <div className="lg:grid lg:grid-cols-3 lg:gap-8">
-            <div className="space-y-8">
+          <div
+            className={`${singleMenu ? 'flex flex-col justify-center' : 'lg:grid lg:grid-cols-3 lg:gap-8'}`}
+          >
+            <div
+              className={`${singleMenu ? 'flex flex-col items-center order-2 mt-16' : ''} space-y-8`}
+            >
               {logo?.asset ? (
                 <Image
                   source={logo}
@@ -93,7 +102,9 @@ const Footer = ({
                   height={56}
                   // preview={logo.asset.metadata?.lqip ?? ''}
                   className={`h-auto max-h-20 max-w-40`}
-                  variants={variants(0)}
+                  variants={variants(
+                    0 + Number(singleMenu) + singleMenuItemsCount,
+                  )}
                   // sizes="(min-width: 768px) 96vw, 100vw"
                 />
               ) : null}
@@ -102,19 +113,23 @@ const Footer = ({
                   initial="initial"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  variants={variants(1)}
-                  className="text-sm leading-6 text-gray-300"
+                  variants={variants(
+                    1 + Number(singleMenu) + singleMenuItemsCount,
+                  )}
+                  className={`${singleMenu ? 'text-center' : ''} text-sm leading-6 text-gray-300`}
                 >
                   {tagline}
                 </m.p>
               ) : null}
               {address ? (
                 <m.div
-                  className="text-sm leading-6 text-gray-300"
+                  className={`${singleMenu ? 'text-center' : ''} text-sm leading-6 text-gray-300`}
                   initial="initial"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  variants={variants(2)}
+                  variants={variants(
+                    2 + Number(singleMenu) + singleMenuItemsCount,
+                  )}
                 >
                   <address className="not-italic">
                     {address.street}
@@ -137,7 +152,12 @@ const Footer = ({
                           initial="initial"
                           whileInView="visible"
                           viewport={{ once: true }}
-                          variants={variants(3 + index)}
+                          variants={variants(
+                            3 +
+                              Number(singleMenu) +
+                              singleMenuItemsCount +
+                              index,
+                          )}
                         >
                           <span className="sr-only">{item}</span>
                           {icons
@@ -151,11 +171,13 @@ const Footer = ({
                 </div>
               ) : null}
             </div>
-            <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:grid-cols-3 lg:col-span-2 lg:mt-0">
+            <div
+              className={`${singleMenu ? '' : 'grid grid-cols-2 sm:grid-cols-3 gap-8 lg:grid-cols-3 lg:col-span-2 lg:mt-0'} `}
+            >
               {menus?.length
                 ? menus.map((menu, index) => (
-                    <div key={menu._id}>
-                      {menu.title ? (
+                    <div key={menu?._id}>
+                      {menu?.title && !singleMenu ? (
                         <m.h3
                           className="text-sm font-semibold leading-6 text-white"
                           initial="initial"
@@ -166,20 +188,28 @@ const Footer = ({
                           {menu.title}
                         </m.h3>
                       ) : null}
-                      {menu.items?.length ? (
-                        <ul role="list" className="mt-6 space-y-4">
+                      {menu?.items?.length ? (
+                        <ul
+                          role="list"
+                          className={`${singleMenu ? '[&_a]:text-base [&_a]:uppercase [&_a]:font-semibold flex max-sm:flex-col flex-wrap gap-8 items-center justify-center' : '[&_a]:text-sm space-y-4 mt-6 '} [&_a]:leading-6`}
+                        >
                           {menu.items.map((item, index) => (
                             <m.li
                               key={item._key}
                               initial="initial"
                               whileInView="visible"
                               viewport={{ once: true }}
-                              variants={variants(5 + index)}
+                              // variants={variants(5 + index)}
+                              variants={
+                                singleMenu
+                                  ? variants(index)
+                                  : variants(5 + index)
+                              }
                             >
                               {item.link?.type === 'linkInternal' ? (
                                 <Link
                                   to={item.link?.to}
-                                  className="text-sm leading-6 text-gray-300 hover:text-white"
+                                  className={`text-gray-300 hover:text-white`}
                                 >
                                   {item.link?.linkText}
                                 </Link>
@@ -190,7 +220,7 @@ const Footer = ({
                                     item.link?.newWindow ? '_blank' : undefined
                                   }
                                   rel="noopener noreferrer"
-                                  className="text-sm leading-6 text-gray-300 hover:text-white"
+                                  className="text-gray-300 hover:text-white"
                                 >
                                   {item.link?.linkText}
                                 </a>
@@ -205,7 +235,9 @@ const Footer = ({
             </div>
           </div>
           <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-            <p className="text-xs leading-5 text-gray-400 lg:text-center">
+            <p
+              className={`${singleMenu ? 'text-center' : 'lg:text-center'} text-xs leading-5 text-gray-400`}
+            >
               &copy; {dayjs().year()}{' '}
               <span>{siteTitle ? `${siteTitle}.` : null}</span> All rights
               reserved.
