@@ -24,7 +24,7 @@ export function FAQ({ title, text, faqs, anchor }: Props) {
           {text}
         </m.p>
       </div>
-      <dl className="mt-10 divide-y divide-gray-900/10 space-y-2">
+      <dl className="mt-16 divide-y divide-gray-900/10 space-y-2">
         {faqs.map((faq, index) => (
           <m.div
             key={faq._id}
