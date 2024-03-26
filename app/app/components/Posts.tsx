@@ -119,6 +119,7 @@ export const Posts = ({
         viewport={{ once: true }}
         variants={variants()}
       >
+        {/* TODO: no scripts? do better... */}
         {count === posts.length ? null : (
           <fetcher.Form
             action="/resource/getMorePosts"

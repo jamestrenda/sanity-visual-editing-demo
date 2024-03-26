@@ -85,6 +85,7 @@ function Document({
   // if (initial.data.settings.postsPage?.slug === params.slug)
   // classNames += ' blog'
   const favicon = meta?.favicon ?? 'https://fav.farm/🔥'
+
   return (
     <html lang="en" className="h-full overflow-x-hidden">
       <head>
@@ -93,6 +94,10 @@ function Document({
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="icon" href={favicon} type="image/png" />
         <Links />
+        {/* TODO: do better... */}
+        <noscript>
+          <style>{`* { opacity: 1 !important }`}</style>
+        </noscript>
       </head>
       <body className={cn(``, classNames)}>
         <Link to="#main" className="sr-only focus:not-sr-only">
