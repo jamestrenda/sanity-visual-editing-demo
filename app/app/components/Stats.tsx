@@ -26,7 +26,14 @@ export default function Stats({
       id={anchor ?? 'stats'}
       className="stats mx-auto max-w-7xl px-6 lg:px-8"
     >
-      <div className="mx-auto max-w-5xl">
+      {image ? (
+        <BackgroundImage
+          source={image}
+          wrapperClassNames="lg:before:absolute lg:before:bottom-0 lg:before:inset-x-0 lg:before:bg-gradient-to-t lg:from-white lg:from-20% lg:to-transparent lg:before:h-full lg:before:z-10 max-md:relative max-md:-mx-6"
+          classNames="max-md:relative max-md:opacity-100"
+        />
+      ) : null}
+      <div className="mx-auto max-w-5xl max-md:mt-16 md:pt-56">
         {badge ? <Badge {...badge} variants={variants()} /> : null}
         <Heading
           as="h2"
@@ -48,13 +55,13 @@ export default function Stats({
           </m.div>
         ) : null}
       </div>
-      <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl sm:grid-cols-2 xl:grid-cols-4 max-w-96 sm:max-w-none mx-auto">
+      <dl className="mt-8 md:mt-16 grid grid-cols-1 gap-4 overflow-hidden rounded-2xl sm:grid-cols-2 xl:grid-cols-4 max-w-96 sm:max-w-3xl xl:max-w-none mx-auto md:-mb-32 md:pb-8">
         {stats?.length
           ? stats.map((stat, index) =>
               stat?.value && stat.value > 0 ? (
                 <m.div
                   key={index}
-                  className="flex flex-col bg-white/50 backdrop-blur-md p-8"
+                  className="flex flex-col bg-white/50 backdrop-blur-md max-md:px-0 p-8 md:shadow-sm"
                   initial="initial"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -78,7 +85,6 @@ export default function Stats({
             )
           : null}
       </dl>
-      {image ? <BackgroundImage source={image} /> : null}
     </div>
   )
 }
