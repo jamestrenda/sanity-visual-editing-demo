@@ -1,5 +1,5 @@
 import { MetaFunction, SerializeFrom } from '@remix-run/node'
-import { useLocation } from '@remix-run/react'
+import { useLocation, useParams } from '@remix-run/react'
 import { GeneralErrorBoundary } from '~/components/ErrorBoundary'
 import PageNotFound from '~/components/PageNotFound'
 import { loader as rootLoader } from '~/root'
@@ -24,6 +24,8 @@ export default function NotFoundRoute() {
 
 export function ErrorBoundary() {
   const location = useLocation()
+  const params = useParams()
+  console.log({ params })
   return (
     <GeneralErrorBoundary
       statusHandlers={{

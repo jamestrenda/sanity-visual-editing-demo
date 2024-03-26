@@ -1,9 +1,39 @@
 import { z } from 'zod'
+import { categoryZ } from './category'
+import { seoZ } from './seo'
+import { blockZ } from './block'
+import { authorZ } from './author'
+import { imageZ } from './image'
 
-export const postZ = z.object({
+export const postBaseZ = z.object({
   _type: z.literal('post'),
   _id: z.string(),
   title: z.string(),
+  publishedAt: z.string(),
+  slug: z.string(),
+  category: categoryZ,
+  author: authorZ,
+  featuredImage: imageZ,
 })
 
-export type Page = z.infer<typeof postZ>
+export const postZ = postBaseZ.extend({
+  seo: seoZ,
+  sections: z.array(blockZ),
+})
+
+export const postListingZ = postBaseZ.extend({
+  body: z
+    .array(
+      z.object({
+        teaser: z.string().nullable(),
+      }),
+    )
+    .nullable(),
+})
+export const postsZ = z.array(postListingZ)
+
+export type PostListing = z.infer<typeof postListingZ>
+
+export type Post = z.infer<typeof postZ>
+
+export type Posts = z.infer<typeof postsZ>

@@ -2,7 +2,6 @@ import { defineField, defineType } from 'sanity'
 import { IconFile } from '~/icons/file'
 import { blockContentTypes } from './objects/blockContent'
 import { slugField } from './objects/slug'
-import { titleField } from './objects/title'
 import PageBuilderInput from '~/components/PageBuilderInput'
 
 // Title
@@ -12,16 +11,9 @@ import PageBuilderInput from '~/components/PageBuilderInput'
 // Author?
 // -- Avatar
 // -- Full Name
-// -- Bio
+// -- position
 // Tags?
 // SEO (Meta Title, Meta Description, Meta Keywords, Canonical URL, Robots, Open Graph
-
-// Block Content (Body)
-// Video - wistia, youtube, vimeo?
-// Button
-//
-
-// Related Posts
 
 export default defineType({
   name: 'post',
@@ -34,7 +26,7 @@ export default defineType({
       title: 'Content',
     },
     {
-      name: 'meta',
+      name: 'metadata',
       title: 'Metadata',
     },
     {
@@ -91,15 +83,19 @@ export default defineType({
     }),
     slugField({}),
     defineField({
-      name: 'excerpt',
-      title: 'Excerpt',
+      name: 'teaser',
+      title: 'Article Teaser',
+      description:
+        'A short description of the article that will be displayed in blog listings. If left blank, the first few sentences of the article will be used.',
       type: 'text',
       rows: 3,
+      group: 'content',
     }),
     defineField({
       name: 'body',
       title: 'Body',
       type: 'array',
+      group: 'content',
       of: blockContentTypes.filter((block) =>
         [
           // 'badge',
@@ -122,12 +118,14 @@ export default defineType({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
+      group: 'metadata',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'featuredImage',
       title: 'Featured Image',
       type: 'imageObject',
+      group: 'content',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -135,6 +133,7 @@ export default defineType({
       title: 'Category',
       type: 'reference',
       to: [{ type: 'category' }],
+      group: 'metadata',
     }),
     defineField({
       name: 'author',
@@ -144,10 +143,12 @@ export default defineType({
       options: {
         disableNew: true,
       },
+      group: 'metadata',
     }),
     defineField({
       name: 'seo',
       type: 'seo',
+      group: 'seo',
     }),
     // title({ group: 'seo', fieldset: 'seo', required: false }),
     // slug({ group: 'seo', fieldset: 'seo', source: 'postTitle' }),

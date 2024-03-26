@@ -18,18 +18,18 @@ export const siteSettingsZ = z.object({
   googleSiteVerification: z.string().nullable(),
   gtm: z.string().nullable(),
   maintenanceMode: z.boolean(),
-  // frontpage: z
-  //   .object({
-  //     slug: z.string(),
-  //   })
-  //   .optional()
-  //   .nullable(),
-  // postsPage: z
-  //   .object({
-  //     slug: z.string(),
-  //   })
-  //   .optional()
-  //   .nullable(),
+  frontpage: z
+    .object({
+      slug: z.string(),
+    })
+    .optional()
+    .nullable(),
+  postsPage: z
+    .object({
+      slug: z.string(),
+    })
+    .optional()
+    .nullable(),
   // postsPerPage: z.number().optional(),
   // }),
   company: companyZ,

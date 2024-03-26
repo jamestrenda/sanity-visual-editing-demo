@@ -58,6 +58,7 @@ export function invariantResponse(
   message?: string | (() => string),
   responseInit?: ResponseInit,
 ): asserts condition {
+  // console.log('invariantResponse', condition, message, responseInit)
   if (!condition) {
     throw new Response(
       typeof message === 'function'

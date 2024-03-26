@@ -10,6 +10,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useParams,
 } from '@remix-run/react'
 import { lazy, Suspense, useEffect } from 'react'
 
@@ -27,6 +28,7 @@ import PageNotFound from './components/PageNotFound'
 import { middleware } from './http'
 
 import { LazyMotion, domAnimation } from 'framer-motion'
+import { cn } from './utils/misc'
 
 const LiveVisualEditing = lazy(() => import('~/components/LiveVisualEditing'))
 
@@ -36,7 +38,7 @@ type Root = {
   settings: SiteSettings
   company: Company
 }
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   // const stegaEnabled = isStegaEnabled(request.url)
 
   await middleware(request)
@@ -46,7 +48,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({
     initial,
     query: ROOT_QUERY,
-    params: {},
+    params,
     ENV: {
       SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
@@ -71,10 +73,17 @@ export const links: LinksFunction = () => {
 function Document({
   children,
   meta,
+  classNames = '',
 }: {
   children: React.ReactNode
   meta?: { favicon?: string }
+  classNames?: string
 }) {
+  const params = useParams()
+
+  if (!params.hasOwnProperty('slug')) classNames += ' home'
+  // if (initial.data.settings.postsPage?.slug === params.slug)
+  // classNames += ' blog'
   const favicon = meta?.favicon ?? 'https://fav.farm/🔥'
   return (
     <html lang="en" className="h-full overflow-x-hidden">
@@ -85,7 +94,7 @@ function Document({
         <link rel="icon" href={favicon} type="image/png" />
         <Links />
       </head>
-      <body className="group">
+      <body className={cn(``, classNames)}>
         <Link to="#main" className="sr-only focus:not-sr-only">
           Skip to main content
         </Link>
@@ -114,17 +123,16 @@ export default function App() {
 
   const { settings, company } = data || initial.data
 
+  const { slug } = useParams()
+  let classNames = ''
+  if (settings.postsPage?.slug === slug) classNames += ' blog'
+
   const siteTitle = settings.siteTitle ?? company.name ?? 'Company Name'
 
   // TODO: figure out why phone is not being parsed from the data, but is being parsed from the hard-coded value
   const phone = company.phone ?? ''
   const phoneParsed = parsePhoneNumber(phone, { regionCode: 'US' })
   const phoneFormatted = phoneParsed.valid ? phoneParsed.number.national : phone
-
-  // console.log('data', data)
-  // console.log('phone', phone)
-  // console.log('phoneParsed', phoneParsed)
-  // console.log('phoneFormatted', phoneFormatted)
 
   var fonts = {
     Montserrat: { weight: 800 },
@@ -145,6 +153,7 @@ export default function App() {
       meta={{
         favicon: settings.favicon ?? 'https://fav.farm/🔥',
       }}
+      classNames={classNames}
     >
       <LazyMotion strict features={domAnimation}>
         <div className="flex flex-col min-h-screen">

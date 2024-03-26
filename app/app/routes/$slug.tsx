@@ -6,17 +6,17 @@ import type {
   SerializeFrom,
 } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import type { SanityDocument } from '@sanity/client'
 
 import { useQuery } from '~/sanity/loader'
 import { loadQuery } from '~/sanity/loader.server'
 import { loader as rootLoader } from '~/root'
-import { PAGE_QUERY } from '~/sanity/queries'
+import { PAGE_QUERY, POSTS_QUERY } from '~/sanity/queries'
 import { Page as Props } from '~/types/page'
 import { invariantResponse } from '~/utils/misc'
 import { Page } from '~/components/Page'
 import { GeneralErrorBoundary } from '~/components/ErrorBoundary'
 import PageNotFound from '~/components/PageNotFound'
+import { Post, PostListing, Posts } from '~/types/post'
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -58,6 +58,18 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   let initial = await loadQuery<Props>(query, params)
 
   invariantResponse(initial.data, `/${params.slug}`, { status: 404 })
+
+  // check if this is the posts page
+  const { isPostsPage } = initial.data
+  // if so, send off another query to get the posts
+  if (isPostsPage) {
+    const postsQuery = POSTS_QUERY
+    const { data: posts } = await loadQuery<PostListing[]>(postsQuery, {
+      postsPerPage: 6,
+    }) // TODO: pull postsPerPage value from the settings
+
+    initial.data.posts = posts
+  }
 
   return { initial, query, params: { slug: params.slug } }
 }

@@ -336,8 +336,63 @@ export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
   ${pageFields}
 }`
 
-export const POSTS_QUERY = groq`*[_type == "post" && defined(slug.current)] | order(publishedAt desc)`
-export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]`
+export const POSTS_QUERY = groq`*[_type == "post" && defined(slug.current)][0..$postsPerPage] | order(publishedAt desc) {
+  _type,
+    _id,
+  title,
+  publishedAt,
+  featuredImage {
+    ${imageObjectFragment}
+  },
+  // "slug": select(defined(*[_id == "siteSettings"][0].postsPage) => *[_id == "siteSettings"][0].postsPage->slug.current + "/" + slug.current, slug.current),
+  category-> {
+    _id,
+    _type,
+    name,
+    "slug": ${slugFragment}
+  },
+  body[]{
+    _type == "textBlock" => {
+      "teaser": array::join(string::split(pt::text(portableText), "")[0..200], "")
+    }
+  },
+  "slug": ${slugFragment},
+  author-> {
+    _type,
+    _id,
+    "name": @.firstName + ' ' + @.lastName,
+    position,
+    image {
+      ${imageObjectFragment}
+    }
+  }
+}`
+export const POST_QUERY = groq`*[_type == "post" && *[_id == "siteSettings"][0].postsPage->slug.current == $slug && slug.current == $post][0]{
+  _type,
+  _id,
+  title,
+  publishedAt,
+  "slug": select(defined(*[_id == "siteSettings"][0].postsPage) => *[_id == "siteSettings"][0].postsPage->slug.current + "/" + slug.current, slug.current),
+  seo,
+  category-> {
+    _type,
+    name,
+    "slug": ${slugFragment}
+  },
+  "sections": body[]{
+    ${blockContentFragment}
+  },
+  // "slug": ${slugFragment},
+  author-> {
+    _type,
+    _id,
+    "name": @.firstName + ' ' + @.lastName,
+    position,
+    image {
+      ${imageObjectFragment}
+    }
+  }
+}`
 
 export const GENERAL_SETTINGS_QUERY = groq`*[_id == "siteSettings"][0]{
   _id,
@@ -423,6 +478,12 @@ export const ROOT_QUERY = groq`{
     "siteTitle": coalesce(@.siteTitle, *[_id == "company"][0].name, ''),
     siteUrl,
     "favicon": favicon.asset->url,
+    "frontpage": frontpage-> {
+      ${slugProjection}
+    },
+    "postsPage": postsPage-> {
+      ${slugProjection}
+    },
     headerMenu-> {
       _type,
       items[] {
