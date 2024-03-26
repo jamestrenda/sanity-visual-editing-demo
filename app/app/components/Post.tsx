@@ -12,7 +12,7 @@ export const Post = ({ post }: { post: Props }) => {
   const { title, sections, featuredImage, category, publishedAt } = post
   return (
     <>
-      <div className="[&+section]:pt-8 [&~section]:!bg-white">
+      <div className="[&+section]:pt-8 [&~section]:!bg-white [&:is(.blog_&)~section]:max-w-4xl [&:is(.blog_&)~section]:mx-auto">
         <Container className="no-hero min-h-[400px] grid items-center pt-40">
           <Badge
             text={category.name ?? 'Uncategorized'}

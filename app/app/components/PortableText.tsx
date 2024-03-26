@@ -12,7 +12,7 @@ const PortableTextBlock = ({
 }) => {
   //   const value = React.useMemo(() => richTextZ.parse(richText), [richText]);
   return (
-    <Container className="prose mx-auto group">
+    <Container className="textBlock prose mx-auto group">
       <PortableText value={portableText} components={PortableTextBlocks} />
     </Container>
   )

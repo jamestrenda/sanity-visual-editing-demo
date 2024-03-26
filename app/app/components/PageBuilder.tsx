@@ -1,50 +1,52 @@
+import { cn } from '~/utils/misc'
 import { SectionBlock } from './PageSection'
 import { Block } from '~/types/block'
-
-// import CallOutBlockWithBgImage from './callOutBlockWithBgImage';
-// import CallOutBlockWithImage from './callOutBlockWithImage';
-// import CallOutBlockWithImageTiles from './callOutBlockWithImageTiles';
-// import Cards from './cards';
-// import ImageBlock from './imageBlock';
-// import RichTextModule from './richTextModule';
-// import { Block } from '~/types/block';
-
-// with Remix we don't need to use the lazy import because this will run on the server
-// const componentMap = {
-//   imageBlock: ImageBlock,
-//   callOutBlockWithBgImage: CallOutBlockWithBgImage,
-//   callOutBlockWithImage: CallOutBlockWithImage,
-//   callOutBlockWithImageTiles: CallOutBlockWithImageTiles,
-//   cards: Cards,
-//   richTextBlock: RichTextModule,
-// };
-
-// export type Props = {
-//   type: Block;
-//   component: (typeof componentMap)[Block];
-//   index: number;
-// };
 
 /**
  *
  *  Renders a page builder module based on the _type property.
  */
 export default function PageBuilder({ sections }: { sections: Block[] }) {
-  // const { type, component, index } = sections
-  // const SectionComponent = componentMap[type] as React.FC<Pick<Props, 'index'>>
+  let classNames = 'py-24 sm:py-32 lg:py-40 group'
 
-  // console.log('sections:', sections)
   return sections?.length ? (
     sections.map((section, index) => {
       switch (section._type) {
-        case 'ctaBlock':
-          return <SectionBlock key={section._key} block={section} />
-        default:
+        case 'imageObject':
           return (
             <section
               key={section._key}
-              className="py-24 sm:py-32 lg:py-40 group has-[.block-image]:py-0 has-[.stats]:relative max-md:has-[.stats]:pb-16 has-[.stats]:p-0 md:[&:has(.stats)+section]:pt-56"
+              className={cn(classNames, 'has-[.block-image]:py-0')}
             >
+              <SectionBlock block={section} />
+            </section>
+          )
+        case 'ctaBlock':
+          return <SectionBlock key={section._key} block={section} />
+        case 'textBlock':
+          return (
+            <section
+              key={section._key}
+              className={cn(classNames, 'textBlock [&+.textBlock]:pt-0')}
+            >
+              <SectionBlock block={section} />
+            </section>
+          )
+        case 'statsBlock':
+          return (
+            <section
+              key={section._key}
+              className={cn(
+                classNames,
+                'has-[.stats]:relative max-md:has-[.stats]:pb-16 has-[.stats]:p-0 md:[&:has(.stats)+section]:pt-56',
+              )}
+            >
+              <SectionBlock block={section} />
+            </section>
+          )
+        default:
+          return (
+            <section key={section._key} className={cn(classNames)}>
               <SectionBlock block={section} />
             </section>
           )
