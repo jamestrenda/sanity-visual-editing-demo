@@ -10,7 +10,8 @@ import { useEffect, useState } from 'react'
 import { Button } from './Button'
 import { IconSpinner } from './icons/IconSpinner'
 import Badge from './Badge'
-import Stripes from './Stripes'
+import { useSpinDelay } from 'spin-delay'
+// import Stripes from './Stripes'
 
 export const Posts = ({
   data,
@@ -31,6 +32,11 @@ export const Posts = ({
   }, [fetcher.data])
 
   const isSubmitting = Boolean(fetcherState === 'submitting')
+
+  const showSpinner = useSpinDelay(isSubmitting, {
+    delay: 500,
+    minDuration: 200,
+  })
 
   return posts?.length ? (
     <Container className="mt-16 py-14">
@@ -131,7 +137,7 @@ export const Posts = ({
               value={posts[posts.length - 1]._id}
             />
             <Button type="submit" className="" disabled={isSubmitting}>
-              {isSubmitting ? (
+              {showSpinner ? (
                 <IconSpinner className="animate-spin h-4 w-4 inline-block" />
               ) : (
                 'Load More Posts'
