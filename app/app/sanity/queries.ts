@@ -505,6 +505,26 @@ export const SETTINGS_QUERY = groq`{
   "redirects": ${REDIRECTS_QUERY}
 }`
 
+export const SITEURL_QUERY = groq`*[_id == 'siteSettings'][0].siteUrl`
+
+// const sitemapUrlFragment = groq`{
+
+//   "url": *[_type == "siteSettings"][0].siteUrl + '/' + ${slugFragment}
+// }`
+
+export const SITEMAP_QUERY = groq`{
+  "siteUrl": *[_type == "siteSettings"][0].siteUrl,
+  "pages": *[_type == "page" && !(defined(excludeFromSitemap))] {
+    "url": *[_type == "siteSettings"][0].siteUrl + "/" + select(defined(parent) => parent->slug.current + "/" + slug.current, slug.current)
+  },
+  "posts": *[_type == "post" && !(defined(excludeFromSitemap))] {
+    "url": *[_type == "siteSettings"][0].siteUrl + "/" + select(defined(*[_id == "siteSettings"][0].postsPage) => *[_id == "siteSettings"][0].postsPage->slug.current + "/" + slug.current, slug.current),
+  },
+  "categories": *[_type == "category" && !(defined(excludeFromSitemap))] {
+    "url": *[_type == "siteSettings"][0].siteUrl + "/" + select(defined(*[_id == "siteSettings"][0].postsPage) => *[_id == "siteSettings"][0].postsPage->slug.current + "/category/" + slug.current, select(defined(parent) => parent->slug.current + "/category" + slug.current, "/category/" + slug.current))
+  }
+}`
+
 export const ROOT_QUERY = groq`{
   "settings": *[_id == "siteSettings"][0] {
     "siteTitle": coalesce(@.siteTitle, *[_id == "company"][0].name, ''),
