@@ -11,7 +11,7 @@ type Props = Badge & { className?: string }
 const Badge = (props: Props & MotionProps) => {
   const { title, text, link, className, variants } = props
 
-  switch (link?._type) {
+  switch (link?.type) {
     case 'linkInternal':
       // TODO: figure out what's going wrong with anchor text
       // it seems to be adding a bunch of extra hidden characters

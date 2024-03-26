@@ -6,7 +6,8 @@ import { Container } from './Container'
 import { Posts } from './Posts'
 
 export const Page = ({ page }: { page: Props }) => {
-  const { sections, isPostsPage, posts } = page
+  const { sections, isPostsPage, postsPageData } = page
+
   return (
     <>
       {page.hero && !page.hero.hideHero ? (
@@ -19,8 +20,8 @@ export const Page = ({ page }: { page: Props }) => {
         </Container>
       )}
       {isPostsPage ? (
-        posts?.length ? (
-          <Posts posts={posts} />
+        postsPageData.posts?.length ? (
+          <Posts count={postsPageData.count} data={postsPageData.posts} />
         ) : (
           <p>No posts yet.</p>
         )

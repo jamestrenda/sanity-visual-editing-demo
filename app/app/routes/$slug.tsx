@@ -16,7 +16,7 @@ import { invariantResponse } from '~/utils/misc'
 import { Page } from '~/components/Page'
 import { GeneralErrorBoundary } from '~/components/ErrorBoundary'
 import PageNotFound from '~/components/PageNotFound'
-import { Post, PostListing, Posts } from '~/types/post'
+import { Post, PostListing, Posts, PostsPage } from '~/types/post'
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -64,11 +64,16 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   // if so, send off another query to get the posts
   if (isPostsPage) {
     const postsQuery = POSTS_QUERY
-    const { data: posts } = await loadQuery<PostListing[]>(postsQuery, {
+    const {
+      data: { posts, count },
+    } = await loadQuery<PostsPage>(postsQuery, {
       postsPerPage: 6,
     }) // TODO: pull postsPerPage value from the settings
 
-    initial.data.posts = posts
+    initial.data.postsPageData = {
+      posts,
+      count,
+    }
   }
 
   return { initial, query, params: { slug: params.slug } }

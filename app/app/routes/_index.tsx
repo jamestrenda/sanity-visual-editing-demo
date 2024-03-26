@@ -2,7 +2,7 @@ import { type MetaFunction, useLoaderData } from '@remix-run/react'
 import { useQuery } from '@sanity/react-loader'
 
 import { loadQuery } from '~/sanity/loader.server'
-import { HOME_QUERY, POST_QUERY } from '~/sanity/queries'
+import { HOME_QUERY } from '~/sanity/queries'
 import { Page as PageProps } from '~/types/page'
 import { invariantResponse } from '~/utils/misc'
 import { SerializeFrom } from '@remix-run/node'
@@ -38,7 +38,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
       },
       {
         name: 'description',
-        content: data.initial.data.seo.metaDescription ?? undefined,
+        content: data.initial.data.seo?.metaDescription ?? undefined,
       },
       googleSiteVerificationMeta,
     ]
@@ -56,26 +56,27 @@ export const loader = async () => {
   // const pageDataWithBlockTypes = await loadQuery<PageBlockTypes>(HOME_QUERY)
   // 2. get the page data using the page Id and return the page data with the block type data
 
-  let initial =
-    (await loadQuery<PageProps>(HOME_QUERY)) ||
-    (await loadQuery<any>(POST_QUERY))
+  let initial = await loadQuery<PageProps>(HOME_QUERY)
+  // (await loadQuery<Post>(LATEST_POST_QUERY))?.data
 
   invariantResponse(initial.data, 'No homepage or posts found', { status: 404 })
 
-  const query = initial.data._type === 'page' ? HOME_QUERY : POST_QUERY
+  // const query = initial._type === 'page' ? HOME_QUERY : LATEST_POST_QUERY
 
-  return { initial, query: query, params: {} }
+  return { initial, query: HOME_QUERY, params: {} }
 }
 
 export default function Index() {
   const { initial, query, params } = useLoaderData<typeof loader>()
   // TODO: replace 'any' type with a Post type
-  const { data, loading, error, encodeDataAttribute } = useQuery<
-    PageProps | any
-  >(query, params, {
-    // @ts-expect-error -- TODO fix the typing here
-    initial,
-  })
+  const { data, loading, error, encodeDataAttribute } = useQuery<PageProps>(
+    query,
+    params,
+    {
+      // @ts-expect-error -- TODO fix the typing here
+      initial,
+    },
+  )
 
   if (error) {
     throw error
@@ -86,6 +87,4 @@ export default function Index() {
   if (data?._type === 'page') {
     return <>{data?.hero ? <Page page={data} /> : null}</>
   }
-
-  return <div>Posts</div>
 }

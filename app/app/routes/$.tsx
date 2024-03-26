@@ -24,8 +24,8 @@ export default function NotFoundRoute() {
 
 export function ErrorBoundary() {
   const location = useLocation()
-  const params = useParams()
-  console.log({ params })
+  // const params = useParams()
+  // console.log({ params })
   return (
     <GeneralErrorBoundary
       statusHandlers={{

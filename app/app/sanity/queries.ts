@@ -7,7 +7,7 @@ export const slugProjection = `"slug": ${slugFragment}`
 
 const linkFragment = groq`
   "_key": @.link[0]._key,
-  "_type": @.link[0]._type,
+  "type": @.link[0]._type,
   linkText,
   @.link[0]._type == "linkInternal" =>  {
     @.link[0].reference->isFrontpage => {
@@ -326,9 +326,16 @@ const pageFields = groq`
 
 // "moduleTypes": coalesce(array::unique(modules[]._type), [])
 
-export const HOME_QUERY = groq`*[_type == "page" && isFrontpage][0]{
-  _type,
-  ${pageFields}
+// export const HOME_QUERY = groq`*[_type == "page" && isFrontpage][0]{
+//   _type,
+//   ${pageFields}
+// }`
+
+export const HOME_QUERY = groq`*[_id == "siteSettings" && defined(frontpage)][0]{
+  ...frontpage-> {
+    _type,
+    ${pageFields}
+  }
 }`
 
 export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
@@ -336,9 +343,9 @@ export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
   ${pageFields}
 }`
 
-export const POSTS_QUERY = groq`*[_type == "post" && defined(slug.current)][0..$postsPerPage] | order(publishedAt desc) {
+const postListingFields = groq`
   _type,
-    _id,
+  _id,
   title,
   publishedAt,
   featuredImage {
@@ -366,12 +373,23 @@ export const POSTS_QUERY = groq`*[_type == "post" && defined(slug.current)][0..$
       ${imageObjectFragment}
     }
   }
+`
+
+export const POSTS_QUERY = groq`{
+  "count": count(*[_type == "post" && publishedAt < now()]),
+  "posts": *[_type == "post" && defined(slug.current)][0...$postsPerPage] | order(publishedAt desc) {
+    ${postListingFields}
+  }
 }`
-export const POST_QUERY = groq`*[_type == "post" && *[_id == "siteSettings"][0].postsPage->slug.current == $slug && slug.current == $post][0]{
+
+const postFragment = groq`
   _type,
   _id,
   title,
   publishedAt,
+  featuredImage {
+    ${imageObjectFragment}
+  },
   "slug": select(defined(*[_id == "siteSettings"][0].postsPage) => *[_id == "siteSettings"][0].postsPage->slug.current + "/" + slug.current, slug.current),
   seo,
   category-> {
@@ -392,7 +410,21 @@ export const POST_QUERY = groq`*[_type == "post" && *[_id == "siteSettings"][0].
       ${imageObjectFragment}
     }
   }
+`
+export const POST_QUERY = groq`*[_type == "post" && *[_id == "siteSettings"][0].postsPage->slug.current == $slug && slug.current == $post][0]{
+  ${postFragment}
 }`
+
+export const LATEST_POST_QUERY = groq`*[_type == "post"][0]{
+  ${postFragment}
+}`
+
+export const MORE_POSTS_QUERY = groq`*[_type == "post"][0]{
+  "posts": *[_type == "post" && publishedAt < now() && _id > $lastPostId][0...$postsPerPage]|order(publishedAt desc){
+    ${postListingFields}
+  }
+}
+`
 
 export const GENERAL_SETTINGS_QUERY = groq`*[_id == "siteSettings"][0]{
   _id,

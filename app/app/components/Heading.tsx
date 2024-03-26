@@ -14,10 +14,10 @@ export const Heading = (props: HeadingProps & MotionProps) => {
   const { as, use = 'h2', className = '', children, variants } = props
 
   let styles = {
-    h1: 'font-montserrat text-5xl sm:text-7xl md:text-[96px] lg:text-[120px] font-extrabold uppercase tracking-tighter text-balance',
-    h2: 'font-montserrat font-extrabold tracking-tighter text-3xl text-balance sm:text-5xl md:text-[64px] sm:leading-[1.2] uppercase group-has-[h2]:mb-8',
-    h3: 'text-2xl sm:text-4xl font-bold text-balance',
-    h4: 'text-xl sm:text-3xl font-bold text-balance',
+    h1: 'font-montserrat text-5xl sm:text-7xl md:text-[96px] lg:text-[120px] font-extrabold uppercase tracking-tighter text-balance !text-primary-dark-500',
+    h2: 'font-montserrat font-extrabold tracking-tighter text-3xl text-balance sm:text-5xl md:text-[64px] sm:leading-[1.2] uppercase group-has-[h2]:mb-8 !text-primary-dark-500',
+    h3: 'text-2xl sm:text-4xl font-bold text-balance !text-primary-dark-500',
+    h4: 'text-xl sm:text-3xl font-bold text-balance !text-primary-dark-500',
     h5: 'font-bold',
     h6: '',
     p: '',

@@ -39,7 +39,7 @@ export default function CallToAction({
         <Heading
           as="h1"
           use="h1"
-          className="mt-2  text-white"
+          className="mt-2  !text-white"
           variants={variants(1)}
         >
           {title}

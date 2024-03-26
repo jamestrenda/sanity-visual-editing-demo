@@ -2,7 +2,7 @@ import { Link, LinkProps } from '@remix-run/react'
 import { twMerge } from 'tailwind-merge'
 
 import { LinkExternal, LinkInternal } from '~/types/link'
-import { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
+import { AnchorHTMLAttributes, ButtonHTMLAttributes, MouseEvent } from 'react'
 import { IconArrowRight } from './icons/IconArrowRight'
 import {
   useMotionTemplate,
@@ -10,7 +10,6 @@ import {
   m,
   MotionProps,
 } from 'framer-motion'
-import { variants } from '~/utils/misc'
 
 interface Theme {
   theme?: 'primary' | 'secondary' | 'tertiary'
@@ -23,12 +22,13 @@ interface Theme {
 type Links =
   | (LinkInternal & LinkProps)
   | (LinkExternal & AnchorHTMLAttributes<HTMLAnchorElement>)
+  | ButtonHTMLAttributes<HTMLButtonElement>
 
-type Props = Links & ButtonHTMLAttributes<HTMLButtonElement> & MotionProps
+type Props = Links & MotionProps
 
 export const Button = (props: Props & Theme) => {
-  if (!props._type) return <></>
-  if (!props.linkText) return <></>
+  if (!props.type) return <></>
+
   const theme = {
     base: 'button block sm:w-fit text-center mx-auto rounded-md p-4 md:py-y md:px-12 lg:py-6 text-base md:text-lg lg:text-2xl font-bold uppercase leading-6 transition cursor-pointer no-underline group/button relative overflow-hidden peer-[:is(.prose>p)]:!mt-16 peer-[:is(.prose>.button)]:!mt-4',
     primary:
@@ -47,18 +47,16 @@ export const Button = (props: Props & Theme) => {
   let mouseY = useMotionValue(0)
 
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
+    // @ts-ignore TODO: fix typing
     let { left, top } = currentTarget?.getBoundingClientRect()
 
     mouseX.set(clientX - left)
     mouseY.set(clientY - top)
   }
 
-  // const MotionLink = m(Link)
-
-  // _type actually does exist on the props object.
-  // I'm not sure why it's not being recognized by typescript.
-  switch (props._type) {
+  switch (props.type) {
     case 'linkInternal':
+      if (!props.linkText) return <></>
       if (!props.to) return <></>
       let slug = `/${props.to.replace(/^\//, '')}${
         props.anchor ? `#${props.anchor}` : ''
@@ -69,10 +67,6 @@ export const Button = (props: Props & Theme) => {
           to={slug}
           prefetch={props.prefetch ?? 'intent'}
           className={cn}
-          // initial="initial"
-          // whileInView="visible"
-          // variants={props.variants}
-          // viewport={{ once: true }}
           onMouseMove={handleMouseMove}
         >
           <m.div
@@ -99,6 +93,7 @@ export const Button = (props: Props & Theme) => {
         </Link>
       )
     case 'linkExternal':
+      if (!props.linkText) return <></>
       if (!props.href) return <></>
       return (
         <a

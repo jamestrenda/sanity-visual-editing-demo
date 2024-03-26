@@ -32,7 +32,7 @@ export function GeneralErrorBoundary({
   }
 
   return (
-    <div className="container mx-auto flex h-full w-full items-center justify-center bg-destructive p-20 text-h2 text-destructive-foreground min-h-[600px] ">
+    <div className="relative z-10 flex h-full w-full items-center justify-center p-20 text-h2 min-h-[600px] bg-secondary-yellow-500">
       {isRouteErrorResponse(error)
         ? (statusHandlers?.[error.status] ?? defaultStatusHandler)({
             error,

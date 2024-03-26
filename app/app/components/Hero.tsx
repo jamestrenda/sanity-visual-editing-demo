@@ -11,6 +11,7 @@ import BackgroundParticles from './BackgroundParticles'
 import { Button } from './Button'
 import Stripes from './Stripes'
 import { variants } from '~/utils/misc'
+import { m } from 'framer-motion'
 // import { HeroImage } from '../heroImage';
 // import { RichText } from '../richText';
 
@@ -41,10 +42,10 @@ export default function Hero({
   return (
     <section
       ref={ref}
-      className={`!bg-transparent relative isolate py-24 sm:py-32 !pt-48 lg:min-h-[115vh]`}
+      className={`!bg-transparent relative isolate py-24 sm:py-32 !pt-48 lg:min-h-[135vh]`}
     >
       <div className="absolute inset-0 pointer-events-none -skew-y-12 overflow-hidden origin-[0]">
-        <div className="bg-primary-dark-900 skew-y-6 md:skew-y-12 absolute inset-0 pointer-events-none scale-[1.3] overflow-hidden [&>*]:object-cover">
+        <div className="bg-black skew-y-6 md:skew-y-12 absolute inset-0 pointer-events-none scale-[1.3] overflow-hidden [&>*]:object-cover">
           {(video?.mp4 || video?.webm) && width && width > 1023 ? (
             <BackgroundVideo {...{ ...video, image }} />
           ) : image?.asset ? (
@@ -58,15 +59,32 @@ export default function Hero({
       </div>
       <div className="mx-auto max-w-sm md:max-w-5xl text-center flex flex-col items-center justify-center z-10 relative lg:pt-20 px-6 md:px-8">
         {badge ? <Badge {...badge} className="" /> : null}
-        <Heading as="h1" use="h1" className="mt-2  text-white">
+        <Heading
+          as="h1"
+          use="h1"
+          className="mt-2  !text-white"
+          variants={variants(1)}
+        >
           {title}
         </Heading>
-        <div className="mt-6 text-xl sm:text-2xl md:text-3xl font-extralight text-white ">
+        <m.div
+          className="mt-6 text-xl sm:text-2xl md:text-3xl font-extralight text-white "
+          initial="initial"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={variants(2)}
+        >
           {/* <RichText richText={data?.text} /> */}
           <p>{subtitle}</p>
-        </div>
+        </m.div>
         {primaryCTA || secondaryCTA ? (
-          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 text-center">
+          <m.div
+            className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 text-center"
+            initial="initial"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={variants(3)}
+          >
             {primaryCTA ? (
               <Button {...primaryCTA} theme="primary">
                 {primaryCTA.linkText}
@@ -82,7 +100,7 @@ export default function Hero({
                 {secondaryCTA.linkText}
               </Button>
             ) : null}
-          </div>
+          </m.div>
         ) : null}
       </div>
       {/*  TODO: add wisteria video
@@ -99,7 +117,7 @@ export default function Hero({
           &nbsp;
         </span>
       </div> */}
-      <ScrollDownIndicator show={showScrollIndicator} />
+      <ScrollDownIndicator show={showScrollIndicator} variants={variants(4)} />
       <Stripes />
     </section>
   )

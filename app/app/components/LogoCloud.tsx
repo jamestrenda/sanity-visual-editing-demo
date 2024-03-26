@@ -14,7 +14,7 @@ const LogoCloud = ({ badge, title, logos }: LogoCloud) => {
       </Heading>
       <div className="mt-10 w-full max-w-7xl flex justify-center flex-wrap gap-y-12 sm:gap-y-14">
         {logos.map((logo, index) => {
-          return logo.image.asset ? (
+          return logo.image?.asset ? (
             <Image
               key={index}
               source={logo.image}

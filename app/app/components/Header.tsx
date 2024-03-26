@@ -26,7 +26,7 @@ const Header = ({ phone, email, logo, logoMobile, menu }: Props) => {
   return (
     <header
       ref={ref}
-      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 group-has-[.page-not-found]:!bg-black/90 group-has-[.no-hero]:!bg-black/90 md:text-xl`}
+      className={`${y && y > 30 ? 'bg-primary-dark-900/90 backdrop-blur-lg duration-1000' : ''} py-5 fixed inset-x-0 z-50 transition duration-300 [&~main:has(.page-not-found)]:bg-secondary-yellow-500 !bg-black/90 group-has-[.no-hero]:!bg-black/90 md:text-xl`}
     >
       <Container className="grid grid-cols-3 items-center justify-center">
         {phone ? (

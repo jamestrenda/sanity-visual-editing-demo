@@ -136,11 +136,12 @@ export const PortableTextBlocks: PortableTextComponents = {
       return <span id={value.anchor}>{children}</span>
     },
     externalLink: ({ value, children }) => {
+      // console.log(value)
       return (
         <a
-          href={value.url}
-          target={value.newWindow ? '_blank' : '_self'}
-          className="text-primary-blue-500 no-underline hover:underline"
+          href={value?.linkExternal?.url}
+          target={value?.linkExternal?.newWindow ? '_blank' : '_self'}
+          className="text-primary-blue-500 no-underline hover:underline underline-offset-4 cursor-pointer"
         >
           {children}
         </a>
@@ -150,9 +151,9 @@ export const PortableTextBlocks: PortableTextComponents = {
       // console.log(value)
       return (
         <Link
-          id={value.anchor ?? undefined}
+          id={value?.anchor ?? undefined}
           to={`/${value.slug}`}
-          className="text-primary-blue-500 no-underline hover:underline"
+          className="text-primary-blue-500 no-underline hover:underline underline-offset-4 cursor-pointer"
         >
           {children}
         </Link>

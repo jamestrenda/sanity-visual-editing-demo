@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge'
 
 type Props = Checklist & { className?: string }
 
-const Checklist = ({ _type, items, anchor, className }: Props) => {
+const Checklist = ({ items, anchor, className }: Props) => {
   return items?.length ? (
     <ul
       id={anchor ?? undefined}

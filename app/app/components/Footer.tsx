@@ -176,14 +176,14 @@ const Footer = ({
                               viewport={{ once: true }}
                               variants={variants(5 + index)}
                             >
-                              {item.link?._type === 'linkInternal' ? (
+                              {item.link?.type === 'linkInternal' ? (
                                 <Link
                                   to={item.link?.to}
                                   className="text-sm leading-6 text-gray-300 hover:text-white"
                                 >
                                   {item.link?.linkText}
                                 </Link>
-                              ) : item.link?._type === 'linkExternal' ? (
+                              ) : item.link?.type === 'linkExternal' ? (
                                 <a
                                   href={item.link?.href}
                                   target={

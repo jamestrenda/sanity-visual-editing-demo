@@ -32,8 +32,15 @@ export const postListingZ = postBaseZ.extend({
 })
 export const postsZ = z.array(postListingZ)
 
+export const postsPageZ = z.object({
+  count: z.number(),
+  posts: z.array(postListingZ),
+})
+
 export type PostListing = z.infer<typeof postListingZ>
 
 export type Post = z.infer<typeof postZ>
 
 export type Posts = z.infer<typeof postsZ>
+
+export type PostsPage = z.infer<typeof postsPageZ>

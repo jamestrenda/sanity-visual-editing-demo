@@ -39,6 +39,7 @@ export type Props = {
 export const SectionBlock = ({ block }: { block: Block }) => {
   const { _type } = block
 
+  if (!_type) return null
   const SectionComponent = blocksMap[_type] as React.FC<any>
 
   // I would prefer to do someting like this:
